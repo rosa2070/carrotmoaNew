@@ -49,4 +49,13 @@ public class RedisConfig {
         return template;
     }
 
+    @Bean
+    public RedisTemplate<String, Object> bestAccommodationRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        template.setKeySerializer(new StringRedisSerializer()); // Key는 String 타입으로 직렬화
+        template.setValueSerializer(new GenericJackson2JsonRedisSerializer()); // Value는 JSON 직렬화
+        return template;
+    }
+
 }

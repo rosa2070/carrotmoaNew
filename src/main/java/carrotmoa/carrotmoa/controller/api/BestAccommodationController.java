@@ -20,12 +20,22 @@ public class BestAccommodationController {
         this.bestAccommodationService = bestAccommodationService;
     }
 
-    @GetMapping("/best")
+    @GetMapping("/best-room")
     public ResponseEntity<List<BestAccommodationResponse>> getBestAccommodations() {
-        List<BestAccommodationResponse> bestAccommodations = bestAccommodationService.getBestAccommodations();
+        List<BestAccommodationResponse> bestAccommodations = bestAccommodationService.getBestAccommodationsFromRds();
         return ResponseEntity.ok(bestAccommodations);
 //                .contentType(MediaType.APPLICATION_JSON) // Content-Type을 application/json으로 명시
 //                .body(bestAccommodations);
+    }
+
+    // 인기 숙소 목록을 가져오는 API
+    @GetMapping("/best")
+    public ResponseEntity<List<BestAccommodationResponse>> getBestAccommodations_withRedis() {
+        // Redis에서 인기 숙소 데이터를 가져옵니다.
+        List<BestAccommodationResponse> bestAccommodations = bestAccommodationService.getBestAccommodationsFromRedis();
+
+        // 데이터가 정상적으로 조회되었으면 200 OK로 응답
+        return ResponseEntity.ok(bestAccommodations);
     }
 
 }

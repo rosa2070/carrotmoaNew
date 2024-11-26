@@ -15,4 +15,5 @@ public class BestAccommodationResponse {
     String lotAddress;
     BigDecimal price;
     String imageUrl;
+    Long reservationCount;
 }

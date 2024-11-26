@@ -33,13 +33,29 @@ public class BestAccommodationCustomRepositoryImpl implements BestAccommodationC
                         post.title,
                         accommodation.lotAddress,
                         accommodation.price,
-                        accommodationImage.imageUrl))
+                        accommodationImage.imageUrl,
+                        reservation.count().as("reservationCount")))  // reservation_count를 reservationCount로 매핑
                 .from(reservation)
                 .join(accommodation).on(reservation.accommodationId.eq(accommodation.id))
                 .join(accommodationImage).on(accommodationImage.accommodationId.eq(accommodation.id))
                 .join(post).on(post.id.eq(accommodation.postId))
                 .where(reservation.status.eq(1).and(accommodationImage.imageOrder.eq(0)))
                 .groupBy(reservation.accommodationId)
+                .orderBy(reservation.count().desc())
+                .limit(8)
+                .fetch();
+    }
+
+    @Override
+    public List<BestAccommodationResponse> getTopBestAccommodations() {
+        return jpaQueryFactory
+                .select(Projections.fields(BestAccommodationResponse.class,
+                        accommodation.id,
+                        reservation.count().as("reservationCount")))
+                .from(reservation)
+                .join(accommodation).on(reservation.accommodationId.eq(accommodation.id))
+                .where(reservation.status.eq(1))
+                .groupBy(accommodation.id)
                 .orderBy(reservation.count().desc())
                 .fetch();
     }
