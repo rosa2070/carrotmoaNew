@@ -68,7 +68,6 @@ jobs:
            docker rm $(docker ps -a -q) || true
            docker pull jaeeun111/carrotmoa_final
            docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8081:8080 --name carrotMoaContainer1 jaeeun111/carrotmoa_mine:latest
-#           docker run -d -p 8080:8080 --name carrotmoaContainer jaeeun111/carrotmoa_final
 
 #      # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
 #    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
