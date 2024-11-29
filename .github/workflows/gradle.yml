@@ -64,8 +64,8 @@ jobs:
          port: ${{ secrets.WAS_SSH_PORT }}
          script: |
            export JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}"
-           docker stop $(docker ps -a -q) || true
-           docker rm $(docker ps -a -q) || true
+           # docker stop $(docker ps -a -q) || true
+           # docker rm $(docker ps -a -q) || true
            docker pull jaeeun111/carrotmoa_final
            docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8081:8080 --name carrotMoaContainer1 jaeeun111/carrotmoa_mine:latest
 
