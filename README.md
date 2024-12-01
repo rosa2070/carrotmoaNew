@@ -59,11 +59,16 @@
             - carrotmoa
                 - carrotmoa
                     - config
+                        - (log, mail, redis, security, websocket..)
                     - controller
+                        - api
+                        - view
                     - entity
                     - enums
                     - exception
                     - model
+                        - request
+                        - response
                     - repository
                     - service
                     - util
