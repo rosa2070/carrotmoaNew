@@ -80,7 +80,7 @@
         - 결과 및 추가사항
 ```
 
-### 서버 단에서의 유효성 검증 구현 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/controller/api/HostRoomApiController.java#L44-L73) / [설정 코드](https://github.com/Team-RecruTe/Anchor-Service/blob/fe37c7b7a98d0511150b2ba4dd09574adfb07e82/src/main/java/com/anchor/global/config/CacheConfig.java#L19C1-L39C4)]
+### 서버 단에서의 유효성 검증 구현 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/controller/api/HostRoomApiController.java#L44-L73)]
 
 - **클라이언트-서버 양방향 검증**:
     - `@Valid` 어노테이션을 사용하여 클라이언트에서 전달된 데이터가 서버 측에서도 유효한지 검증.
@@ -88,7 +88,7 @@
     - 클라이언트와 서버에서 각각 데이터 검증을 수행하여 오류 가능성을 최소화하고 신뢰성을 높임.
 
 
-### Spring AOP를 활용한 통합 로그 구현 [[적용 코드](https://github.com/Team-RecruTe/Anchor-Service/blob/fe37c7b7a98d0511150b2ba4dd09574adfb07e82/src/main/java/com/anchor/global/mail/AsyncMailSender.java#L25C1-L37C4) / [설정 코드](https://github.com/Team-RecruTe/Anchor-Service/blob/cfe5d2ff253192c0d2cbe4a01d12be677f6ca6f5/src/main/java/com/anchor/global/config/AsyncConfig.java#L22C1-L32C4)]
+### Spring AOP를 활용한 통합 로그 구현 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/util/LoggingAspect.java) / [설정 코드](https://github.com/Team-RecruTe/Anchor-Service/blob/cfe5d2ff253192c0d2cbe4a01d12be677f6ca6f5/src/main/java/com/anchor/global/config/AsyncConfig.java#L22C1-L32C4)]
 
 - **자동 로그 기록**
     - `AOP`를 활용하여 API 컨트롤러 메서드에서 `requestDTO`를 자동으로 로그에 기록.
