@@ -53,9 +53,13 @@
 ## 🗂️ 패키지 구조
 
 ```
-- com.anchor
-    - domain
-        - api
+- src
+    - main
+        - java
+            - carrotmoa
+                - carrotmoa
+                    - 
+                    
             - controller
               - request
             - service
