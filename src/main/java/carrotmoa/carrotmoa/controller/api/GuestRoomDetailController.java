@@ -1,5 +1,6 @@
 package carrotmoa.carrotmoa.controller.api;
 
+import carrotmoa.carrotmoa.config.security.CustomUserDetails;
 import carrotmoa.carrotmoa.model.response.AccommodationDetailResponse;
 import carrotmoa.carrotmoa.model.response.AccommodationReviewResponse;
 import carrotmoa.carrotmoa.model.response.AmenityImageResponse;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,7 +25,7 @@ public class GuestRoomDetailController {
 
 
     @GetMapping("/{id}")
-    public String roomDetail(@PathVariable("id") Long id, Model model) {
+    public String roomDetail(@ModelAttribute("user") CustomUserDetails user, @PathVariable("id") Long id, Model model) {
         AccommodationDetailResponse getRoomDetailById = guestRoomDetailService.getAccommodationDetail(id);
         List<AmenityImageResponse> amenities = guestRoomDetailService.getAmenityImage(id);
         List<SpaceImageResponse> icons = guestRoomDetailService.getSpaceImage();
