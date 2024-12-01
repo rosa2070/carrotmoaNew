@@ -1,0 +1,133 @@
+.fleamarket-post-table,
+.fleamarket-post-table tr,
+.fleamarket-post-table td {
+  border: 1px solid black;
+}
+
+.pagination-container button {
+  width: 35px;
+  height: 35px;
+  font-size: 16px;
+  background-color: #31303C;
+  color: #9E9EB1;
+  margin-top: 6px;
+  display: inline-block;
+  line-height: 35px;
+  border-radius: 5px;
+  border: none;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+
+.pagination-container button.selected {
+  background-color: #28282F;
+  color: #FFFFFF;
+}
+
+.product-list {
+  display: flex;
+  justify-content: space-between;
+  width: 760px;
+  gap: 10px;
+  margin: 40px 156px 0 156px;
+  flex-wrap: wrap;
+}
+
+.product-list article {
+  width: 223px;
+  height: 344px;
+  margin-bottom: 50px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.product-list article a {
+  display: flex;
+  text-decoration: none;
+  color: #212529;
+  flex-direction: column;
+}
+
+.product-list article a div {
+  display: flex;
+}
+
+.article-image {
+  display: flex;
+}
+
+.article-image img {
+  width: 223px;
+  height: 223px;
+  border-radius: 12px;
+}
+
+.article-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  padding-left: 10px;
+}
+
+.article-info div {
+  display: flex;
+  margin-bottom: 2px;
+}
+
+.article-title {
+  font-size: 16px;
+  letter-spacing: -0.02px;
+  color: #212529;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  font-weight: normal;
+}
+
+.article-price {
+  color: #212529;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.article-address {
+  font-size: 13px;
+  color: #212529;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  line-height: 1.5;
+}
+
+.article-like,
+.article-chat {
+  color: #868e96;
+  font-size: 13px;
+}
+
+.load-btn {
+  display: flex;
+  outline: none;
+  border: none;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  width: 150px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 20px;
+}
+
+.load-btn:hover {
+  border-bottom: 1px solid black;
+  width: 120px;
+}

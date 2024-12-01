@@ -1,0 +1,30 @@
+/*------------------------------------------------
+  small gnb
+------------------------------------------------*/
+.small-gnb {
+  width: 100%;
+  height: 40px;
+  background-color: #F8F9FA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #D1D3D9;
+}
+
+.small-gnb-container {
+  display: flex;
+  justify-content: center;
+  margin-left: 10px;
+  gap: 20px;
+}
+
+.small-gnb-item {
+  text-decoration: none;
+  color: #4D5159;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.small-gnb-item:hover {
+  color: #FE6F0F;
+}

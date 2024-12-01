@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>정산</title>
+  <link rel="stylesheet" th:href="@{/css/room_settlement.css}"/>
+  <link rel="stylesheet" th:href="@{/css/small-gnb.css}"/>
+  <!-- Flatpickr 포함 -->
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+</head>
+</head>
+<body>
+<div th:replace="~{fragments/side-left::side-left}">왼쪽 사이드바</div>
+
+<main layout:fragment="main">
+  <div th:replace="~{fragments/small-gnb}"></div>
+  <div class="wrap bg_wrap">
+    <section class="content">
+      <div class="host_room_reg">
+        <p class="title_left">정산</p>
+
+        <div id="user-data" th:attr="data-user-id=${user.userProfile.userId}"></div>
+        <div class="flex">
+          <!--                            <div class="menu">-->
+          <!--                                <a href="/webpc/host/pay/main?status=pay_host_completed" class="is_active">대금 수령 완료</a>-->
+          <!--                                <a href="/webpc/host/pay/main?status=pay_host_ready">수령 예정 내역</a>-->
+          <!--                            </div>-->
+
+          <div class="list_search">
+            <div class="period_input">
+              <div class="icon_calendar">
+								<span>
+                                    <input id="s_start_date" readonly type="text">
+								</span>
+              </div>
+
+              <div class="icon_calendar">
+								<span>
+									<input id="s_end_date" readonly="" type="text">
+								</span>
+              </div>
+            </div>
+
+            <select id="opt_room_id"
+                    style="width:147px; border: 1px solid #DFDFDF; padding: 10px 5px; border-radius: 4px; margin:0 10px">
+              <!--                                <option value="0">방 이름 - 전체</option>-->
+              <!-- API로부터 방 이름이 추가될 자리 -->
+            </select>
+
+            <button class="btn small line_black" id="btn_search" type="button">조회</button>
+          </div>
+        </div>
+
+        <div class="calculate_count">
+          <span>총 <em class="font_purple" id="total_count">0</em>건</span>
+          <strong id="total_amount">0원</strong>
+        </div>
+        <div class="border_radius">
+          <table class="tbl_style_02">
+            <!--                            <caption>대금 수령 완료 목록</caption>-->
+            <colgroup>
+              <col style="width: 225px">
+              <col style="width: 260px">
+              <col style="width: 110px">
+              <col style="width: 225px">
+              <col style="width: 225px">
+              <col>
+            </colgroup>
+            <thead>
+            <tr>
+              <th scope="col">정산일</th>
+              <th scope="col">방이름</th>
+              <th scope="col">계약자</th>
+              <th scope="col">입주일</th>
+              <th scope="col">총 수령금액</th>
+              <!--                                <th scope="col"></th>-->
+            </tr>
+            </thead>
+            <tbody id="settlement_table_body">
+            <!-- 데이터가 여기에 추가됩니다 -->
+            <!--                        <tr>-->
+            <!--                            <td>2024-10-29</td>-->
+            <!--                            <td>아름다운 방</td>-->
+            <!--                            <td>홍길동</td>-->
+            <!--                            <td>2024-10-01</td>-->
+            <!--                            <td>500,000원</td>-->
+            <!--                        </tr>-->
+            <!--                        <tr>-->
+            <!--                            <td>2024-10-30</td>-->
+            <!--                            <td>바다 전망 방</td>-->
+            <!--                            <td>김유신</td>-->
+            <!--                            <td>2024-10-05</td>-->
+            <!--                            <td>600,000원</td>-->
+            <!--                        </tr>-->
+            <!-- 더 많은 데이터 행 추가 가능 -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="/js/room-settlement.js"></script>
+</main>
+
+
+<div th:replace="~{fragments/side-right::side-right}">오른쪽 사이드바</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+/*.fc-daygrid-event.booked {*/
+/*    pointer-events: none; !* 마우스 이벤트 비활성화 *!*/
+/*    background-color: #FF6F0F; !* 예약된 날짜의 배경색 *!*/
+/*    opacity: 0.5; !* 필요 시 투명도 조절 *!*/
+/*}*/

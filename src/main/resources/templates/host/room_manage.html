@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>호스트 메인</title>
+  <link rel="stylesheet" th:href="@{/css/room_manage.css}"/>
+  <link rel="stylesheet" th:href="@{/css/small-gnb.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/side-left::side-left}">왼쪽 사이드바</div>
+
+<main layout:fragment="main">
+  <div th:replace="~{fragments/small-gnb}"></div>
+  <!-- 방리스트 -->
+  <div class="wrap bg_wrap">
+    <section class="content">
+      <div class="host_room_reg">
+        <div class="flex">
+          <p class="title_left">방관리</p>
+        </div>
+        <div class="flex list_option">
+          <button class="btn medium purple" onclick="goToRegisterPage()"
+                  type="button">방 등록하기
+          </button>
+        </div>
+
+        <div id="user-data" th:attr="data-user-id=${user.userProfile.userId}"></div>
+
+        <!-- 방 리스트를 표시할 ul 요소 추가 -->
+        <ul class="list_item" id="roomList"></ul>
+        <script src="/js/room-manage.js"></script> <!-- 외부 JavaScript 파일 포함 -->
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<div th:replace="~{fragments/side-right::side-right}">오른쪽 사이드바</div>
+</body>
+</html>

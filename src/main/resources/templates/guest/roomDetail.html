@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title th:text="${room.title} + ' 단기임대 숙소 | 당근모아'"> 단기임대 숙소 | 당근모아 </title>
+  <link rel="stylesheet" th:href="@{/css/guest-room-detail.css}"/>
+  <script th:src="@{/js/booking_info.js}"></script>
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+</head>
+
+<main layout:fragment="main">
+  <section class="room_content">
+    <div class="flex">
+      <div class="room_detail" th:object="${room}">
+        <div class="room_info">
+          <div class="title">
+            <strong id="room-info-title" th:text="*{title}">애버랜드</strong>
+          </div>
+          <p class="add_text" id="room-addr-info" th:text="${room.roadAddress} + ${room.detailAddress} + ' ' + ${room.floor} + '층'">용인시 처인구 애버랜드로</p>
+
+          <div class="room_images" id="roomImages">
+            <div class="room-image-wrapper" style="display: none;" th:each="image, iterStat : ${room.imageUrls}">
+              <img class="room-image" th:src="${image}"/>
+            </div>
+            <div class="image_controls">
+              <button class="slider-button prev" onclick="prevImage()">&#10094;</button>
+              <button class="slider-button next" onclick="nextImage()">&#10095;</button>
+              <div class="image-index" id="imageIndex">1/8</div>
+            </div>
+          </div>
+          <script th:src="@{/js/image_swiper.js}"></script>
+        </div>
+        <div class="room_info">
+          <p class="title">소개합니다</p>
+          <div class="title_text" th:text="*{content}">
+            방에 대한 간략한 소개글
+          </div>
+        </div>
+        <div class="room_info">
+          <p class="title">공간 기본 정보</p>
+          <div class="place_box">
+            <ul class="place_list">
+              <li>
+                                <span>
+                                    <img src="https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_space_icon/icon_room.svg">
+                                </span>
+                <p th:text="'방 ' + ${room.spaceCounts[0]} + '개'"></p>
+              </li>
+              <li>
+                                <span>
+                                    <img src="https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_space_icon/icon_restroom.svg">
+                                </span>
+                <p th:text="'화장실 ' + ${room.spaceCounts[1]} + '개'"></p>
+              </li>
+              <li>
+                                <span>
+                                    <img src="https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_space_icon/icon_livingroom.svg">
+                                </span>
+                <p th:text="'거실 ' + ${room.spaceCounts[2]} + '개'"></p>
+              </li>
+              <li>
+                                <span>
+                                    <img src="https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_space_icon/icon_kitchen.svg">
+                                </span>
+                <p th:text="'주방 ' + ${room.spaceCounts[3]} + '개'"></p>
+              </li>
+            </ul>
+            <ul class="place_detail">
+              <li>
+                <span>전용면적</span>
+                <strong th:text="${room.totalArea} + '(m²)'"></strong>
+              </li>
+              <li>
+                <span>층 정보</span>
+                <strong th:text="${room.floor}"></strong>
+              </li>
+              <li>
+                <span>전체 층 정보</span>
+                <strong th:text="${room.totalFloor}"></strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="room_info">
+          <p class="title">기본 옵션</p>
+          <ul class="option" th:each="amenity : ${amenities}">
+            <li>
+                            <span>
+                                <img th:src="${amenity.iconUrl}">
+                            </span>
+              <p th:text="${amenity.name}"></p>
+            </li>
+          </ul>
+        </div>
+        <div class="room_info">
+          <div class="room_info">
+            <p class="title"> 교통 & 위치 </p>
+            <div class="title_text" th:text="${room.lotAddress} + ${room.detailAddress} + ${room.floor}">
+              <!--                            지도 api 불러올 자리-->
+            </div>
+          </div>
+        </div>
+        <div class="profile" th:each="profile : ${profile}">
+          <dl>
+            <dt class="profile_img">
+              <img id="pic_url" th:src="${profile.picUrl}">
+            </dt>
+            <dd>
+              <div class="profile_name">
+                <strong id="host_name" th:text="${profile.nickname}">최이재</strong>
+              </div>
+              <p class="introduce" th:text="${profile.bio}">안녕하세요:)</p>
+            </dd>
+          </dl>
+          <a class="btn medium white" id="btn_chat_start">
+            <span class="icon_send">호스트와 채팅하기</span>
+          </a>
+        </div>
+        <div class="room_info">
+          <p class="title">이용 후기
+            <span class="font_orange" th:text="${reviewCount}">10</span>
+          </p>
+          <ul class="reivew_list" th:each="review : ${reviews}">
+            <li>
+              <div class="review_info" th:each="review : ${review}">
+                <span class="review_item" th:text="${review.nickname}">최이재</span>
+                <span class="review_item" th:text="${review.checkOutDate}"></span>
+              </div>
+              <div class="review_text" th:text="${review.comment}">집이 너무 좋아요;)</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="room_sticky">
+        <div class="top_icon">
+          <input id="url_copylink_room" readonly="" style="width:1px; height:1px;" th:value="${copyLinkUrl}" type="text">
+          <a data-clipboard-target="#url_copylink_room" id="btn_share">
+            <img alt="" src="https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_detail_icon/icon_sharing.svg">
+          </a>
+          <button class="btn_like" id="likeButton" th:data-accommodation-id="${room.id}" type="button">
+            <span class="blind">찜하기</span>
+          </button>
+        </div>
+        <div class="room_pay">
+          <p>
+            <strong id="room_info_price" th:text="${room.price}">0 </strong><em>원</em>
+            <span>/1박</span>
+          </p>
+          <ul class="place_list">
+            <li>
+              <p th:text="'방 ' + ${room.spaceCounts[0]}"></p>
+            </li>
+            <li>
+              <p th:text="' · 화장실 ' + ${room.spaceCounts[1]}"></p>
+            </li>
+            <li>
+              <p th:text="' · 거실 ' + ${room.spaceCounts[2]}"></p>
+            </li>
+            <li>
+              <p th:text="' · 주방 ' + ${room.spaceCounts[3]}"></p>
+            </li>
+          </ul>
+        </div>
+        <div class="reservation-container" th:attr="data-accommodation-id=${room.id}">
+          <div class="reservation" id="calendar">
+          </div>
+          <script th:src="@{/js/room_booking.js}"></script>
+        </div>
+        <div class="btn_date_full">
+          <div class="line_box" id="div_selected_schedule" style>
+            <p>
+              체크인 날짜
+              <span id="checkin-dates">날짜를 선택해주세요</span>
+            </p>
+            <p>
+              체크아웃 날짜
+              <span id="checkout-dates"></span>
+            </p>
+          </div>
+          <div class="line_box" id="count_nights" style>
+            <p>
+              총 숙박일
+              <span id="nights-count"></span>
+              <input id="user_id" name="userId" th:value="${userId}" type="hidden">
+            </p>
+          </div>
+        </div>
+        <div class="btn_full">
+          <a class="btn medium orange" id="btn_start_booking_now" th:href="@{/guest/booking/start/{id}(id=${room.id})}">계약 시작하기</a>
+        </div>
+      </div>
+    </div>
+    <script th:src="@{/js/like-btn-active.js}"></script>
+  </section>
+</main>

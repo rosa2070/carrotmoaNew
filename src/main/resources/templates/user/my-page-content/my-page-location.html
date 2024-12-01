@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<div layout:fragment name="my-page-location">
+    <div class="map_wrap">
+        <div id="map"></div>
+        <button id="currentLocationBtn" onclick="setCurrentLocation()">
+            <img id="currentLocation" src="/images/icons/gps.png" alt="현재 내 위치">
+        </button>
+        <div id="addressInfo">
+            <span class="title">지도중심기준 행정동 주소정보 </span><!-- 주소 정보를 표시할 요소 추가 -->
+            <span id="centerAddr"></span> <!-- 행정동 주소를 표시할 부분 -->
+        </div>
+        <button id="confirmButton" th:onclick="handleConfirm()">선택 완료</button>
+    </div>
+    <div id="addressDisplay" style="padding: 10px; font-weight: bold;"></div> <!-- 주소 표시할 요소 추가 -->
+    <input th:if="${user != null}" type="hidden" th:value="${user.getUserProfile().getUserId()}" id="user-id">
+</div>
+
+
+</html>

@@ -1,0 +1,196 @@
+.content {
+  position: relative;
+  width: 1084px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.title_left {
+  margin-bottom: 32px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+.contract-item {
+  border: 1px solid #DFDFDF;
+  border-radius: 6px;
+}
+
+.guest_contract .contract_header {
+  padding: 18px 32px;
+  border-bottom: none;
+}
+
+.contract_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+  border-bottom: 1px solid #dfdfdf;
+  border-radius: 6px 6px 0px 0px;
+  background: #F8F8F8;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  /*justify-content: space-between;*/
+}
+
+.guest_contract .badge {
+  display: inline-block;
+  width: 50px;
+  height: auto;
+  margin-right: 15px;
+  padding: 4px 0;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.badge.orange {
+  background: #FF6F0F;
+  color: #fff;
+}
+
+.badge.gray {
+  background: #777;
+  color: #fff;
+}
+
+.badge {
+  padding: 6px 6px 5px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 16px;
+  border-radius: 4px;
+}
+
+.guest_contract .contract_header .room_title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.contract_cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 24px 32px;
+}
+
+.guest_contract .room_item {
+  width: 664px;
+}
+
+.contract_cont .room_item {
+  align-items: center;
+}
+
+.contract_cont .room_item {
+  display: flex;
+  width: 428px;
+  gap: 20px;
+}
+
+.contract_cont .room_item dt {
+  width: 80px;
+  height: 80px;
+}
+
+.room_item dt {
+  overflow: hidden;
+  position: relative;
+  width: 256px;
+  height: 162px;
+  border-radius: 6px;
+}
+
+.booking_img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+}
+
+.booking_img {
+  width: 100%;
+  height: 100%;
+}
+
+.contract_cont .room_item dd {
+  width: 328px;
+}
+
+.room_item .room_address {
+  font-size: 13px;
+  color: #5C5C5C;
+  line-height: 21px;
+}
+
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.guest_contract .room_period {
+  font-size: 13px;
+  line-height: 19px;
+  color: #5C5C5C;
+}
+
+.contract_cont .room_pay {
+  margin-top: 0;
+}
+
+.room_pay {
+  margin-top: 6px;
+}
+
+.contract_info {
+  display: flex; /* flexbox로 설정 */
+  align-items: center; /* 세로 중앙 정렬 */
+  /*justify-content: space-between; !* 양쪽 끝으로 정렬 *!*/
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.contract_cont .orange {
+  width: 57px;
+  height: 36px;
+  font-weight: 500;
+}
+
+.orange {
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  background: #FF6F0F;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.contract_cont .white {
+  width: 57px;
+  height: 36px;
+  font-weight: 500;
+}
+
+.white {
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  background: #fff;
+  color: black;
+  font-weight: 500;
+  text-align: center;
+}
+
+.contract_item +
+.contract_item {
+  margin-top: 24px;
+}

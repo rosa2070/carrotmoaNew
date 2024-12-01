@@ -1,0 +1,345 @@
+.bg_wrap {
+  background: #F5F5F5;
+}
+
+.wrap {
+  width: 100%;
+}
+
+.content {
+  width: 1160px;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px; /* 제목과 상자 사이의 간격 추가 */
+}
+
+.title_left {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+.host_room_reg {
+  display: flex;
+  flex-direction: column; /* 기본 방향을 세로로 설정 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.white_box {
+  position: relative;
+  padding: 32px 60px;
+  border-radius: 6px;
+  background: #FFF;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.white_box + .white_box {
+  margin-top: 20px;
+}
+
+.room_input {
+  display: flex;
+  align-items: center;
+}
+
+.room_input + .room_input {
+  margin-top: 40px;
+}
+
+.room_input .style-border {
+  width: 368px;
+}
+
+.style-border {
+  height: 48px;
+  padding: 0 12px;
+  line-height: 48px;
+  border: 1px solid #DFDFDF;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.room_input .input-group .style-border {
+  margin-top: 16px;
+}
+
+.room_input label {
+  width: 104px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.input-group {
+  display: flex; /* flexbox로 설정 */
+  flex-direction: column; /* 세로 방향으로 정렬 */
+}
+
+.road-container {
+  display: flex;
+  align-items: flex-end;
+}
+
+.floor-box {
+  border: 1px solid #DFDFDF;
+  padding: 10px 5px;
+  border-radius: 4px;
+  width: 93px;
+}
+
+#price {
+  width: 180px; /* 원하는 너비로 수정 */
+}
+
+.textarea_box label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.text_box {
+  position: relative;
+  height: 150px;
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+}
+
+textarea {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  resize: none;
+}
+
+.text_box.length_500 {
+  width: 100%;
+  box-sizing: border-box;
+  height: 300px;
+}
+
+.text_box.length_500 textarea {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  height: 250px;
+}
+
+.text_box.length_300 {
+  width: 100%;
+  box-sizing: border-box;
+  height: 200px;
+}
+
+.text_box.length_300 textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+}
+
+.textarea_box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.white_box .textarea_box + .textarea_box {
+  margin-top: 32px;
+}
+
+.images_add {
+  position: relative;
+}
+
+.images_add .title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.title_text {
+  margin-top: 10px;
+  color: #777;
+
+
+}
+
+
+.file_upload {
+  position: absolute;
+  top: 42px;
+  right: 60px;
+}
+
+.btn_upload {
+  padding: 9px 22px 9px 44px;
+  border-radius: 4px;
+  border: 1px solid #000;
+  background: url('../images/accommodation/icon_file_add.svg') 24px 9px no-repeat;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.images_view {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 146px;
+  margin: 18px 0;
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+}
+
+.room_input .label {
+  width: 104px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.flex_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex_column .select_group label {
+  width: 72px;
+}
+
+.room_input .select_group {
+  display: flex;
+  align-items: center;
+}
+
+.room_input .select_group label {
+  display: flex;
+  margin-right: 40px;
+  font-weight: 400;
+}
+
+.my_select_box {
+  border: 1px solid #DFDFDF;
+  padding: 10px 5px;
+  border-radius: 4px;
+}
+
+.select_group + .select_group {
+  margin-top: 20px;
+}
+
+.align_top {
+  align-items: baseline !important;
+}
+
+
+div {
+  font-size: 14px;
+  list-style: none;
+
+}
+
+ul, li {
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.width_150 {
+  width: 150px !important;
+}
+
+.checkbox_group ul {
+  display: flex;
+  flex-wrap: wrap;
+  width: 672px;
+}
+
+.checkbox_group li {
+  width: 25%;
+}
+
+.checkbox_group label {
+  margin-right: 40px;
+  color: #333;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.checkbox_group li:nth-child(n+5) {
+  margin-top: 15px;
+}
+
+.button_center {
+  display: flex;
+  justify-content: center;
+  margin: 60px 0 174px;
+  font-size: 0;
+  gap: 20px;
+}
+
+.button_center button {
+  width: 256px;
+}
+
+.orange {
+  border-radius: 4px;
+  background: #FE6F0F;
+  color: #fff;
+}
+
+.medium {
+  height: 48px;
+  padding: 11px 20px;
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+.image_item {
+  position: relative;
+  overflow: hidden;
+  width: 104px;
+  height: 104px;
+  border-radius: 6px;
+}
+
+
+.room_image {
+  width: 100%;
+  height: 100%;
+}
+
+.btn_close {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}

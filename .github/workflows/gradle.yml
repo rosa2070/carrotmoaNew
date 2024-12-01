@@ -1,0 +1,114 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - run: touch ./src/main/resources/application-secret.properties
+    - run: echo "${{ secrets.CARROTMOA_TOTAL_ENV_KEY }}" > ./src/main/resources/application-secret.properties
+    - run: cat ./src/main/resources/application-secret.properties
+  # gradlew에 권한 부여
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+  # gradlew 빌드
+    - name: Build with Gradle
+      run: ./gradlew clean build --exclude-task test
+
+  # docker image build
+    - name: Build docker image
+      run: docker build -t jaeeun111/carrotmoa_mine .
+
+  # docker hub
+    - name: Login docker hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  # docker hub publish
+    - name: Publish to docker hub
+      run: docker push jaeeun111/carrotmoa_mine
+
+  # WAS 인스턴스 접속 & 애플리케이션 실행
+    - name: Connect to WAS & Execute Application
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+         host: ${{ secrets.WAS_HOST }}
+         username: ${{ secrets.WAS_USERNAME }}
+         key: ${{ secrets.SSH_KEY }}
+         port: ${{ secrets.WAS_SSH_PORT }}
+         script: |
+           export JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}"
+           docker stop $(docker ps -a -q) || true
+           docker rm $(docker ps -a -q) || true
+           docker pull jaeeun111/carrotmoa_final
+           docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 --name carrotMoaContainer1 jaeeun111/carrotmoa_mine:latest
+
+#      # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
+#    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
+#    - name: Setup Gradle
+#      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+#
+#    - name: Set up environment variables
+#      env:
+#        JASYPT_ENCRYPTOR_PASSWORD: ${{ secrets.CARROTMOA_TOTAL_ENV_KEY }}
+#      run: |
+#        echo "Environment variable JASYPT_ENCRYPTOR_PASSWORD set"
+#
+#    - name: Build with Gradle Wrapper
+#      run: ./gradlew build
+
+    # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
+    # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
+    #
+    # - name: Setup Gradle
+    #   uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+    #   with:
+    #     gradle-version: '8.9'
+    #
+    # - name: Build with Gradle 8.9
+    #   run: gradle build
+
+  dependency-submission:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        
+    # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
+    # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
+    - name: Generate and submit dependency graph
+      uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0

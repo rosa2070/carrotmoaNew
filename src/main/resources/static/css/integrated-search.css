@@ -1,0 +1,367 @@
+
+#integrated-search-result {
+  display: flex;
+  width: 100%;
+  height: auto;
+  padding: 0 16px;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+  box-sizing: border-box;
+  flex-direction: column;
+}
+
+
+#integrated-search-result .result-container {
+  width: 100%;
+  max-width: 1000px;
+  /* max-width 값을 줄이면 각 게시글의 간격도 줄어 듭니다.*/
+  margin: 40px auto 20px; /* 상단, 하단 여백 */
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; /* 여백과 테두리 포함하여 크기 계산 */
+}
+
+#integrated-search-result .result-container .articles-wrap, #integrated-search-result .result-container .accommodation-articles-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* 카드 간의 간격 */
+  padding: 0 40px;
+}
+
+
+#integrated-search-result .result-container .article-kind {
+  font-weight: 600;
+  color: #212529;
+  font-size: 18px;
+  width: 100%; /* 상단 1열로 전체 너비 차지 */
+  text-align: left; /* 왼쪽 정렬 */
+  padding: 20px 40px;
+  margin-bottom: 0;
+  margin-top: 0;
+
+
+}
+
+
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  unicode-bidi: isolate;
+}
+
+
+#integrated-search-result .result-container .articles-wrap a, .accommodation-articles-wrap a {
+  display: flex;
+  text-decoration: none;
+  color: #212529;
+  flex-direction: column;
+
+}
+
+#integrated-search-result .result-container .articles-wrap .flat-card, .accommodation-articles-wrap .flat-card {
+  margin-bottom: 30px;
+  display: inline-flex; /* 상위 태그가 내용 크기만큼 맞춰지도록 설정 */
+  padding: 0; /* 필요 시 패딩 조정 */
+  width: auto; /* 필요 시 고정 너비 해제 */
+  height: auto; /* 필요 시 고정 높이 해제 */
+  align-items: center; /* a 링크와의 정렬 */
+  justify-content: center;
+}
+
+#integrated-search-result .result-container .articles-wrap .flat-card .card-photo, .accommodation-articles-wrap .flat-card .card-photo {
+  overflow: hidden;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+#integrated-search-result .result-container .articles-wrap .flat-card .card-photo img, .accommodation-articles-wrap .flat-card .card-photo img {
+  width: 223px;
+  height: 223px;
+  border-radius: 12px;
+}
+
+#integrated-search-result .result-container .articles-wrap .article-region-name, .accommodation-articles-wrap .article-region-name {
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 6px;
+  color: #868e96;
+}
+
+
+#integrated-search-result .flea-market-article {
+  /*flex: 0 1 calc(33.333% - 16px); !* 3열 배치 *!*/
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#integrated-search-result .accommodation-article {
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+.article-info {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  box-sizing: border-box;
+}
+
+.article-info * {
+  margin: 0;
+}
+
+.article-price {
+  font-weight: 600;
+  color: #ff8a3d;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+
+#main #integrated-search-result .result-container .more-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  cursor: pointer;
+  width: 100%;
+  color: #868e96;
+  font-size: 16px;
+  border-top: 1px solid #e9ecef;
+}
+
+.loader {
+  text-indent: -9999em;
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  background: #ff8a3d;
+  background: linear-gradient(to top right, #ff8a3d 25%, rgba(255, 255, 255, 0) 70%);
+  position: relative;
+  -webkit-animation: animation 1.4s infinite linear;
+  animation: animation 1.4s infinite linear;
+  transform: translateZ(0);
+}
+
+.loader:before {
+  width: 50%;
+  height: 50%;
+  background: #ff8a3d;
+  border-radius: 100% 0 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+
+.loader:after {
+  background: #fff;
+  width: 75%;
+  height: 75%;
+  border-radius: 75%;
+  content: '';
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@keyframes animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#main #integrated-search-result .result-container .more-btn .more-loading {
+  display: none;
+}
+
+.community-articles-wrap {
+  padding: 0 40px;
+}
+
+.community-article {
+  border-bottom: 1px solid #e9ecef;
+  padding: 0;
+}
+
+.community-articles-wrap a {
+  display: block;
+  text-decoration: none;
+  color: #212529;
+}
+
+.community-article-content {
+  font-size: 14px;
+}
+
+.community-region-name {
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 6px;
+  color: #868e96;
+}
+
+.community-articles-wrap .article-link * {
+  margin: 5px;
+}
+
+.community-articles-wrap .article-link {
+  margin-bottom: 10px;
+  display: flex;
+}
+
+
+.community-article-image {
+  height: 60px;
+  overflow: hidden;
+}
+
+.community-article-image img {
+  width: 100%; /* 이미지 너비를 100%로 설정 */
+  height: 50px; /* 이미지 너비를 100%로 설정 */
+  display: block; /* inline 요소가 아닌 block 요소로 설정 */
+}
+
+.community-article-text {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+/* CSS */
+.display-block {
+  display: block !important; /* 기존 스타일을 무시하고 block으로 설정 */
+}
+
+#main #integrated-search-result div {
+  display: block;
+}
+
+#main #integrated-search-result div #accommodation-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열 레이아웃 */
+  gap: 20px; /* 간격 */
+}
+
+
+.integrated-search-toast {
+  position: fixed;
+  top: 10%; /* 상단 위치 */
+  right: 20%; /* 오른쪽 위치 */
+  transform: translateX(-50%); /* 중앙 정렬 보정 */
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  display: none;
+  z-index: 9999;
+}
+
+mark {
+  font-weight: normal;
+  background-color: #FFFAEE;
+  color: #ff8a3d;
+}
+
+.product-list {
+  display: flex;
+  justify-content: space-between;
+  /*width: 760px;*/
+  gap: 10px;
+  margin: 40px 156px 0 156px;
+  flex-wrap: wrap;
+}
+
+.product-list article {
+  width: 223px;
+  height: 344px;
+  margin-bottom: 50px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.product-list article a {
+  display: flex;
+  text-decoration: none;
+  color: #212529;
+  flex-direction: column;
+}
+
+.product-list article a div {
+  display: flex;
+}
+
+
+.article-title {
+  font-size: 16px;
+  letter-spacing: -0.02px;
+  color: #212529;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  font-weight: normal;
+}
+
+.article-price {
+  color: #212529;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.article-address {
+  font-size: 13px;
+  color: #212529;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  line-height: 1.5;
+}
+
+.article-like,
+.article-chat {
+  color: #868e96;
+  font-size: 13px;
+}
+
+.fleamarket-articles-wrap {
+  display: flex;
+  flex-direction: column; /* 각 항목을 가로로 나열 */
+  align-items: center; /* 항목 중앙 정렬 */
+  gap: 15px; /* 항목 간 간격 설정 */
+  margin-bottom: 20px; /* 각 항목 간 마진 설정 */
+  width: 100%;
+}

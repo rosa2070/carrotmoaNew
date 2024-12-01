@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <link rel="stylesheet" th:href="@{/css/my-page.css}"/>
+    <link rel="stylesheet" th:href="@{/css/user.css}"/>
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<main class="user-join-form-container" layout:fragment="main">
+<p th:text="${user.getUserProfile().getName()}"></p>
+<p th:text="${user.getUserProfile().getNickname()}"></p>
+<p th:text="${user.getUserProfile().getBio()}"></p>
+<p th:text="${user.getUserProfile().getBirthday()}"></p>
+<p th:text="${user.getUserProfile().getPicUrl()}"></p>
+<p th:text="${user.getUserProfile().getPhoneNumber()}"></p>
+<p th:text="${user.getUserAddress().getAddressId()}"></p>
+<p th:text="${user.getUserAddress().getAddressName()}"></p>
+<p th:text="${user.getUserAddress().getRegion1DepthName()}"></p>
+<p th:text="${user.getUserAddress().getRegion2DepthName()}"></p>
+<p th:text="${user.getUserAddress().getRegion3DepthName()}"></p>
+<p th:text="${user.getUserAddress().getRegion4DepthName()}"></p>
+<p th:text="${user.getUserAuthority()}"></p>
+</main>
+</html>

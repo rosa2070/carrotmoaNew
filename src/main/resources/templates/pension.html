@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>당근모아 | 숙소</title>
+<!--    <link rel="stylesheet" th:href="@{/css/test001.css}"/>-->
+    <link rel="stylesheet" th:href="@{/css/guest-search-main.css}"/>
+    <link rel="stylesheet" th:href="@{/css/best-accommodation.css}" />
+
+</head>
+
+<body>
+<div th:replace="~{fragments/side-left::side-left}">왼쪽 사이드바</div>
+<main class="main-container" layout:fragment="main">
+    <div class="cover cover-color2">
+        <div class="cover-content">
+            <h1 class="cover-title">
+                당근모아 <br>
+                숙소모아
+            </h1>
+            <span>
+                당근모아 숙소 <br>
+                지금 경험해보세요.
+            </span>
+            <div class="cover-image-90">
+                <img alt="" src="/images/cover/cover3.png">
+            </div>
+        </div>
+    </div>
+    <div class="test001div">
+        <div class="search-bar-container">
+            <h2 class="main-text"></h2>
+            <div class="keyword-input">
+                <span style="display: flex; justify-content: center; align-items: center;">
+<!--                    th:href="@{/room/detail/{id}(id=${room.id})}" 써보기, controller에서는 @PathVariable-->
+                    <form method="get" th:action="@{/guest/search}">
+                        <input id="keyword" name="keyword" placeholder="주소, 지역, 이름 등 키워드를 입력하세요." type="text">
+                        <button type="submit">검색</button>
+                    </form>
+                </span>
+                <div class="map_search">
+                    <a th:href="@{/search/map}">지도로 검색</a><br>
+                </div>
+                <div class="host_menu">
+                    <a th:href="@{/host/room/manage}">호스트세요?</a>
+                </div>
+            </div>
+
+
+            <!--          베스트 숙소-->
+            <div class="main_group mt_100">
+                <strong class="title"><em>✨</em> 인기 호스트의 방</strong>
+                <p class="sub_text">평소에는 계약하기 힘들어요</p>
+
+                <div class="btn_all">
+                    <a href="/webpc/search/keyword?theme_type=super_host">전체보기</a>
+                </div>
+
+                <div class="result_room" id="resultRoomContainer">
+                    <!-- 방 목록은 JavaScript에서 동적으로 추가됩니다 -->
+
+
+<!--                    <a href="/room/detail/34930" target="_blank">-->
+<!--                        <dl class="room_item">-->
+<!--                            <dt>-->
+<!--                                <img class="room_img" src="https://d1pviohoskiraj.cloudfront.net/room/BE3A4533-753B-48DC-988F-668D5B3B300B.png?b=samsamm2&amp;d=489x366"-->
+<!--                                     alt="">-->
+<!--                                <div class="group">-->
+
+
+<!--                                    <span class="badge black">인기 호스트</span>-->
+
+<!--                                </div>-->
+<!--                            </dt>-->
+<!--                            <dd class="room_name">🌈평촌 씨티뷰 초특가</dd>-->
+<!--                            <dd class="room_address">경기도 안양시 관양동</dd>-->
+<!--                            <dd class="room_pay">-->
+<!--                                <p>-->
+<!--                                    <strong>300,000 </strong><em>원</em>-->
+<!--                                    <span>/1주</span>-->
+<!--                                </p>-->
+<!--                                <ul class="place_list">-->
+<!--                                    <li>방 1</li>-->
+<!--                                    <li>화장실 1</li>-->
+<!--                                    <li>거실 0</li>-->
+<!--                                    <li>주방 1</li>-->
+<!--                                </ul>-->
+<!--                            </dd>-->
+<!--                        </dl>-->
+<!--                    </a>-->
+
+
+<!--                    <a href="/room/detail/30535" target="_blank">-->
+<!--                        <dl class="room_item">-->
+<!--                            <dt>-->
+<!--                                <img class="room_img" src="https://d1pviohoskiraj.cloudfront.net/room/C16A5305-829F-4407-B2C8-098E2498363D.png?b=samsamm2&amp;d=489x366"-->
+<!--                                     alt="">-->
+<!--                                <div class="group">-->
+
+
+<!--                                    <span class="badge black">인기 호스트</span>-->
+
+<!--                                </div>-->
+<!--                            </dt>-->
+<!--                            <dd class="room_name">터미널인근 풀옵션203</dd>-->
+<!--                            <dd class="room_address">경상북도 포항시 죽도동</dd>-->
+<!--                            <dd class="room_pay">-->
+<!--                                <p>-->
+<!--                                    <strong>150,000 </strong><em>원</em>-->
+<!--                                    <span>/1주</span>-->
+<!--                                </p>-->
+<!--                                <ul class="place_list">-->
+<!--                                    <li>방 1</li>-->
+<!--                                    <li>화장실 1</li>-->
+<!--                                    <li>거실 0</li>-->
+<!--                                    <li>주방 1</li>-->
+<!--                                </ul>-->
+<!--                            </dd>-->
+
+<!--                        </dl>-->
+<!--                    </a>-->
+
+
+<!--                    <a href="/room/detail/30094" target="_blank">-->
+<!--                        <dl class="room_item">-->
+<!--                            <dt>-->
+<!--                                <img class="room_img" src="https://d1pviohoskiraj.cloudfront.net/room/273f1bf7-ac3d-40d3-b6cc-be331bbcf889.jpg?b=samsamm2&amp;d=489x366"-->
+<!--                                     alt="">-->
+<!--                                <div class="group">-->
+
+
+<!--                                    <span class="badge black">인기 호스트</span>-->
+
+<!--                                </div>-->
+<!--                            </dt>-->
+<!--                            <dd class="room_name">수원역1분🧸풀옵션</dd>-->
+<!--                            <dd class="room_address">경기도 수원시 매산로1가</dd>-->
+<!--                            <dd class="room_pay">-->
+<!--                                <p>-->
+<!--                                    <strong>280,000 </strong><em>원</em>-->
+<!--                                    <span>/1주</span>-->
+<!--                                </p>-->
+<!--                                <ul class="place_list">-->
+<!--                                    <li>방 1</li>-->
+<!--                                    <li>화장실 1</li>-->
+<!--                                    <li>거실 0</li>-->
+<!--                                    <li>주방 0</li>-->
+<!--                                </ul>-->
+<!--                            </dd>-->
+
+<!--                        </dl>-->
+<!--                    </a>-->
+
+
+<!--                    <a href="/room/detail/29814" target="_blank">-->
+<!--                        <dl class="room_item">-->
+<!--                            <dt>-->
+<!--                                <img class="room_img" src="https://d1pviohoskiraj.cloudfront.net/room/68B5F4C5-B906-479D-AC16-268381969035.png?b=samsamm2&amp;d=489x366"-->
+<!--                                     alt="">-->
+<!--                                <div class="group">-->
+
+
+<!--                                    <span class="badge black">인기 호스트</span>-->
+
+<!--                                </div>-->
+<!--                            </dt>-->
+<!--                            <dd class="room_name">🌈범계평촌 4인/주차</dd>-->
+<!--                            <dd class="room_address">경기도 안양시 비산동</dd>-->
+<!--                            <dd class="room_pay">-->
+<!--                                <p>-->
+<!--                                    <strong>339,000 </strong><em>원</em>-->
+<!--                                    <span>/1주</span>-->
+<!--                                </p>-->
+<!--                                <ul class="place_list">-->
+<!--                                    <li>방 1</li>-->
+<!--                                    <li>화장실 1</li>-->
+<!--                                    <li>거실 1</li>-->
+<!--                                    <li>주방 1</li>-->
+<!--                                </ul>-->
+<!--                            </dd>-->
+<!--                        </dl>-->
+<!--                    </a>-->
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/best_accommodation.js}"></script>
+
+</main>
+
+<div th:replace="~{fragments/side-right::side-right}">오른쪽 사이드바</div>
+</body>
+</html>

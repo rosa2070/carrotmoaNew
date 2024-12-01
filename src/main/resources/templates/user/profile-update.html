@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <link rel="stylesheet" th:href="@{/css/my-page.css}"/>
+  <link rel="stylesheet" th:href="@{/css/user.css}"/>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<main class="user-join-form-container" layout:fragment="main">
+
+  <form class="user-form" id="user-update" name="user-update" th:object="${userUpdateRequestDto}">
+
+    <input id="userId" name="userId" th:field="*{userId}" type="hidden">
+    <label for="nickname">별명</label>
+    <input id="nickname" maxlength="10" name="nickname" required th:field="*{nickname}" type="text"><br>
+    <label for="name">이름</label>
+    <input id="name" name="name" required th:field="*{name}" type="text"><br>
+    <label for="phone">전화번호</label>
+    <input id="phone" name="phoneNumber" required th:field="*{phoneNumber}" type="text"><br>
+    <label for="birthday">생일</label>
+    <input class="my-page-profile-birthday" id="birthday" name="addressId" required th:field="*{birthday}"
+           th:value="${user.getUserProfile.getBirthday()}" type="date"><br>
+    <label for="bio"> 한줄 소개</label>
+    <textarea class="my-page-profile-update-bio" id="bio" name="bio" th:field="*{bio}"></textarea>
+    <br>
+    <input type="submit" value="수정하기">
+  </form>
+</main>
+</html>
+<script src="/js/user-my-page.js"></script>

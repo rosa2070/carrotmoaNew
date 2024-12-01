@@ -1,0 +1,102 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div id="gnb" th:fragment="gnb">
+
+  <div class="gnb-container">
+
+    <div class="gnb-logo">
+      <a href="/">
+        <img alt="logo" src="/images/main-logo.png">
+        <span>당근모아</span>
+      </a>
+    </div>
+
+    <div class="gnb-service">
+      <a class="gnb-service-menu" href="/fleamarket">
+        <span>중고거래</span>
+      </a>
+      <a class="gnb-service-menu" href="/pension">
+        <span>숙소</span>
+      </a>
+      <a class="gnb-service-menu" href="/community">
+        <span>동네생활</span>
+      </a>
+    </div>
+
+    <div class="gnb-search">
+      <label>
+        <input id="integrated-search-input" placeholder="물품이나 동네를 검색해보세요" type="text">
+      </label>
+      <div class="gnb-tool">
+        <a href="">
+          <span>검색</span>
+        </a>
+      </div>
+    </div>
+    <div class="integrated-search-toast" id="integrated-search-toast">두 글자 이상 입력해주세요.</div>
+
+    <div class="gnb-tool">
+      <div th:if="${user == null}">
+            <span>
+          <a th:href="@{/user/login-page}">
+            <span>로그인</span>
+          </a>
+            </span>
+      </div>
+
+      <div style="display:flex; align-items:center; margin-left:8px;" th:unless="${user == null}">
+        <span>
+          <a th:href="@{/user/logout}">
+            <span>로그아웃</span>
+          </a>
+        </span>
+        <div class="user-profile-box">
+          <a class="user-profile-a" th:href="@{/user/my-page}">
+            <div id="profile-image">
+              <img class="user-profile-image" th:src="${user.getUserProfile().getPicUrl()}"/>
+            </div>
+            <div class="user-profile-div">
+              <!--              <div th:text="${user.getUserProfile().getNickname()}" id="profile-nickname"></div>-->
+              <div class="user-profile-nickname" id="profile-nickname"
+                   th:text="${user.getUserProfile().getNickname()}+'님 안녕하세요'">
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="user-profile-box notification-icon">
+          <button aria-label="알림 아이콘" class="user-profile-a notification-icon" id="notificationIcon">
+            <img alt="알림 아이콘" src="/images/notification.svg">
+          </button>
+        </div>
+
+      </div>
+      <!-- 모달 창 -->
+      <div class="notification-modal" id="notificationModal">
+        <div class="notification-header">
+          <span>알림</span>
+          <span class="notification-close">&times;</span>
+        </div>
+
+        <div class="notification-menu">
+          <div>
+            활동 알림
+          </div>
+        </div>
+        <div class="notification-content">
+          <div class="notification-list" id="notificationList">
+          </div>
+        </div>
+      </div>
+      <div class="notification-toast" id="notificationToast">
+        <div class="toast-content">
+          새로운 알림이 도착했어요!
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</html>

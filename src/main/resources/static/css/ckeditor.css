@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.community-write-container {
+  background-color: white; /* 폼 배경색 */
+  border: 1px solid #ccc; /* 테두리 설정 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  padding: 20px; /* 안쪽 여백 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  margin: auto; /* 수평 중앙 정렬 */
+  display: flex; /* 내부 요소 정렬 */
+  flex-direction: column; /* 세로 방향으로 요소 배치 */
+  margin-top: 10px;
+  width: 800px;
+}
+
+.community-write-container div {
+  display: block;
+}
+
+.community-write-container-title {
+  justify-content: center;
+}
+
+.community-write-container h2 {
+  text-align: center; /* 제목 중앙 정렬 */
+  margin-bottom: 20px; /* 제목과 폼 사이 여백 */
+  margin-top: 0;
+}
+
+#community-post-title {
+  width: 100%; /* 입력 필드 너비를 100%로 설정 */
+  padding: 10px; /* 안쪽 여백 */
+  border: 1px solid #ccc; /* 테두리 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.community-form-btn {
+  float: right;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
+.community-form-btn button {
+  padding: 10px 20px; /* 버튼 내부 여백 */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* 호버 효과를 위한 트랜지션 */
+}
+
+/* submit 버튼 스타일 */
+#submit-btn {
+  background-color: #FE6F0F; /* 고유한 배경색 */
+  color: white; /* 텍스트 색상 */
+  border-color: #FE6F0F; /* 테두리 색상 */
+}
+
+/* submit 버튼 호버 스타일 */
+#submit-btn:hover {
+  background-color: #d85b0c; /* 어두운 색상으로 변화 */
+}
+
+/* cancel 버튼 기본 스타일 */
+#cancel-btn {
+  background-color: #f5f5f5; /* 기본 배경색 */
+  color: #333; /* 텍스트 색상 */
+  border-color: #ccc; /* 테두리 색상 */
+}
+
+/* cancel 버튼 호버 스타일 */
+#cancel-btn:hover {
+  background-color: #e0e0e0; /* 호버 시 배경색 */
+  color: #333; /* 호버 시 텍스트 색상 유지 */
+  border-color: #b3b3b3; /* 호버 시 테두리 색상 */
+}
+
+.category-selection {
+  display: flex; /* 플렉스 박스를 사용하여 자식 요소를 수평으로 배치 */
+  flex-direction: column; /* 세로 방향으로 배치 */
+  width: 100%; /* 전체 너비를 사용 */
+}
+
+.category-selection label {
+  margin-bottom: 5px; /* 라벨과 선택 박스 간의 간격 */
+  font-size: 16px;
+}
+
+#community-post-category {
+  width: 100%; /* 선택 박스가 div의 너비에 꽉 차게 */
+  padding: 10px; /* 안쪽 여백 추가 */
+  font-size: 12px; /* 글자 크기 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비 계산 */
+}
+
+.title-input-container {
+  display: flex; /* 플렉스 박스를 사용하여 라벨과 입력 필드를 수평으로 정렬 */
+  flex-direction: column; /* 세로 방향으로 배치 */
+}
+
+
+/* 텍스트 에디터 영역 */
+.ck-editor__editable {
+  min-height: 560px;
+  max-height: 560px;
+  width: 100%; /* 100%로 설정하여 부모 요소에 맞추기 */
+  box-sizing: border-box; /* 패딩과 테두리를 포함한 너비 계산 */
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>테스트</title>
+  <script defer src="/js/community.js"></script>
+  <link href="/css/community.css" rel="stylesheet">
+</head>
+
+<main class="main-container" layout:fragment="main">
+  <div class="cover cover-community">
+    <div class="cover-content">
+      <h2 class="cover-title">
+        이웃과 함께 나누는
+        <br>
+        따뜻한 이야기 <br>
+      </h2>
+      <span>
+                동네의 다양한 소식과 정보를 이웃과 함께 공유해보세요.
+            </span>
+
+      <div class="cover-image-90">
+        <img alt="" src="/images/cover/cover2.png">
+      </div>
+    </div>
+  </div>
+
+  <!-- 카테고리 섹션 추가 -->
+  <div class="community-category-container">
+    <ul class="community-category-list" id="community-category-list">
+      <li><a href="/community">전체보기</a></li>
+      <li><a href="/community/subCategories/2">인기글</a></li>
+    </ul>
+  </div>
+  <!-- 카테고리 섹션 끝 -->
+  <div class="community-post-list" id="community-post-list">
+  </div>
+
+  <!-- 글쓰기 버튼 -->
+  <div class="community-write-button">
+    <a class="community-write-btn" href="/community/write">+ 글쓰기</a>
+  </div>
+</main>
+</html>

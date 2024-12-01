@@ -1,0 +1,6 @@
+<svg class="feather feather-camera" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+  stroke-width="2"
+  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" r="3"></circle>
+  <path d="M5 7h4l2-2h6l2 2h4v12H5V7z"></path>
+</svg>

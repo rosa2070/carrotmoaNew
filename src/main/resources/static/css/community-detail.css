@@ -1,0 +1,593 @@
+
+.main-container {
+  margin-top: 10px;
+  padding: 20px;
+}
+
+.detail-option {
+  justify-content: space-between;
+}
+
+#moreOptionsButton {
+  background: none; /* 배경 없음 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 포인터 커서 */
+  padding: 0; /* 패딩 없음 */
+  margin-left: auto;
+}
+
+.moreOptionsButton {
+  background: none; /* 배경 없음 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 포인터 커서 */
+  padding: 0; /* 패딩 없음 */
+  margin-left: auto;
+}
+
+/* community-detail.css */
+
+.community-detail-container .dropdown-content {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 1000;
+  padding: 10px;
+  text-align: center;
+  width: auto;
+  height: auto;
+  min-width: 200px;
+  max-width: 300px;
+}
+
+.community-detail-container .overlay {
+  display: none; /* 기본적으로 숨김 */
+  position: fixed; /* 고정 위치 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+}
+
+
+.community-detail-container .dropdown-content button {
+  flex: 1;
+
+  border: none;
+  background: transparent; /* 배경 없음 */
+  color: red;
+  font-size: 16px;
+  cursor: pointer; /* 커서 변경 */
+  width: 100%; /* 버튼 너비 100% */
+  margin: 0; /* 여백 제거 */
+  display: flex; /* 버튼 내부 요소를 Flexbox로 설정 */
+  justify-content: center; /* 버튼 내부 텍스트 중앙 정렬 */
+  align-items: center; /* 버튼 내부 텍스트 수직 중앙 정렬 */
+  padding: 15px; /* 내부 여백 */
+}
+
+.dropdown-content button:hover {
+  background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+}
+
+.community-detail-container {
+  background-color: white; /* 폼 배경색 */
+  border: 1px solid #ccc; /* 테두리 설정 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  padding: 20px; /* 안쪽 여백 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  margin: auto; /* 수평 중앙 정렬 */
+  display: flex; /* 내부 요소 정렬 */
+  flex-direction: column; /* 세로 방향으로 요소 배치 */
+  margin-top: 10px;
+  width: 800px;
+}
+
+.category-name {
+  font-size: 12px; /* 작은 글씨 */
+  font-weight: bold; /* 두껍게 */
+  color: #00A05B; /* 텍스트 색상: 당근색 */
+  background-color: #f8f8f8; /* 기본 배경색: 연한 회색 */
+  padding: 5px 10px; /* 안쪽 여백 */
+  border: 2px solid #00A05B; /* 테두리: 당근색 */
+  border-radius: 15px; /* 둥근 모서리 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* 부드러운 전환 효과 */
+
+}
+
+.category-name:hover {
+  background-color: #00A05B; /* 호버 시 배경색: 당근색 */
+  color: #fff; /* 호버 시 텍스트 색상: 하얀색 */
+  border: 2px solid #00A05B; /* 호버 시 테두리색: 당근색 */
+}
+
+
+.space-between {
+  display: flex;
+  justify-content: space-between; /* 왼쪽과 오른쪽 요소 간의 간격을 확보합니다. */
+  align-items: center; /* 아이템을 수직 중앙 정렬합니다. */
+  border-bottom: 1px solid #e9ecef;
+}
+
+
+.user-profile .user-profile-image img, .detail-comment-profile img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.user-profile-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.user-profile-left .region-name {
+  font-size: 13px;
+  color: #212529;
+  display: flex;
+  gap: 5px;
+}
+
+.user-profile-left .nickname {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.6px;
+  color: #212529;
+}
+
+.user-profile-right {
+  display: flex;
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  align-items: flex-end; /* 오른쪽 정렬 */
+  margin-left: auto; /* 왼쪽 요소와의 간격을 자동으로 설정 */
+  padding-right: 36px; /* 오른쪽 여백 */
+}
+
+.like-button {
+  display: flex; /* 수평 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  background-color: #fff; /* 배경색: 흰색 */
+  border: none; /* 테두리: 주황색 */
+  border-radius: 8px; /* 둥근 모서리 */
+  cursor: pointer; /* 마우스 커서 변경 */
+  margin-left: auto; /* 오른쪽으로 밀기 */
+  color: #888; /* 텍스트 색상: 연한 회색 */
+  padding-right: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+}
+
+.like-button:hover {
+  background-color: #f8f8f8; /* 호버 시 배경색 변경 */
+  color: #555; /* 호버 시 텍스트 색상: 어두운 회색으로 변경 */
+}
+
+.like-button img {
+  width: 16px; /* 아이콘 크기 조정 */
+  height: 16px; /* 아이콘 크기 조정 */
+  margin-right: 5px; /* 텍스트와 아이콘 간격 */
+}
+
+
+.community-detail-description {
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 15px;
+}
+
+.user-profile-link {
+  text-decoration: none;
+  color: black;
+  margin-top: 25px;
+  padding-bottom: 23px;
+}
+
+.user-profile-link:hover {
+  .nickname {
+    text-decoration: underline;
+  }
+}
+
+.temperature-wrap {
+  display: flex;
+  flex-direction: column-reverse; /* 매너온도와 숫자의 순서를 뒤집음 */
+  align-items: flex-end; /* 텍스트를 오른쪽 정렬 */
+}
+
+.temperature-wrap dt {
+  color: #868e96;
+  font-size: 12px
+}
+
+.community-detail-title {
+  margin-top: 16px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.6px;
+}
+
+.community-detail-description .community-detail-content p {
+  font-size: 17px;
+  line-height: 1.6;
+  letter-spacing: -0.6px;
+  margin: 16px 0;
+  word-break: break-all;
+}
+
+.community-detail-description .community-detail-content {
+  display: block;
+}
+
+.community-detail-description .community-detail-counts {
+  display: flex;
+  font-size: 13px;
+  line-height: 1.46;
+  letter-spacing: -0.6px;
+  color: #868e96;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.detail-comments-title {
+  text-align: left;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.47;
+  margin-bottom: 24px;
+}
+
+.community-detail-comments {
+  padding-top: 24px;
+}
+
+.detail-comments-title .count-comment {
+
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.detail-comments-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.community-detail-comments .detail-comment-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+
+.community-detail-comments .detail-comment-profile {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.detail-comment-profile img {
+  padding-right: 10px;
+}
+
+
+.community-detail-comments .detail-comment-nickname {
+  display: flex;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.47;
+  letter-spacing: -0.5px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.detail-comment-nickname .post-writer {
+  width: 35px;
+  height: auto;
+}
+
+.community-detail-comments #postWriter {
+  display: inline-block;
+  vertical-align: middle; /* 이미지도 텍스트와 동일한 정렬 */
+  margin-left: 5px; /* 이미지와 텍스트 사이 간격 */
+}
+
+.detail-comment-nickname a {
+  color: #212529;
+  text-decoration: none;
+  display: inline;
+  white-space: nowrap;
+}
+
+.detail-comment-nickname:hover {
+  text-decoration: underline;
+}
+
+
+.community-detail-comments .detail-comment-region-name {
+  display: flex;
+  font-size: 13px;
+  line-height: 1.46;
+  letter-spacing: -0.5px;
+  vertical-align: middle;
+  align-items: center;
+}
+
+.community-detail-comments .detail-comment-region-name span {
+  padding-right: 5px;
+}
+
+.community-detail-comments .detail-comment-content {
+  font-size: 15px;
+  line-height: 1.47;
+  letter-spacing: -0.5px;
+  word-break: break-all;
+  display: block;
+  padding-bottom: 10px;
+}
+
+.community-detail-comments .detail-comment-content p {
+  margin: 0;
+}
+
+.community-detail-comments .detail-comment-time-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1px;
+}
+
+
+.community-detail-comments .detail-comment-time {
+  display: block;
+  font-size: 13px;
+  line-height: 1.46;
+  letter-spacing: -0.5px;
+  color: #888;
+}
+
+.community-detail-comments .comment-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.community-detail-container .detail-comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comment-input-section {
+  border-top: 1px solid #e9ecef;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.reply-input-section {
+  display: none;
+  border-top: 1px solid #e9ecef;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.reply-button-wrapper {
+  padding-bottom: 10px;
+}
+
+.child-comment {
+  width: 9px;
+  height: 9px;
+  border-bottom: 1px solid #adb5bd;
+  border-left: 1px solid #adb5bd;
+  display: inline-block;
+  margin-right: 16px;
+  vertical-align: top;
+}
+
+
+.community-detail-container .comment-input-section .comment-input, .reply-input {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.comment-input-field, .reply-input-field {
+  width: 96%;
+  height: 60px;
+  font-family: -apple-system,
+  BlinkMacSystemFont, "Segoe UI",
+  Roboto, "Helvetica Neue",
+  Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  padding: 12px 15px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  resize: none;
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.comment-input-field:focus, .reply-input-field:focus {
+  border-color: #ff7e36;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.community-detail-container .comment-input-section .comment-submit-button, .reply-submit-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff7e36;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  float: right;
+}
+
+.comment-submit-button:hover {
+  background-color: #ff6a17;
+}
+
+.comment-input {
+  width: 100%;
+}
+
+.comment-like-button {
+  display: flex; /* 수평 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  background-color: #fff; /* 배경색: 흰색 */
+  padding: 5px 10px; /* 안쪽 여백 */
+  cursor: pointer; /* 마우스 커서 변경 */
+  color: #888; /* 텍스트 색상: 연한 회색 */
+  border: none;
+}
+
+.comment-like-button:hover {
+  background-color: #f8f8f8; /* 호버 시 배경색 변경 */
+  color: #555; /* 호버 시 텍스트 색상: 어두운 회색으로 변경 */
+}
+
+.comment-like-button img {
+  width: 16px; /* 아이콘 크기 조정 */
+  height: 16px; /* 아이콘 크기 조정 */
+  margin-right: 5px; /* 텍스트와 아이콘 간격 */
+}
+
+.reply-button {
+  display: flex; /* 수평 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  background-color: #fff; /* 배경색: 흰색 */
+  padding: 5px 10px; /* 안쪽 여백 */
+  cursor: pointer; /* 마우스 커서 변경 */
+  color: #888; /* 텍스트 색상: 연한 회색 */
+  border: none;
+}
+
+.reply-button:hover {
+  background-color: #f8f8f8; /* 호버 시 배경색 변경 */
+  color: #555; /* 호버 시 텍스트 색상: 어두운 회색으로 변경 */
+}
+
+.reply-button img {
+  width: 16px; /* 아이콘 크기 조정 */
+  height: 16px; /* 아이콘 크기 조정 */
+  margin-right: 5px; /* 텍스트와 아이콘 간격 */
+}
+
+
+.community-detail-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* 모달 오버레이 */
+.community-detail-container .modal-overlay {
+  display: none; /* 기본적으로 숨김 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정색 배경 */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* 모달 */
+.community-detail-container .modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.modal h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.modal p {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* 버튼 스타일 */
+.cancel-button, .delete-button {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  color: white;
+}
+
+.delete-button {
+  background-color: #ff7e36; /* 당근 주황색 */
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #e96d26;
+}
+
+
+#heartEffectContainer {
+  position: relative;
+  pointer-events: none; /* 클릭을 막음 */
+  width: 5px;
+  height: 5px;
+}
+
+.heart {
+  position: absolute;
+  font-size: 24px;
+  opacity: 1;
+  animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}

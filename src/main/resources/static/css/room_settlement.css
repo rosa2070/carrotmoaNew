@@ -1,0 +1,205 @@
+/*------------------------------------------------
+  제목(정산)
+------------------------------------------------*/
+.wrap {
+  width: 100%;
+}
+
+.content {
+  width: 1160px;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.host_room_reg {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.host_calculate .flex {
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.title_left {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+/*------------------------------------------------
+  총 몇건
+------------------------------------------------*/
+.calculate_count {
+  margin-top: 32px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  background: #F7F5FF;
+}
+
+.calculate_count span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.calculate_count strong {
+  padding-left: 16px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+
+/*------------------------------------------------
+ 조회
+------------------------------------------------*/
+
+.list_search {
+  display: flex;
+}
+
+.period_input {
+  display: flex;
+}
+
+.period_input .icon_calendar:first-child {
+  margin-right: 32px;
+}
+
+.period_input .icon_calendar {
+  position: relative;
+  display: flex;
+  width: 134px;
+  height: 23px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #dfdfdf;
+}
+
+.period_input .icon_calendar:first-child {
+  margin-right: 32px;
+}
+
+
+.period_input .icon_calendar span {
+  display: inline-block;
+  height: 24px;
+  padding-left: 34px;
+  background: url(https://33m2.co.kr/images/webpc/icon_calendar_02-6bd681e930939813dc5c625e9522abe8.svg) 0 0 no-repeat;
+  background-size: 24px 24px;
+}
+
+.period_input .icon_calendar span input {
+  width: 80px;
+  cursor: pointer;
+  border: none;
+  outline: none; /* 포커스 시 테두리 제거 */
+}
+
+.period_input .icon_calendar:first-child:after {
+  position: absolute;
+  top: 19px;
+  right: -22px;
+  display: inline-block;
+  content: "";
+  width: 10px;
+  height: 1px;
+  background: #000;
+}
+
+.list_search button {
+  width: 74px;
+  height: 40px;
+}
+
+.line_black {
+  border-radius: 4px;
+  border: 1px solid #000;
+  background: #fff;
+  color: #000;
+}
+
+.small {
+  height: 33px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 21px;
+  color: #5C5C5C;
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+
+/*.border_radius {*/
+/*    margin-top: 30px;*/
+/*    border: 1px solid #EFEFEF;*/
+/*    border-radius: 6px;*/
+/*}*/
+
+.tbl_style_02 th {
+  padding: 20px;
+  background: #F8F8F8;
+  color: #111;
+  font-weight: 700;
+}
+
+table {
+  width: 100%;
+}
+
+
+/* 테이블 스타일 */
+.tbl_style_02 {
+  border-collapse: collapse; /* 테두리 합치기 */
+  margin-top: 10px;
+}
+
+.tbl_style_02 th,
+.tbl_style_02 td {
+  padding: 15px; /* 패딩 추가 */
+  text-align: left; /* 왼쪽 정렬 */
+  border-bottom: 1px solid #EFEFEF; /* 하단 테두리 추가 */
+}
+
+.tbl_style_02 tr:hover {
+  background-color: #F1F1F1; /* 마우스 오버 시 배경색 변경 */
+}
+
+.tbl_style_02 th {
+  background-color: #F8F8F8; /* 헤더 배경색 */
+  color: #111; /* 헤더 텍스트 색상 */
+}
+
+/* 각 열 너비 조정 (필요시) */
+.tbl_style_02 colgroup col:nth-child(1) {
+  width: 150px;
+}
+
+.tbl_style_02 colgroup col:nth-child(2) {
+  width: 200px;
+}
+
+.tbl_style_02 colgroup col:nth-child(3) {
+  width: 150px;
+}
+
+.tbl_style_02 colgroup col:nth-child(4) {
+  width: 150px;
+}
+
+.tbl_style_02 colgroup col:nth-child(5) {
+  width: 150px;
+}
+
+

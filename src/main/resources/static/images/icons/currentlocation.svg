@@ -1,0 +1,24 @@
+<svg height="48" viewBox="0 0 24 24" width="48" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="12" cy="12" fill="lightblue" opacity="0.5" r="10"/>
+  <circle class="pulse" cx="12" cy="12" fill="#1E90FF" r="9"/> <!-- 외부 원 -->
+  <style>
+    .pulse {
+    animation: pulse 4s infinite; /* 4초마다 반복 */
+    }
+
+    @keyframes pulse {
+    0% {
+    r: 6; /* 원이 작아진 상태에서 시작 */
+    opacity: 0.9;
+    }
+    50% {
+    r: 5.5; /* 중간에서 살짝 커짐 */
+    opacity: 0.7;
+    }
+    100% {
+    r: 6; /* 다시 작아짐 */
+    opacity: 0.9;
+    }
+    }
+  </style>  <!-- 애니메이션 추가된 더 작은 가운데 원 -->
+</svg>

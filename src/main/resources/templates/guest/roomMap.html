@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>Host</title>
+  <link rel="stylesheet" th:href="@{/css/kakaomap-accommodation.css}"/>
+</head>
+<body>
+<div th:replace="~{fragments/side-left::side-left}">왼쪽 사이드바</div>
+
+<main layout:fragment="main">
+  <div class="map_wrap">
+    <div id="map"></div>
+    <div class="controls">
+      <button id="currentLocationBtn" onclick="setCurrentLocation()">
+        <img alt="현재 내 위치" id="currentLocation" src="/images/icons/gps.png">
+      </button>
+    </div>
+  </div>
+  <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1330cd31f56b3c0190d9b719e06fe432&libraries=services&libraries=clusterer"
+          type="text/javascript"></script>
+  <script th:src="@{/js/kakaomap-accommodation.js}"></script>
+</main>
+<div th:replace="~{fragments/side-right::side-right}">오른쪽 사이드바</div>
+</body>
+</html>

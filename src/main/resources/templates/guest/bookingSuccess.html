@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title th:text="'계약시작 - 단기임대 숙소 | 당근모아'"> 계약시작 - 단기임대 숙소 | 당근모아 </title>
+</head>
+
+<main layout:fragment="main">
+  <section class="content">
+    <p class="title_left">계약이 완료되었습니다!</p>
+    <div class="contract_detail" style="min-height:1300px;">
+      <div class="flex">
+        <div class="detail_cont">
+          <div class="flex">
+            <div class="border_box">
+              <p class="title">방 정보</p>
+              <ul class="info_list">
+                <li>
+                  <span>방 이름</span>
+                  <p class="ellipsis">애버랜드</p>
+                </li>
+                <li>
+                  <span>소재지</span>
+                  <p class="ellipsis2">용인시 처인구 애버랜드로</p>
+                </li>
+              </ul>
+            </div>
+            <div class="boarder_box">
+              <p class="title">호스트 정보</p>
+              <ul class="info_list">
+                <li>
+                  <span>이름</span>
+                  <p>
+                    최이재
+                  </p>
+                </li>
+                <li>
+                  <span>연락처</span>
+                  <p class="font_999"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="contract_period_box">
+            <strong>임대기간</strong>
+            <p>2024-11-01 (입주) ~ 2024-11-04 (퇴실)</p>
+          </div>
+          <p class="green_text"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+</html>

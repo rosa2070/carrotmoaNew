@@ -1,0 +1,474 @@
+body {
+  font-family: Arial, sans-serif;
+  /*background-color: #f8f9fa;*/
+}
+
+.room_content {
+  position: relative;
+  width: 1084px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.room_detail {
+  width: 692px;
+}
+
+.room_info {
+  position: relative;
+}
+
+.room_info .title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.room_info .add_text {
+  margin-top: -8px;
+  color: #777;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.room_info:nth-child(n+2) {
+  margin-top: 70px;
+}
+
+.room_info .title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.room_info .title_text {
+  font-size: 15px;
+  line-height: 22px;
+  word-wrap: break-word;
+}
+
+.title_text {
+  margin-top: 8px;
+  color: #777;
+}
+
+/*공간 정보*/
+.place_box {
+  display: flex;
+  border: 1px solid #EFEFEF;
+  border-radius: 6px;
+}
+
+.place_box .place_list {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 477px;
+  padding: 24px 40px;
+  width: 460px;
+}
+
+.place_box .place_list li span {
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 8px;
+}
+
+.place_box .place_list li p {
+  color: #5C5C5C;
+}
+
+.place_box .place_detail {
+  padding: 24px 30px;
+  border-left: 1px solid #EFEFEF;
+}
+
+.place_box .place_detail li {
+  display: flex;
+  align-items: center;
+}
+
+.place_box .place_detail span {
+  display: inline-block;
+  min-width: 61px;
+  margin-right: 10px;
+  color: #666;
+}
+
+.place_box .place_detail strong {
+  color: #333;
+}
+
+/*기본 옵션*/
+.room_info .option {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.room_info .option li {
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+
+.room_info .option li span {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+}
+
+.room_info .option li p {
+  min-width: 52px;
+  font-size: 15px;
+  color: #333;
+}
+
+/*img {*/
+/*    width: 100%;*/
+/*    height: 100%;*/
+/*}*/
+.room_info .option li p {
+  min-width: 52px;
+  font-size: 15px;
+  color: #333;
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  margin: 90px 0 80px;
+}
+
+.profile dl {
+  display: flex;
+}
+
+.profile .profile_img {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+  border-radius: 100px;
+}
+
+.profile_img {
+  overflow: hidden;
+  /* position: relative; */
+  width: 80px;
+  height: 80px;
+  /*background: url(/images/webpc/img_profile-e562db3….svg) 0 0 no-repeat;*/
+  /*background-size: 80px 80px;*/
+  border-radius: 50%;
+}
+
+.profile .profile_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile .profile_name {
+  display: flex;
+}
+
+.profile .profile_name strong {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.profile .introduce {
+  margin-top: 10px;
+  color: #5C5C5C;
+}
+
+.profile .btn {
+  display: block;
+  height: 44px;
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+
+.profile .btn {
+  display: block;
+  height: 44px;
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+
+.profile .icon_send {
+  padding: 0 24px 0 48px;
+  background: url(https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_detail_icon/icon_send-26f2b107b850609f50892e0c11b55b0b.svg) 24px 0 no-repeat;
+  background-size: 18px auto;
+}
+
+.room_info .title .font_orange {
+  margin-left: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.btn.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/*.white {*/
+/*    border-radius: 4px;*/
+/*    border: 1px solid #DFDFDF;*/
+/*    background: #fff;*/
+/*}*/
+/*.medium {*/
+/*    height: 48px;*/
+/*    padding: 11px 20px;*/
+/*    border-radius: 4px;*/
+/*    border: 1px solid #DFDFDF;*/
+/*    font-size: 15px;*/
+/*    font-weight: 500;*/
+/*    line-height: 22px;*/
+/*}*/
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.profile .icon_send {
+  padding: 0 24px 0 48px;
+  /*background: url(/images/webpc/icon_send-26f2b10….svg) 24px 0 no-repeat;*/
+  /*background-size: 18px auto;*/
+}
+
+.room_info .title .font_purple {
+  margin-left: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.font_orange {
+  color: #FF6F0F !important;
+}
+
+.review_list {
+  margin-top: 24px;
+}
+
+.review_list {
+  list-style-type: none; /* 리스트 앞의 점 제거 */
+  padding: 0; /* 리스트의 기본 들여쓰기 제거 */
+  margin: 0;
+}
+
+.review_list li {
+  list-style-type: none;
+  font-size: 15px;
+  color: #333;
+  line-height: 22px;
+}
+
+.review_info {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+/*.review_info .bg_score {*/
+/*    position: relative;*/
+/*    width: 80px;*/
+/*    height: 16px;*/
+/*    !*background: url(https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_detail_icon/icon_star_off-034f2d006c01c97c4d30f1f33021472e.svg) 0 0 repeat-x;*!*/
+/*}*/
+/*.review_info .score {*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 80px;*/
+/*    height: 16px;*/
+/*    !*background: url(https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_detail_icon/icon_star_on-69a292270caf1782d581ef0185004b17.svg) 0 0 repeat-x;*!*/
+/*}*/
+/*.star-image {*/
+/*    width: 80px;*/
+/*    height: 80px;*/
+/*    margin-right: 2px;*/
+/*}*/
+.review_info .review_item {
+  list-style-type: none;
+  position: relative;
+  top: 1px;
+  padding: 0 6px;
+  font-size: 13px;
+  line-height: 19px;
+  color: #757575;
+}
+
+.review_info .review_item + .review_item:before {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  display: block;
+  content: "";
+  width: 1px;
+  height: 13px;
+  background: #757575;
+}
+
+.review_text {
+  margin: 20px 0;
+}
+
+/*.review_list li:nth-child(n+2) {*/
+/*    padding-top: 20px;*/
+/*    border-top: 1px solid #F4F4F4;*/
+/*}*/
+.room_sticky {
+  position: sticky;
+  top: 0;
+  width: 348px;
+  /* height: 403px; */
+  margin-top: 82px;
+  padding: 28px 20px;
+  border-radius: 6px;
+  background: #FFF;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.top_icon {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.top_icon a {
+  width: 18px;
+  height: 18px;
+  padding: 6px;
+  margin-right: 6px;
+}
+
+.top_icon .btn_like {
+  position: relative;
+  top: -3px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: url(https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_detail_icon/icon_heart-bfc3fcf41d729bdd59ec19dd74ea3b75.svg) 0 0 no-repeat;
+}
+
+.top_icon .btn_like.is_active {
+  background: url(https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_detail_icon/icon_heart_full-c19f7565870746c2f191ff8ec54ae12c.svg) 0 0 no-repeat;
+}
+
+.blind {
+  display: none;
+}
+
+.room_pay {
+  margin-top: 6px;
+}
+
+.room_pay p strong {
+  font-size: 26px;
+  line-height: 24px;
+}
+
+.room_pay p em {
+  font-size: 20px;
+  line-height: 25px;
+}
+
+.room_pay p span {
+  color: #777;
+  font-size: 20px;
+  line-height: 21px;
+}
+
+.room_pay .place_list {
+  list-style-type: none;
+  display: flex;
+  margin-top: 8px;
+}
+
+.room_pay .place_list li {
+  color: #777;
+  line-height: 19px;
+}
+
+.medium {
+  height: 48px;
+  padding: 11px 20px;
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.line_box {
+  display: flex;
+  margin-bottom: 12px;
+  border: 1px solid #DFDFDF;
+  border-radius: 4px;
+}
+
+.line_box p {
+  width: 50%;
+  padding: 6px 16px;
+  color: #999;
+  font-size: 12px;
+  line-height: 19px;
+}
+
+.line_box span {
+  display: block;
+  margin-top: 2px;
+  line-height: 19px;
+  font-size: 15px;
+  color: #212124;
+}
+
+.orange {
+  border-radius: 4px;
+  background: #FF6F0F;
+  color: #fff;
+}
+
+.medium {
+  height: 48px;
+  padding: 11px 20px;
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.btn_full a, .btn_full button {
+  width: 100%;
+  box-sizing: border-box;
+  /*text-align: center;*/
+}
+
+/* 비활성화된 버튼 스타일 */
+.btn.disabled {
+  background: #b0b0b0; /* 회색 배경 */
+  color: #fff; /* 글씨는 흰색 */
+  pointer-events: none; /* 클릭 차단 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  width: 100%; /* 버튼 전체 너비 */
+  box-sizing: border-box;
+}

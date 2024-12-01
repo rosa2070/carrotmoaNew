@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.write-container {
+  background-color: white; /* 폼 배경색 */
+  border: 1px solid #ccc; /* 테두리 설정 */
+  border-radius: 8px; /* 모서리 둥글게 */
+  padding: 20px; /* 안쪽 여백 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  margin: auto; /* 수평 중앙 정렬 */
+  display: flex; /* 내부 요소 정렬 */
+  flex-direction: column; /* 세로 방향으로 요소 배치 */
+  margin-top: 10px;
+  width: 800px;
+}
+
+.write-container div {
+  display: block;
+}
+
+.write-container-title {
+  justify-content: center;
+}
+
+.write-container h2 {
+  text-align: center; /* 제목 중앙 정렬 */
+  margin-bottom: 20px; /* 제목과 폼 사이 여백 */
+  margin-top: 0;
+}
+
+.post-title,
+.post-price {
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  height: 60px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.post-price::placeholder,
+.post-title::placeholder {
+  color: #858B94;
+}
+
+.form-btn {
+  float: right;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.form-btn button {
+  padding: 10px 20px; /* 버튼 내부 여백 */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* 호버 효과를 위한 트랜지션 */
+}
+
+.submit-btn {
+  background-color: #FE6F0F;
+  color: white;
+  border-color: #FE6F0F;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.submit-btn:hover {
+  background-color: #d85b0c;
+}
+
+.cancel-btn {
+  background-color: #f5f5f5;
+  color: #333;
+  border-color: #ccc;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cancel-btn:hover {
+  background-color: #e0e0e0;
+  border-color: #b3b3b3;
+}
+
+.category-selection {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-weight: bold;
+}
+
+.category-selection label {
+  margin-bottom: 5px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.post-category {
+  width: 100%;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: bold;
+  /*box-sizing: border-box;*/
+  border-color: #CCCCCC;
+  margin-bottom: 5px;
+}
+
+.title-input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+}
+
+.ck-editor__editable {
+  min-height: 560px;
+  max-height: 560px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.product-options {
+  display: flex;
+  height: 28px;
+  align-items: center;
+}

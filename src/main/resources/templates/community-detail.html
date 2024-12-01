@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>테스트</title>
+  <link href="/css/community-detail.css" rel="stylesheet">
+  <script th:inline="javascript">
+    const user = [[${user}]];
+  </script>
+  <script defer src="/js/community-detail.js"></script>
+</head>
+<main class="main-container" layout:fragment="main">
+  <div class="community-detail-container">
+    <div class="detail-option">
+      <a class="category-name" id="communityCategory"></a>
+      <button class="moreOptionsButton" id="moreOptionsButton">
+        <img alt="더보기 옵션" src="/images/community/more-options.svg">
+      </button>
+      <div class="overlay" id="postOverlay"></div>
+      <div class="dropdown-content" id="dropdownMenu">
+        <button id="reportPost">게시글 신고</button>
+        <button id="editPost">게시글 수정</button>
+        <button id="deletePost">게시글 삭제</button>
+      </div>
+    </div>
+    <!-- 게시글 삭제 확인 모달 -->
+    <div class="modal-overlay" id="deleteModalOverlay">
+      <div class="modal" id="deleteModal">
+        <h4>게시글을 삭제할까요?</h4>
+        <p>게시글을 삭제하면 모든 데이터가 삭제되고 다시 볼 수 없어요.</p>
+        <div class="modal-buttons">
+          <button class="cancel-button" id="cancelDeleteButton">취소</button>
+          <button class="delete-button" id="confirmDeleteButton">삭제</button>
+        </div>
+      </div>
+    </div>
+    <section class="user-profile">
+      <a class="user-profile-link" href="/">
+        <div class="space-between flex">
+          <div class="user-profile-image">
+            <img alt="유저프로필 이미지" id="userProfileImage" src="/images/community/default-profile.png"/>
+          </div>
+          <div class="user-profile-left">
+            <div class="nickname" id="nickname"></div>
+            <div class="region-name" id="regionName">
+              <span id="region2DepthName"></span>
+              <span id="region3DepthName"></span>
+            </div>
+          </div>
+          <div class="user-profile-right">
+            <dl class="temperature-wrap">
+              <dt>매너온도</dt>
+              <dd class="text-color-04" id="temperature">38.1°C</dd>
+            </dl>
+            <div class="meters">
+              <div class="bar bar-color-04" style="width: 38%;"></div>
+            </div>
+            <div class="face face-04"></div>
+          </div>
+        </div>
+      </a>
+    </section>
+    <section class="community-detail-description">
+      <div class="community-detail-title" id="title"></div>
+      <div class="community-detail-content" id="content"></div>
+      <div class="community-detail-counts">
+        <span id="createdAt"></span>
+        <span id="viewCount"> · 조회 50</span>
+        <!--    TODO: 공감하기 버튼 클릭 시, like.svg 변환 + 해당 게시글의 좋아요 개수 표시하기  -->
+        <button class="like-button" id="likeButton">
+          <div id="heartEffectContainer"></div>
+          <img alt="Like" id="likeIcon" src="/images/community/unlike.svg"/>
+          <span id="likeCount">공감하기</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="community-detail-comments">
+      <div class="detail-comments-title">
+        <div class="count-comment" id="commentCount">댓글 0</div>
+
+      </div>
+
+      <div class="detail-comments-list" id="commentsList">
+      </div>
+    </section>
+
+    <!-- 댓글 입력창 -->
+    <section class="comment-input-section">
+      <div class="comment-input">
+        <form id="commentForm">
+                    <textarea class="comment-input-field" id="commentInput" name="commentContent"
+                              placeholder></textarea>
+          <button class="comment-submit-button" id="submitCommentBtn">댓글 등록</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main>
+</html>

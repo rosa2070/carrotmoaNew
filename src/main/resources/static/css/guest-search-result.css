@@ -1,0 +1,103 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.card {
+  width: 200px;
+  height: 385px;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-top {
+  width: 208px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.card-text span {
+  font-weight: bold;
+  color: #000;
+}
+
+.card a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1080px;
+  gap: 20px;
+}
+
+.col-md-4 {
+  flex: 0 0 32%;
+  max-width: 32%;
+}
+
+.mb-4 {
+  margin-bottom: 20px;
+}
+
+.mt-5 {
+  margin-top: 40px;
+}
+
+/* 추천 카테고리 스타일 */
+.filter-category {
+  margin-bottom: 20px;
+}
+
+.filter-category button {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-category button:hover {
+  background-color: #f0f0f0;
+}
+
+/* 가격 태그 강조 */
+.card-text .price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+}

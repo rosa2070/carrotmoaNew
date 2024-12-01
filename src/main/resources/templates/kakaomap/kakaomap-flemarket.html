@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>중고거래 장소 지정하기</title>
+  <link href="/css/kakaomap-flemarket.css" rel="stylesheet">
+</head>
+<body>
+<div class="map_wrap">
+  <div id="map"></div>
+  <button id="currentLocationBtn" onclick="setCurrentLocation()">
+    <img alt="현재 내 위치" id="currentLocation" src="/images/icons/gps.png">
+  </button>
+  <div id="addressInfo">
+    <span class="title">지도중심기준 행정동 주소정보 </span><!-- 주소 정보를 표시할 요소 추가 -->
+    <span id="centerAddr"></span> <!-- 행정동 주소를 표시할 부분 -->
+  </div>
+  <button id="confirmButton" onclick="handleConfirm()">선택 완료</button>
+  <div id="inputSection"
+       style="display: none; position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%); text-align: center;">
+    <p>선택한 곳의 장소명을 입력해주세요</p>
+    <input cols="30" id="locationInput" placeholder="예) 강남역 1번 출구, 교보타워 앞" rows="3" type="text"></input>
+  </div>
+</div>
+<div class="address-display" id="addressDisplay"></div>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1330cd31f56b3c0190d9b719e06fe432&libraries=services"
+        type="text/javascript"></script>
+<script src="/js/kakaomap-flemarket.js" type="text/javascript"></script>
+</body>
+</html>

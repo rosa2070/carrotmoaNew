@@ -1,0 +1,186 @@
+/*------------------------------------------------
+  제목(방관리)
+------------------------------------------------*/
+.wrap {
+  width: 100%;
+}
+
+.content {
+  width: 1160px;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.host_room_reg {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.title_left {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+/*------------------------------------------------
+  room_list
+------------------------------------------------*/
+.contract_item {
+  border: 1px solid #DFDFDF;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.guest_contract .contract_header {
+  padding: 18px 32px;
+  border-bottom: none;
+}
+
+.contract_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*padding: 12px 32px;*/
+  /*border-bottom: 1px solid #dfdfdf;*/
+  border-radius: 6px 6px 0px 0px;
+  background: #F8F8F8;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  /*justify-content: space-between;*/
+}
+
+.guest_contract .badge {
+  display: inline-block;
+  width: 50px;
+  height: auto;
+  margin-right: 15px;
+  padding: 5px 1px;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.badge.gray {
+  background: #777;
+  color: #fff;
+}
+
+.contract_info {
+  display: flex; /* flexbox로 설정 */
+  align-items: center; /* 세로 중앙 정렬 */
+  /*justify-content: space-between; !* 양쪽 끝으로 정렬 *!*/
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.badge {
+  font-weight: 700;
+  border-radius: 4px;
+}
+
+.guest_contract .contract_header .room_title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.contract_cont {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 24px 32px;
+}
+
+.guest_contract .room_item {
+  width: 664px;
+}
+
+.contract_cont .room_item {
+  align-items: center;
+  display: flex;
+  width: 600px;
+  /*gap: 20px;*/
+}
+
+.contract_cont .room_item dt {
+  width: 100px;
+  height: 100px;
+}
+
+.contract_cont .room_item dd {
+  /*width: 300px;*/
+}
+
+.room_item dt {
+  overflow: hidden;
+  position: relative;
+  width: 162px;
+  height: 162px;
+  border-radius: 6px;
+}
+
+.room_img {
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room_item .room_address {
+  font-size: 13px;
+  color: #5C5C5C;
+  line-height: 21px;
+}
+
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+
+.guest_contract .room_period {
+  font-size: 13px;
+  line-height: 19px;
+  color: #5C5C5C;
+}
+
+.contract_cont .room_pay {
+  margin-top: 0;
+}
+
+.contract_cont .white {
+  width: 57px;
+  height: 36px;
+  font-weight: 500;
+}
+
+.white {
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  background: #fff;
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.orange {
+  border-radius: 4px;
+  background: #FE6F0F;
+  color: #fff;
+}
+
+/* 계약 목록 필터 */
+.host_contract_list .list_search {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 48px;
+}

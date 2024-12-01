@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>글쓰기</title>
+  <link href="/css/fleamarket-write.css" rel="stylesheet">
+  <link href="https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.css" rel="stylesheet">
+</head>
+
+<main class="write-container" layout:fragment="main">
+  <div class="write-container">
+    <div class="write-container-title">
+      <h2 id="page-type">중고거래 상품등록</h2>
+    </div>
+    <form id="fleamarket-post-form">
+      <input id="userId" th:value="${user.getUserProfile().getUserId()}" type="hidden"/>
+
+      <div class="title-input-container">
+        <label for="post-title">
+          <input class="post-title" id="post-title" name="title" placeholder="제목" required type="text"/>
+        </label>
+      </div>
+      <div class="title-input-container">
+        <label for="post-price">
+          <input class="post-price" id="post-price" name="price" placeholder="금액" required type="text"/>
+        </label>
+      </div>
+      <div class="category-selection">
+        <label for="post-category"></label>
+        <select class="post-category" id="post-category" name="categoryId">
+        </select>
+      </div>
+
+      <div class="product-options">
+        <label for="isFree">
+          <input id="isFree" name="isFree" type="checkbox"> 나눔
+        </label>
+        <label for="isPriceOffer">
+          <input id="isPriceOffer" name="isPriceOffer" type="checkbox"> 가격제안
+        </label>
+      </div>
+      <div class="ckeditor-content-view">
+        <div class="editor-container editor-container_classic-editor" id="editor-container">
+          <div class="editor-container__editor">
+            <div id="editor"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-btn">
+        <button class="cancel-btn" id="cancel-btn" onclick="window.location.href='/fleamarket'" type="button">취소하기</button>
+        <button class="submit-btn" id="submit-btn" type="submit">수정하기</button>
+      </div>
+    </form>
+  </div>
+
+  <script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.2.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.2.0/"
+        }
+    }
+  </script>
+
+  <script defer src="/js/flea-market-update.js"></script>
+  <script src="/js/ckeditor.js" type="module"></script>
+  <script src="/js/uploadadapter.js"></script>
+</main>
+</html>

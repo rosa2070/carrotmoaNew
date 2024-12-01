@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>중고거래 상세정보</title>
+  <link href="/css/kakaomap-flemarket.css" rel="stylesheet">
+</head>
+<body>
+<h1>거래 장소 상세정보</h1>
+<div class="map_wrap">
+  <div id="map"></div>
+  <button id="currentLocationBtn" onclick="setCurrentLocation()">
+    <img alt="현재 내 위치" id="currentLocation" src="/images/icons/gps.png">
+  </button>
+  <div id="addressInfo">
+    <span class="title">행정동 주소정보</span>
+    <span id="centerAddr"></span>
+  </div>
+</div>
+<div class="address-display" id="addressDisplay"></div>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1330cd31f56b3c0190d9b719e06fe432&libraries=services"
+        type="text/javascript"></script>
+<script src="/js/kakaomap-flemarket-details.js" type="text/javascript"></script>
+</body>
+</html>

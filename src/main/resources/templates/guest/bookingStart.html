@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title th:text="'계약시작 - 단기임대 숙소 | 당근모아'"> 계약시작 - 단기임대 숙소 | 당근모아 </title>
+  <link rel="stylesheet" th:href="@{/css/booking-start.css}"/>
+  <!-- 포트원 결제 -->
+  <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+  <!-- iamport.payment.js -->
+  <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js" type="text/javascript"></script>
+</head>
+
+<main layout:fragment="main">
+  <section class="content">
+    <!--  로그인한  user Id -->
+    <input name="userId" th:value="${user.userProfile.userId}" type="hidden">
+    <input name="userEmail" th:value="${user.username}" type="hidden"> <!-- user email -->
+    <input name="userName" th:value="${user.userProfile.name}" type="hidden">
+
+    <p class="title_left">계약 시작하기</p>
+    <div class="contract_detail" style="min-height:800px;">
+      <div class="flex">
+        <div class="detail_cont">
+          <div class="flex">
+            <div class="border_box">
+              <p class="title" id="">방 정보</p>
+              <ul class="info_list">
+                <li>
+                  <span>방 이름</span>
+                  <p class="ellipsis" id="room-info-title">애버랜드</p>
+                </li>
+                <li>
+                  <span>소재지</span>
+                  <p class="ellipsis2" id="room-addr-info">용인시 처인구 애버랜드로</p>
+                </li>
+              </ul>
+            </div>
+            <div class="border_box">
+              <p class="title">호스트 정보</p>
+              <ul class="info_list">
+                <li>
+                  <span>이름</span>
+                  <p id="host_name">삼성</p>
+                </li>
+                <li>
+                  <a class="btn medium white" id="btn_chat_start">
+                    <span class="icon_send">호스트와 채팅하기</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="contract_period_box">
+            <strong>임대기간</strong>
+            <p id="checkin-dates">(입주)</p>
+            <p id="checkout-dates">(퇴실)</p>
+          </div>
+          <div class="contract_detail_box">
+            <div class="detail_pay">
+              <ul class="pay_list">
+                <li class="text_bold">
+                  <span>결제 금액</span>
+                </li>
+                <li class="total_pay">
+                  <span>최종 결제 금액</span>
+                  <p class="font_red" id="room_info_price"></p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="side_cont">
+          <div class="side_cont_box">
+            <div class="request_box">
+              <button class="btn_orange" id="payment-button" type="button">결제하기</button>
+              <div class="notice_box">
+                <p class="title">방 입주 매너</p>
+                <ul>
+                  <li>
+                    <strong>실내에서는 흡연이 안돼요.</strong>
+                    <p class="sub_text">흡연으로 인한 냄새, 오염 혹은 민원 등은<br>손해배상의 사유가 될 수 있어요.</p>
+                  </li>
+                  <li>
+                    <strong>입주 전 반려동물 동반 여부를 알려주세요.</strong>
+                    <p class="sub_text">협의되지 않은 반려동물의 입주는 거부될 수 있습니다.</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:src="@{/js/booking_info_return.js}"></script>
+    <script th:src="@{/js/payment.js}" type="text/javascript"></script>
+  </section>
+</main>
+</html>

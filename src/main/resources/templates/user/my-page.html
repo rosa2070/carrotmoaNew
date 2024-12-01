@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <link rel="stylesheet" th:href="@{/css/my-page.css}"/>
+  <link rel="stylesheet" th:href="@{/css/user.css}"/>
+  <link rel="stylesheet" th:href="@{/css/user-neighborhood.css}"/>
+  <title>테스트</title>
+</head>
+
+<main layout:fragment="main">
+
+  <div class="my-page-div">
+    <div class="user-my-page-layout-div">
+
+      <div class="my-page-profile">
+        <div class="my-page-profile-box">
+
+          <a class="photo" href="#">
+            <img alt="프로필 이미지" class="my-page-profile-image" th:src="${user.getUserProfile().getPicUrl()}">
+          </a>
+          <div class="my-page-profile-field">
+            <div class="con">
+              <p class="my-page-field-nickname" th:text="${user.getUserProfile().getNickname()}"></p><span
+                class="my-page-field-manner">36.5&nbsp;°C</span>
+            </div>
+            <p class="my-page-field-email" th:text="${user.getUsername()}"></p>
+          </div>
+        </div>
+        <div class="my-page-profile-detail">
+          <p th:text="${user.getUserAddress().getAddressName()}">사는곳</p>
+          <p>한줄 소개</p>
+          <p class="user-my-page-profile-bio" th:text="${user.getUserProfile().getBio()}"></p>
+        </div>
+      </div>
+
+    <div style="flex: 2;" layout:insert="~{/user/my-page-content/my-page-main}" th:if="${fragment} == 'main'"></div>
+    <div style="flex: 2; padding-left: 172px; padding-top: 2%;" layout:insert="~{/user/my-page-content/profile-update}" th:if="${fragment} == 'profile-update'"></div>
+    <div style="flex: 2; padding-left: 172px; padding-top: 6%;" layout:insert="~{/user/my-page-content/profile-password-update}" th:if="${fragment} == 'profile-password-update'"></div>
+    <div style="flex: 2; padding-left: 172px; padding-top: 6%;" layout:insert="~{/user/my-page-content/my-page-location}" th:if="${fragment} == 'my-page-location'"></div>
+    <div style="flex: 2" layout:insert="~{/user/my-page-content/service1}" th:if="${fragment} == 'service1'"></div>
+    <div style="flex: 2" layout:insert="~{/user/my-page-content/service2}" th:if="${fragment} == 'service2'"></div>
+    <div style="flex: 2" layout:insert="~{/user/my-page-content/service3}" th:if="${fragment} == 'service3'"></div>
+    <div style="flex: 2" layout:insert="~{/user/my-page-content/service4}" th:if="${fragment} == 'service4'"></div>
+      </div>
+  </div>
+</main>
+</html>
+<script src="/js/user-password-change.js"></script>
+<script src="/js/user-my-page.js"></script>
+<script src="/js/user-join.js"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1330cd31f56b3c0190d9b719e06fe432&libraries=services"></script>
+<script src="/js/user-neighborhood.js"></script>

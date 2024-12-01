@@ -1,0 +1,205 @@
+/*------------------------------------------------
+  커뮤니티 게시판 css
+------------------------------------------------*/
+.community-page {
+  display: block;
+}
+
+.community-category-container {
+  justify-content: center;
+
+}
+
+.community-category-container ul {
+  display: flex; /* ul의 자식 요소들(li)을 한 줄로 나열 */
+  list-style: none; /* 기본 목록 점 제거 */
+  justify-content: space-around;
+  padding: 0;
+}
+
+.community-category-container li {
+  display: flex;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  padding: 5px 10px; /* 좌우 패딩 추가 */
+  border: 2px solid #00A05B; /* 테두리 */
+  border-radius: 15px; /* 모서리를 동글동글하게 */
+  margin: 10px; /* 항목 간의 간격 */
+  background-color: #fff; /* 기본 배경색: 연한 회색 */
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* 부드러운 전환 효과 */
+  white-space: nowrap; /* 텍스트가 줄 바꿈되지 않게 설정 */
+
+}
+
+.community-category-container li a {
+  text-decoration: none;
+  color: #00A05B; /* 텍스트 색상: 당근색 */
+  font-weight: bold; /* 두껍게 */
+  font-size: 12px; /* 작은 글씨 */
+  display: flex; /* a 태그를 블록으로 설정하여 전체 영역 클릭 가능 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  width: 100%; /* li의 너비에 맞춤 */
+  height: 100%; /* li의 높이에 맞춤 */
+}
+
+.community-category-container li:hover {
+  background-color: #00A05B; /* 호버 시 배경색: 당근색 */
+}
+
+.community-category-container li:hover a {
+  color: #fff; /* 호버 시 텍스트 색상: 하얀색 */
+}
+
+.community-category-container .community-category-list {
+  border-bottom: 1px solid #ccc;
+  padding-left: 0;
+  padding-bottom: 10px;
+}
+
+.community-post-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.community-post-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50%;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.community-post-category {
+  border: 1px solid #00A05B; /* 테두리 */
+  border-radius: 15px; /* 모서리를 동글동글하게 */
+  padding: 5px 10px; /* 내부 여백 (위아래 5px, 좌우 10px) */
+  background-color: #fff; /* 기본 배경색: 연한 회색 */
+  margin-bottom: 10px;
+  white-space: nowrap;
+  width: min-content;
+  font-size: 10px;
+  color: #00A05B; /* 텍스트 색상: 당근색 */
+}
+
+.community-post-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.community-post-content {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.community-post-thumbnail {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.community-post-thumbnail img {
+  max-width: 70px;
+  height: auto;
+  object-fit: cover;
+}
+
+.community-post-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.community-post-info {
+  text-align: left;
+  color: #868B94; /* 색상 추가 */
+  font-size: 12px;
+}
+
+.community-post-stats {
+  text-align: right;
+}
+
+.community-post-stats span {
+  font-size: 12px;
+
+}
+
+
+.community-post-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.community-post-content {
+  justify-content: center;
+  font-size: 14px;
+}
+
+.community-post-like img,
+.community-post-comment img {
+  width: 20px; /* 아이콘 크기 통일 */
+  height: 20px; /* 아이콘 크기 통일 */
+  margin-right: 0; /* 아이콘과 숫자 사이의 간격 */
+  vertical-align: middle; /* 아이콘 수직 정렬 */
+}
+
+.community-post-like,
+.community-post-comment {
+  display: flex;
+  align-items: center; /* 아이콘과 텍스트를 수직으로 중앙 정렬 */
+  font-size: 14px;
+  color: #4D5159;
+}
+
+.community-post-like {
+  margin-right: 3px; /* 좋아요와 댓글 간의 간격 조정 */
+}
+
+.community-post-comment {
+  margin-left: 3px; /* 댓글과 좋아요 간의 간격 조정 */
+}
+
+.community-post-like-count,
+.community-post-comment-count {
+  display: inline-block; /* 인라인 블록으로 변경 */
+  vertical-align: middle; /* 중간 정렬 */
+}
+
+.community-write-button {
+  position: fixed; /* 고정 위치 */
+  bottom: 5%; /* 화면 하단에서의 거리 */
+  right: 20%; /* 화면 오른쪽에서의 거리 */
+  z-index: 1000; /* 다른 요소들 위에 표시 */
+}
+
+.community-write-btn {
+  display: inline-block;
+  padding: 10px 20px; /* 버튼 내부 여백 */
+  background-color: #FE9053; /* 당근마켓 색상 */
+  color: white; /* 글자 색상 */
+  border-radius: 20px; /* 둥근 모서리 */
+  text-decoration: none; /* 밑줄 제거 */
+  transition: background-color 0.3s; /* 호버 효과 전환 */
+}
+
+.community-write-btn:hover {
+  background-color: #D77C3B; /* 호버 시 색상 변경 (조금 더 어두운 톤) */
+}
+
+
+.no-more-posts-message {
+  text-align: center; /* 중앙 정렬 */
+  color: #999; /* 연한 회색 */
+  margin-top: 20px; /* 위쪽 여백 */
+}

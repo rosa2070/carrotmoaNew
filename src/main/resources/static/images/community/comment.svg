@@ -1,0 +1,7 @@
+<svg fill="none" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="6" cy="14" fill="#FFA264" r="1.3"/>
+  <circle cx="12" cy="14" fill="#FFA264" r="1.3"/>  <!-- 첫 번째 점 -->
+  <circle cx="18" cy="14" fill="#FFA264" r="1.3"/> <!-- 두 번째 점 -->
+  <path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" fill="none" stroke="#FFA264" stroke-linejoin="round"
+    stroke-width="2px"></path> <!-- 세 번째 점 -->
+</svg>

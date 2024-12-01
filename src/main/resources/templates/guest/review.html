@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title th:text="'단기임대 숙소 | 당근모아'"> 단기임대 숙소 | 당근모아 </title>
+</head>
+
+<main layout:fragment="main">
+  <section class="review_content">
+    <div class="review_section">
+      <h3>숙소는 어떠셨나요?</h3>
+      <form method="post" th:action="@{/guest/review/save}">
+        <input name="reservationId" th:value="${reservationId}" type="hidden"/>
+        <textarea class="review_input" name="comment" placeholder="한 줄 후기를 작성해 주세요." required rows="3"></textarea>
+        <button class="btn orange" type="submit">후기 제출</button>
+      </form>
+    </div>
+  </section>
+</main>
+</html>

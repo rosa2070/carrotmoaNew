@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <link rel="stylesheet" th:href="@{/css/flea-market.css}"/>
+
+  <title>중고거래</title>
+</head>
+<main class="main-container" layout:fragment="main">
+  <div class="flea-market-article">
+    <div class="flea-market-article-image">
+      <button class="prev" onclick="changeImage(-1)">&lt;</button>
+      <img alt="이미지" id="flea-market-image" src=""/>
+      <button class="next" onclick="changeImage(1)">&gt;</button>
+    </div>
+
+    <div class="seller-container">
+      <div class="seller-image">
+        <img alt="유저 이미지" src="">
+      </div>
+      <div class="seller-info">
+        <div class="seller-info-nickname"></div>
+        <div class="seller-info-address"></div>
+      </div>
+      <div class="seller-temperature">
+        <div class="manner-container">
+          <div class="manner-temperature"></div>
+          <div class="manner-bar-container">
+            <div class="manner-bar"></div>
+          </div>
+        </div>
+        <span class="manner-emoji">😊</span>
+      </div>
+    </div>
+    <div class="flea-market-post">
+      <div class="title-bar">
+        <div class="flea-market-post-title"></div>
+        <div th:unless="${user == null}">
+          <button class="update-button" id="update-post-btn">수정</button>
+          <button class="delete-button" id="delete-post-btn">삭제</button>
+        </div>
+      </div>
+      <div class="flea-market-product-info">
+        <div class="flea-market-product-category"></div>
+        <div class="flea-market-product-created-at"></div>
+      </div>
+      <div class="flea-market-product-price"></div>
+      <div class="flea-market-product-text"></div>
+    </div>
+    <div class="tool-box">
+      <div class="wish-btn">♥</div>
+      <div class="chat-btn">채팅</div>
+    </div>
+    <div class="other-title">판매자의 다른상품</div>
+    <div class="product-list" id="product-list"></div>
+
+    <template id="article-template">
+      <article>
+        <a class="post-link" href="#">
+          <div class="article-image">
+            <img alt="샘플" src="/images/sample.png">
+          </div>
+          <div class="article-info">
+            <div class="title article-title"></div>
+            <div class="price article-price"></div>
+            <div class="address article-address"></div>
+            <div>
+              <span class="article-like">관심 10</span>
+              <span> ㅤ</span>
+              <span class="article-chat">채팅 10</span>
+            </div>
+          </div>
+        </a>
+      </article>
+    </template>
+    <div th:unless="${user == null}">
+      <div id="logged-in-user" th:attr="data-user-id=${user.getUserProfile().getUserId()}"></div>
+    </div>
+  </div>
+  <script src="/js/flea-market-post.js" type="text/javascript"></script>
+</main>
+</html>

@@ -1,0 +1,172 @@
+/*
+베스트 숙소
+ */
+
+.main_group, .bannerSwiper {
+    width: 1084px;
+    margin: 0 auto;
+}
+
+.mt_100 {
+    margin-top: 100px !important;
+}
+
+.main_group .title {
+    display: block;
+    font-size: 26px;
+    line-height: 33px;
+    text-align: center;
+}
+
+/*strong {*/
+/*  font-weight: bold;*/
+/*}*/
+
+.main_group .sub_text {
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 24px;
+    color: #777;
+    text-align: center;
+}
+
+.btn_all {
+    margin: 5px 0 10px;
+    text-align: right;
+}
+
+.btn_all a {
+    padding-right: 18px;
+    color: #5C5C5C;
+    /*background: url(/images/webpc/icon_arrow-5ce1fc1….svg) 100% 1px no-repeat;*/
+}
+a {
+    text-decoration: none;
+}
+
+.main_group .result_room {
+    margin-top: 0;
+}
+
+.result_room {
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: wrap;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.main_group .result_room a {
+    margin-top: 0;
+}
+
+.result_room a {
+    display: block;
+    width: 256px;
+}
+
+.room_item dt {
+    overflow: hidden;
+    position: relative;
+    width: 256px;
+    height: 162px;
+    border-radius: 6px;
+}
+
+.room_img {
+    width: 100%;
+    height: 100%;
+}
+
+.room_item .group {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0;
+}
+
+.room_item .group span:last-child {
+    border-radius: 0px 0px 4px 0px;
+}
+
+.room_item .group span {
+    padding: 4px 6px;
+    border-radius: 0;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 22px;
+}
+.badge.black {
+    color: #fff;
+    background: #000;
+}
+
+.room_item .room_name {
+    margin: 10px 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 22px;
+    color: black;
+
+}
+
+.room_item .room_address {
+    font-size: 13px;
+    color: #5C5C5C;
+    line-height: 21px;
+    margin: 0;
+}
+
+.room_item .room_pay {
+    margin: 1px 0;
+}
+
+.room_item .room_pay p strong {
+    color: black;
+    font-size: 18px;
+    line-height: 26px;
+}
+
+.room_item .room_pay p em {
+    color: #5C5C5C;
+    font-size: 17px;
+    line-height: 24px;
+}
+
+.room_item .room_pay p span {
+    font-size: 17px;
+    color: #5C5C5C;
+}
+
+.room_item .room_pay .place_list {
+    padding: 0;
+    margin-top: 2px;
+}
+
+.room_pay .place_list {
+    display: flex;
+    margin-top: 8px;
+}
+
+.room_pay .place_list li {
+    color: #777;
+    line-height: 19px;
+}
+
+.room_pay .place_list li + li:before {
+    content: "·";
+    margin: 0 4px;
+}
+
+.room_pay .place_list li {
+    color: #777;
+    line-height: 19px;
+}
+
+.main_group {
+    display: block !important;
+}
+
+ul {
+    list-style: none;
+}

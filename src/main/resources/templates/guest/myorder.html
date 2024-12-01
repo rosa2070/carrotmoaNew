@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>My Page</title>
+
+  <!-- DataTables CSS -->
+  <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+<h2>Payment Data</h2>
+<table class="display" id="paymentTable" style="width:100%">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <!--    <th>Partner ID</th>-->
+    <th>User ID</th>
+    <th>Reservation ID</th>
+    <th>Payment Amount</th>
+    <th>Payment Date</th>
+    <th>impUid</th>
+    <th>Payment Method</th>
+    <th>Merchant UID</th>
+    <th>PG Provider</th>
+    <th>PG Type</th>
+    <th>PG TID</th>
+    <th>Status</th>
+    <th>Card Name</th>
+    <th>Card Number</th>
+    <th>Created At</th>
+    <th>Updated At</th>
+    <th>Actions</th> <!-- 결제 취소 버튼을 위한 열 추가 -->
+  </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function () {
+    // 데이터 테이블 초기화
+    $('#paymentTable').DataTable({
+      "paging": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "language": {
+        "lengthMenu": "_MENU_ 개씩 보기",
+        "search": "검색:",
+        "zeroRecords": "검색 결과가 없습니다.",
+        "info": "총 _TOTAL_개 중 _START_ - _END_ 표시",
+        "infoEmpty": "데이터가 없습니다.",
+        "paginate": {
+          "first": "처음",
+          "last": "마지막",
+          "next": "다음",
+          "previous": "이전"
+        }
+      },
+      "ajax": {
+        "url": "/api/payment/list", // 서버의 결제 데이터를 가져오는 API 경로
+        "type": "GET",
+        "dataSrc": "" // 응답 데이터의 경로 (JSON 배열을 직접 받을 경우 "")
+      },
+      "columns": [
+        {"data": "id"},
+        // { "data": "partnerId" },
+        {"data": "userId"},
+        {"data": "reservationId"},
+        {"data": "paymentAmount"},
+        {"data": "paymentDate"},
+        {"data": "impUid"},
+        {"data": "paymentMethod"},
+        {"data": "merchantUid"},
+        {"data": "pgProvider"},
+        {"data": "pgType"},
+        {"data": "pgTid"},
+        {"data": "status"},
+        {"data": "cardName"},
+        {"data": "cardNumber"},
+        {"data": "createdAt"},
+        {"data": "updatedAt"},
+        {
+          "data": null, // null로 설정하여 커스텀 데이터를 추가할 수 있도록 함
+          "render": function (data, type, row) {
+            return `<button class="cancel-btn" data-imp-uid="${row.impUid}">결제 취소</button>`;
+          }
+        }
+      ]
+    });
+  });
+
+  // 결제 취소 버튼 클릭 이벤트
+  $(document).on('click', '.cancel-btn', async function () {
+    const impUid = $(this).data('imp-uid');
+    const response = await fetch(`/api/payment/cancel/${impUid}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      const result = await response.text();
+      alert(`결제 취소 요청이 성공적으로 처리되었습니다. 응답: ${result}`);
+    } else {
+      alert('결제 취소 요청에 실패했습니다.');
+    }
+  });
+
+</script>
+</body>
+</html>

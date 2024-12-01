@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <link rel="stylesheet" th:href="@{/css/my-page.css}"/>
+  <link rel="stylesheet" th:href="@{/css/user.css}"/>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<main class="user-form-container" layout:fragment="main">
+  <div name="login-form">
+    <a class="user-form-logo" href="/">
+      <img alt="logo" src="/images/main-logo.png">
+      <span name="login-logo">CARROTMOA</span>
+    </a>
+    <form class="user-form" method="post" name="login" th:action="@{/user/login}">
+      <input id="login-email" name="login-email" placeholder="이메일" style="margin-top: 40px;" type="text"><span
+        id="check"></span><br>
+      <input id="login-password" name="login-password" placeholder="비밀번호" type="password"> <br>
+      <input type="submit" value="로그인">
+      <div class="user-login-footer">
+        <a th:href="@{/user/join-form}"><span>비밀번호 찾기</span></a>
+        <a th:href="@{/user/join-form}"><span>회원가입</span></a>
+      </div>
+    </form>
+  </div>
+</main>

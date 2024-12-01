@@ -1,0 +1,128 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<footer id="footer" th:fragment="footer">
+  <button class="chat-modal-button" id="chat-modal-open" th:if="${user != null}" type="button">채팅</button>
+  <div class="chat-modal-content" id="chat-modal-content"></div>
+  <div class="footer-container footer-container-underline">
+    <div>
+      <ul class="footer-ul">
+        <li>
+          <a href="/fleamarket">중고거래</a>
+        </li>
+        <li>
+          <a href="/">숙소</a>
+        </li>
+        <li>
+          <a href="/">동네생활</a>
+        </li>
+      </ul>
+      <ul class="footer-ul">
+        <li>
+          <a href="/">마이페이지</a>
+        </li>
+        <li>
+          <a href="/host/room/manage">호스트계정</a>
+        </li>
+      </ul>
+      <ul class="footer-ul">
+        <li>
+          <a href="/">자주 묻는 질문</a>
+        </li>
+        <li>
+          <a href="/">회사 소개</a>
+        </li>
+        <li>
+          <a href="/">인재 채용</a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-app">
+      <span>당근 앱 다운로드</span>
+      <div class="footer-app-btn">
+        <a href="/">
+          <img alt="" src="/images/apple-loco.png">
+          <div>
+            <span>App Store</span>
+          </div>
+        </a>
+        <a href="/">
+          <img alt="" src="/images/google-logo.png">
+          <div>
+            <span>Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-container margin-bottom-100">
+    <div class="company-info">
+      <div>
+        <span><b>(주) 당근모아</b></span>
+        <span class="vertical-line"></span>
+        <span><b>대표 </b>호날두</span>
+        <span class="vertical-line"></span>
+        <span><b>사업자번호 </b>123-45-67890</span>
+      </div>
+      <div>
+        <span><b>직업정보제공사업 신고번호</b></span>
+        <span>123123123123</span>
+      </div>
+      <div>
+        <span><b>통신판매업 신고번호</b></span>
+        <span>123123123132</span>
+      </div>
+      <div>
+        <span><b>호스팅 사업자</b></span>
+        <span>Amazon Web Service(AWS)</span>
+      </div>
+      <div>
+        <span><b>주소</b></span>
+        <span>서울특별시 서울구 서울로 100, 100층 (당근모아)</span>
+      </div>
+      <div>
+        <span><b>전화</b> 1234-5678</span>
+        <span class="vertical-line"></span>
+        <span><b>고객문의</b> test@carrotmoa.com</span>
+      </div>
+
+      <div class="ask-area">
+        <a href="/">
+          <span>제휴 문의</span>
+        </a>
+        <a href="/">
+          <span>광고 문의</span>
+        </a>
+        <a href="/">
+          <span>PR 문의</span>
+        </a>
+        <a href="/">
+          <span>IR 문의</span>
+        </a>
+      </div>
+      <div class="policy-area">
+        <a href="/">
+          <span>이용약관</span>
+        </a>
+        <a class="font-dark-gray" href="/">
+          <span>개인정보처리방침</span>
+        </a>
+        <a href="/">
+          <span>운영정책</span>
+        </a>
+        <a href="/">
+          <span>위치기반서비스 이용약관</span>
+        </a>
+        <a href="/">
+          <span>이용자보호 비전과 계획</span>
+        </a>
+        <a href="/">
+          <span>청소년보호정책</span>
+        </a>
+      </div>
+    </div>
+    <div>
+      <!--      유튜브, 블로그, 인스타 아이콘 영역-->
+    </div>
+  </div>
+</footer>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko"
+      layout:decorate="~{layout/layout}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>테스트</title>
+</head>
+
+<main layout:fragment="main">
+  <section id="integrated-search-result">
+    <div class="result-container">
+      <div class="articles-wrap" id="flea-market-wrap">
+        <p class="article-kind">중고거래</p>
+        <article class="flea-market-article flat-card">
+          <a class="flea-market-article-link" href="api/fleamarket">
+            <div class="card-photo">
+              <img alt="홀란드" src="/images/sample.png">
+            </div>
+            <div class="article-info">
+              <div class="article-title-content"> 홀란드 사세요.</div>
+              <p class="article-region-name">경남 양산시 평산동</p>
+              <p class="article-price">10,000원</p>
+              <section class="article-sub-info">
+              </section>
+            </div>
+          </a>
+        </article>
+        <article class="flea-market-article flat-card">
+          <a class="flea-market-article-link" href="api/fleamarket">
+            <div class="card-photo">
+              <img alt="홀란드" src="/images/sample.png">
+            </div>
+            <div class="article-info">
+              <div class="article-title-content"> 홀란드 사세요.</div>
+              <p class="article-region-name">경남 양산시 평산동</p>
+              <p class="article-price">10,000원</p>
+              <section class="article-sub-info">
+              </section>
+            </div>
+          </a>
+        </article>
+      </div>
+      <div class="more-btn" onclick="moreResult()">
+        <span class="more-text">더보기</span>
+        <div class="more-loading">
+          <div class="loader">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-container">
+      <div class="articles-wrap" id="accommodation-wrap">
+        <p class="article-kind">숙소정보</p>
+        <article class="flea-market-article flat-card">
+          <a class="flea-market-article-link" href="api/accommodation">
+            <div class="card-photo">
+              <img alt="홀란드" src="/images/sample.png">
+            </div>
+            <div class="article-info">
+              <div class="article-title-content"> 해변 리조트</div>
+              <p class="article-region-name">서울특별시 강남구 해변로 123</p>
+              <p class="article-price"> 150,000 원 / 1박</p>
+              <section class="article-sub-info">
+                <span>방2</span>
+                <span>화장실 2</span>
+                <span>거실 1</span>
+                <span>주방 0</span>
+              </section>
+            </div>
+          </a>
+        </article>
+      </div>
+      <div class="more-btn" onclick="moreResult()">
+        <span class="more-text">더보기</span>
+        <div class="more-loading">
+          <div class="loader">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="result-container">
+      <div class="community-articles-wrap" id="community-wrap">
+        <p class="article-kind">동네생활</p>
+        <div class="community-article">
+
+        </div>
+
+      </div>
+      <div class="more-btn" onclick="moreResult()">
+        <span class="more-text">더보기</span>
+        <div class="more-loading">
+          <div class="loader">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+</html>

@@ -1,0 +1,237 @@
+/*------------------------------------------------
+  제목(방관리)
+------------------------------------------------*/
+.wrap {
+  width: 100%;
+}
+
+.content {
+  width: 1160px;
+  position: relative;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.host_room_reg {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.title_left {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+/*------------------------------------------------
+  room_list
+------------------------------------------------*/
+
+.list_option {
+  margin-bottom: 12px;
+  padding-bottom: 52px;
+  border-bottom: 1px solid #5C5C5C;
+}
+
+.list_option > button {
+  width: 256px;
+}
+
+.purple {
+  border-radius: 4px;
+  background: #FF6F0F;
+  color: #fff;
+}
+
+.medium {
+  height: 48px;
+  padding: 11px 20px;
+  border: 1px solid #DFDFDF;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+ul, li, dt, dd {
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.list_item li {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.list_item .room_item {
+  display: flex;
+  width: 900px;
+}
+
+/* 사진 크기 */
+.list_item .room_item dt {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  margin-right: 20px;
+}
+
+.room_item dt {
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.room_img {
+  width: 100%;
+  height: 100%;
+}
+
+.list_item .room_item dd {
+  width: 700px;
+}
+
+.room_item .room_name {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.disable_preview {
+  cursor: default;
+  color: #5C5C5C;
+  pointer-events: none;
+  background: none;
+}
+
+.list_item .room_item .room_address {
+  margin: 6px 0;
+}
+
+.room_item .room_address {
+  font-size: 13px;
+  color: #5C5C5C;
+  line-height: 21px;
+}
+
+.room_item .room_pay {
+  margin-top: 2px;
+}
+
+.list_item .room_item .room_pay * {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 22px;
+  color: #000;
+}
+
+/* 드롭다운 스타일 */
+.drop_down {
+  position: relative;
+  margin: 0 auto;
+}
+
+.drop_down .btn_drop {
+  /*display: flex;*/
+  /*align-items: center;*/
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #333;
+}
+
+.drop_layer {
+  display: none; /* 기본적으로 숨김 */
+  width: 100px;
+  position: absolute;
+  top: 40px;
+  border-radius: 6px;
+  background: #FFF;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+}
+
+.drop_down.is_active .drop_layer {
+  display: block; /* 활성화 상태에서 보이기 */
+}
+
+.drop_down.is_active .btn_drop:after {
+  transform: rotate(180deg); /* 아이콘을 180도 회전 */
+}
+
+.list_item .drop_down .btn_drop:after {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 6px;
+  background: url(https://33m2.co.kr/images/webpc/icon_dropdown-1b58339606c03b8cfb6d1550f0c426f4.svg) no-repeat;
+  background-size: 14px 14px;
+  transition: transform 0.3s ease; /* 회전 애니메이션 추가 */
+}
+
+.drop_layer .btn_more {
+  padding: 0; /* 전체 패딩 제거 */
+  margin: 0; /* 전체 마진 제거 */
+}
+
+.drop_layer .btn_more li {
+  display: flex; /* Flexbox로 설정 */
+  align-items: center; /* 세로 중앙 정렬 */
+  padding: 8px 12px; /* 수직 패딩만 남김 */
+  border: none; /* 테두리 제거 */
+}
+
+.drop_layer .btn_more li a {
+  padding-left: 28px;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
+  background-position: 0 center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 21px;
+  display: flex; /* Flexbox로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+/* 아이콘 */
+.icon_more_modify a {
+  background-image: url(https://33m2.co.kr/images/webpc/icon_modify-95f2c36de5b40ffffecf0b46180b4290.svg);
+}
+
+.icon_more_del a {
+  background-image: url(https://33m2.co.kr/images/webpc/icon_del-990641c4b47662788fbaa7ffcfb64e59.svg);
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn_more li {
+  writing-mode: horizontal-tb; /* 가로로 텍스트를 표시 */
+  display: block; /* 기본 블록 요소로 설정 */
+}

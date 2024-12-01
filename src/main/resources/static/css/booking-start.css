@@ -1,0 +1,349 @@
+.content {
+  position: relative;
+  width: 1084px;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.title_left {
+  margin-bottom: 32px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+}
+
+.flex {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.contract_detail .detail_cont {
+  width: 692px;
+}
+
+.contract_detail .detail_cont .flex {
+  align-items: inherit;
+  gap: 24px;
+}
+
+.detail_cont .border_box {
+  width: 334px;
+  padding: 24px 20px;
+  border-radius: 6px;
+  border: 1px solid #DFDFDF;
+}
+
+.detail_cont .border_box .title {
+  margin-bottom: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.detail_cont .border_box .info_list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.detail_cont .border_box .info_list li span {
+  width: 60px;
+  color: #5C5C5C;
+  line-height: 18px;
+}
+
+.ellipsis {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.detail_cont .border_box .info_list li p {
+  width: 230px;
+  color: #333;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.ellipsis2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.detail_cont .border_box {
+  width: 334px;
+  padding: 24px 20px;
+  border-radius: 6px;
+  border: 1px solid #DFDFDF;
+}
+
+.detail_cont .border_box .title {
+  margin-bottom: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.detail_cont .border_box .info_list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.detail_cont .border_box .info_list li span {
+  width: 60px;
+  color: #5C5C5C;
+  line-height: 18px;
+}
+
+.detail_cont .border_box .info_list li p {
+  width: 230px;
+  color: #333;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.detail_cont .border_box .info_list li p {
+  width: 230px;
+  color: #333;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.contract_period_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 6px;
+  border: 1px solid #DFDFDF;
+}
+
+.contract_period_box strong {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.contract_period_box p {
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.contract_detail_box {
+  margin-top: 20px;
+  padding: 24px 20px;
+  border-radius: 6px;
+  border: 1px solid #DFDFDF;
+}
+
+.contract_detail_box .detail_pay {
+  display: block;
+  margin: 0;
+}
+
+.detail_pay {
+  display: none;
+  margin-top: 24px;
+}
+
+.detail_pay .pay_list li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text_bold, .text_bold * {
+  font-weight: 700;
+}
+
+.detail_pay .pay_list .text_bold * {
+  font-size: 15px;
+  line-height: 21px;
+  color: #000;
+}
+
+.detail_pay .pay_list li span {
+  color: #5C5C5C;
+  line-height: 18px;
+}
+
+.contract_detail_box .pay_list li:nth-of-type(2) {
+  margin-top: 16px;
+}
+
+.detail_pay .pay_list li:nth-child(n+2) {
+  margin-top: 8px;
+}
+
+.detail_pay .pay_list li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contract_detail_box .amount_used .font_000 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.contract_detail_box .amount_used .font_purple {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.contract_detail_box .pay_list li.hr {
+  margin-top: 17px;
+  padding-top: 16px;
+  border-top: 1px solid #E8E8E8;
+}
+
+.contract_detail_box .pay_list li.total_pay {
+  margin: 17px 0 0;
+}
+
+.total_pay {
+  margin: 24px 0;
+}
+
+.contract_detail_box .pay_list li.total_pay .font_orange {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.detail_pay .pay_list li p {
+  color: #333;
+  line-height: 18px;
+}
+
+.contract_detail_box .pay_list li * {
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.contract_detail_box .pay_list li.total_pay span {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #000;
+}
+
+.font_orange {
+  color: #FF6F0F !important;
+}
+
+.side_cont_box {
+  padding: 28px 20px;
+  border-radius: 6px;
+  background: #FFF;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.btn_orange {
+  width: 100%;
+  padding: 13px 0;
+  color: #fff;
+  background: #FF6F0F;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.info_list .btn {
+  display: block;
+  height: 44px;
+  box-sizing: border-box;
+  margin-top: 8px;
+}
+
+.white {
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  background: #fff;
+}
+
+.medium {
+  height: 48px;
+  padding: 11px 20px;
+  border-radius: 4px;
+  border: 1px solid #DFDFDF;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+}
+
+.btn {
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.info_list .icon_send {
+  padding: 0 24px 0 48px;
+  background: url(https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room_detail_icon/icon_send-26f2b107b850609f50892e0c11b55b0b.svg) 24px 0 no-repeat;
+  background-size: 18px auto;
+}
+
+/*사이드바*/
+.contract_detail .side_cont {
+  width: 348px;
+  height: 346px;
+  position: sticky;
+  top: 0;
+}
+
+.side_cont_box {
+  padding: 28px 20px;
+  border-radius: 6px;
+  background: #FFF;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.15);
+}
+
+.notice_box {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 6px;
+  background: #F8F8F8;
+}
+
+.contract_detail_box .notice_box .title, .request_box .notice_box .title {
+  background-position: 0 2px;
+}
+
+.notice_box li {
+  position: relative;
+  padding-left: 17px;
+  font-size: 13px;
+  line-height: 19px;
+  color: #777;
+}
+
+.notice_box li:before {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  display: inline-block;
+  content: "";
+  width: 2px;
+  height: 2px;
+  margin: 0 10px 0 7px;
+  background: #777;
+  border-radius: 50%;
+}
+
+.notice_box .sub_text {
+  font-size: 13px;
+  line-height: 19px;
+  color: #777;
+  letter-spacing: -1px;
+}
+
+.notice_box li + li {
+  margin-top: 6px;
+}

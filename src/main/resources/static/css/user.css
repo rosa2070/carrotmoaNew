@@ -1,0 +1,165 @@
+.user-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.user-join-form-container {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px
+}
+
+.user-form {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.user-join-form {
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.user-form input[type="text"],
+.user-form input[type="password"],
+.user-form input[type="submit"] {
+  margin: 10px 0;
+  padding: 10px;
+
+  color: #FE6F0F;
+  border: solid 1px rgb(255, 185, 139);
+  border-radius: 10px;
+
+}
+
+.user-form input:focus {
+  border-color: #FE6F0F;
+}
+
+.user-form input[type="submit"] {
+  color: #212124;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: rgb(255, 185, 139);
+}
+
+#password {
+  outline: none;
+  border: 1px solid red;
+}
+
+.user-form label {
+  margin: 5px 0;
+}
+
+.user-form [name="login-form"] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+[name="login-form"] > div {
+  margin: 10px;
+}
+
+[name="login"] {
+  width: 400px;
+  height: 320px;
+}
+
+[name="login-logo"] {
+  height: 23px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 23px;
+  color: #FE6F0F;
+  text-decoration: none;
+}
+
+.user-form-logo {
+  text-decoration: none;
+  padding-bottom: 15px;
+}
+
+.user-login-footer {
+  display: flex;
+  justify-content: space-between;
+  margin: 21px 20px;
+}
+
+.user-login-footer > a {
+  text-decoration: none;
+}
+
+#host {
+  display: none;
+  /*display: flex;*/
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+
+#host > input {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#host > label, #host > input {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/*유저 프로필*/
+.user-profile-box {
+  padding-left: 80px;
+  justify-content: flex-start;
+}
+
+.user-profile-box .user-profile-a {
+  border: none;
+  cursor: pointer;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  text-decoration: none;
+  background-color: transparent !important;
+}
+
+.user-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.user-profile-div {
+  margin-left: 20px
+}
+
+.user-profile-nickname {
+  white-space: nowrap;
+  font-size: 15px;
+  color: #212124;
+  font-weight: bold;
+}
+
+.user-form input:focus {
+  border: 2px solid #FE6F0F; /* 포커스 시 보더 색상 변경 */
+  outline: none; /* 기본 outline 제거 (선택 사항) */
+}
