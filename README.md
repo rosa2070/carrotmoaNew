@@ -58,20 +58,16 @@
         - java
             - carrotmoa
                 - carrotmoa
-                    - 
+                    - config
+                    - controller
+                    - entity
+                    - enums
+                    - exception
+                    - model
+                    - repository
+                    - service
+                    - util
                     
-            - controller
-              - request
-            - service
-              - response
-        - domain
-            - (Entity, Type Object)
-            - repository
-    - global
-        - config
-        - exception
-        - util
-        - (...)
 ```
 
 ## 🔥 기술적 개선 및 고려
