@@ -21,8 +21,44 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("User ID: ", userId);
             console.log("accommodation ID: ", accommodationId);
 
-            // API 호출 (찜하기 추가/삭제)
-            fetch(`/room/detail/${accommodationId}`)
+            // API 호출 (찜하기 상태 확인)
+            fetch(`/api/room/${accommodationId}/like?userId=${userId}`, {
+                method: 'GET'
+            })
+
+                .then(response => response.json())
+                .then(data => {
+                    console.log("찜 상태 확인 결과: ", data);
+                    if (data) {
+                        // 이미 찜한 상태라면 취소, 아니면 찜하기 추가
+                        fetch(`/api/room/${accommodationId}/like?userId=${userId}`, {
+                            method: 'POST'
+                        })
+                            .then(response => response.text())
+                            .then(data => {
+                                console.log(data); // "찜하기 성공" 또는 "찜하기 취소됨"
+                            })
+                            .catch(error => {
+                                console.error('Error: ', error);
+                            });
+                    } else {
+                        // 찜하지 않았다면 찜하기 추가
+                        fetch(`/api/room/${accommodationId}/like?userId=${userId}`, {
+                            method: 'POST'
+                        })
+                            .then(response => response.text())
+                            .then(data => {
+                                console.log(data); // "찜하기 성공" 또는 "찜하기 취소됨"
+                            })
+                            .catch(error => {
+                                console.log('Error:', error);
+                            });
+                    }
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                })
+
         }
     });
 
