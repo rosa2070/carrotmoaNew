@@ -22,7 +22,7 @@ public class PaymentViewController {
 
     @GetMapping
     public String Payment() {
-        return "/guest/payment";
+        return "guest/payment";
     }
 
     @GetMapping("/my-order")
