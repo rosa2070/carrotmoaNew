@@ -40,11 +40,11 @@
 | BackEnd  | Java, Spring (Boot, Security, JPA), QueryDsl, Redis, MySql                 |
 | FrontEnd | HTML, Javascript, Thymeleaf                                                |
 | DevOps   | EC2, RDS, S3, GithubAction                                                 |
-| Tools    | IntelliJ, Gradle                                                   |
+| Tools    | IntelliJ, Gradle                                                           |
 
 ## 🗺️ 서버 구조
 
-![Anchor Server Architecture](readme/image/architecture/architecture.png)
+![Anchor Server Architecture](readme/image/architecture/architecture.jpg)
 
 ## 💾 DB 구조
 
