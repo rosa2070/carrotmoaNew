@@ -25,7 +25,7 @@ public class UserViewController {
 
     @GetMapping("/my-page")
     public String userMyPage(Model model) {
-        model.addAttribute("fragment","main");
+//        model.addAttribute("fragment","main");
         return "user/my-page";}
 
     @GetMapping("/profile-update")
