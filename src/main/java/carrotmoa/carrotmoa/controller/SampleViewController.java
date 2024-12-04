@@ -30,6 +30,6 @@ public class SampleViewController {
         System.out.println(user.getUserAddress().getRegion4DepthName());
         //유저 권한 (USER , HOST , ADMIN.....)
         System.out.println(user.getUserAuthority());
-        return "/user/use-sample";}
+        return "user/use-sample";}
 
 }

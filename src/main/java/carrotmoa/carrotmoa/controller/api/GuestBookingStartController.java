@@ -34,7 +34,7 @@ public class GuestBookingStartController {
     @GetMapping("/{id}")
     public String getBookingDetail(@ModelAttribute("user") CustomUserDetails user, @PathVariable("id") Long id, Model model) {
         if (user == null) {
-            return "/user/login-page";
+            return "user/login-page";
         }
         BookingDetailResponse bookingDetail = reservationService.getBookingDetail(id);
         model.addAttribute("booking", bookingDetail);

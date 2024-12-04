@@ -27,7 +27,7 @@ public class GetBookingListController {
     @GetMapping
     public String getBookingList(@ModelAttribute("user") CustomUserDetails user, Model model) {
         if (user == null) {
-            return "/user/login-page";
+            return "user/login-page";
         }
 
         Long userId = user.getUserProfile().getUserId();
