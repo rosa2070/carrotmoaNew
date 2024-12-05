@@ -37,10 +37,11 @@ jobs:
 
       # Gradle 빌드 후, build/libs 폴더에 생성된 JAR 파일을 아티팩트로 업로드
       - name: Upload JAR file as an artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: carrot-moa-jar
           path: build/libs/*.jar
+
 
       # Docker 이미지 빌드 (캐시 없이 새로 빌드)
       - name: Build docker image
