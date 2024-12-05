@@ -37,7 +37,8 @@ jobs:
 
   # gradlew 빌드
     - name: Build with Gradle
-      run: ./gradlew clean build --exclude-task test
+      # run: ./gradlew clean build --exclude-task test
+      run: ./gradlew clean build --exclude-task test --no-cache  # --no-cache 옵션을 추가해 캐시를 무시하고 빌드
 
   # docker image build
     - name: Build docker image
