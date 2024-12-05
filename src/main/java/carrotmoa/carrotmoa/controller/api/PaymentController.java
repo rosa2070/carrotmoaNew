@@ -1,7 +1,10 @@
 package carrotmoa.carrotmoa.controller.api;
 
 import carrotmoa.carrotmoa.entity.Payment;
+import carrotmoa.carrotmoa.exception.ExternalApiException;
 import carrotmoa.carrotmoa.model.request.PaymentAndReservationRequest;
+import carrotmoa.carrotmoa.model.request.PaymentRequest;
+import carrotmoa.carrotmoa.model.request.ReservationRequest;
 import carrotmoa.carrotmoa.service.PaymentService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,33 +28,19 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-//    @PostMapping("/portone")
-//    public ResponseEntity<?> savePortone(@RequestBody PaymentRequest paymentRequest) {
-//        try {
-//            paymentService.savePayment(paymentRequest.toPaymentEntity());
-//            return ResponseEntity.ok(new SuccessResponse("Payment processed successfully."));
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                    .body(new ErrorResponse("Failed to process payment.", HttpStatus.INTERNAL_SERVER_ERROR.value()));        }
-//    }
-
-//    @PostMapping("/portone")
-//    public ResponseEntity<String> savePortone(@RequestBody PaymentRequest paymentRequest) {
-//        try {
-//            paymentService.savePayment(paymentRequest.toPaymentEntity());
-//            return ResponseEntity.ok("Payment processed successfully.");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process payment.");
-//        }
-//    }
-
     @PostMapping("/portone")
     public ResponseEntity<String> savePortone(@RequestBody PaymentAndReservationRequest paymentAndReservationRequest) {
         try {
             // 결제 및 예약 정보 처리
-            paymentService.processPaymentAndReservation(paymentAndReservationRequest.getPaymentRequest(),
-                paymentAndReservationRequest.getReservationRequest());
+            PaymentRequest paymentRequest = paymentAndReservationRequest.getPaymentRequest();
+            ReservationRequest reservationRequest = paymentAndReservationRequest.getReservationRequest();
+
+            // Payment 처리 후, Reservation 처리
+            paymentService.processPaymentAndReservation(paymentRequest, reservationRequest);
             return ResponseEntity.ok("Payment processed successfully");
+        } catch (ExternalApiException e){
+            // 재시도 후에도 실패시 500 Inernal Server Error 반환
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process payment: " + e.getMessage());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process payment.");
         }

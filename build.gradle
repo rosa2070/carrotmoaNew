@@ -59,6 +59,11 @@ dependencies {
 
     // aop 추가
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // spring retry 관련
+    // https://velog.io/@ssuh0o0/Spring-Spring-Retry
+    implementation 'org.springframework.retry:spring-retry'  // 최신 버전으로 설정
+    implementation 'org.springframework:spring-aspects'
 }
 
 tasks.named('test') {

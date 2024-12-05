@@ -8,6 +8,7 @@ import org.springframework.web.client.RestClient;
 
 @SpringBootApplication
 @EnableScheduling
+@EnableRetry
 public class CarrotMoaApplication {
     public static void main(String[] args) {
         SpringApplication.run(CarrotMoaApplication.class, args);
