@@ -26,47 +26,47 @@ public class UserViewController {
     @GetMapping("/my-page")
     public String userMyPage(Model model) {
         model.addAttribute("fragment","main");
-        return "user/my-page";}
+        return "user/myPage";}
 
     @GetMapping("/profile-update")
     public String userUpdateProfileForm(@AuthenticationPrincipal CustomUserDetails user, Model model) {
         model.addAttribute("userUpdateRequestDto", new UserUpdateRequest(user));
         model.addAttribute("fragment", "profile-update");
-        return "user/my-page";
+        return "user/myPage";
     }
 
     @GetMapping("/password-update")
     public String userPasswordUpdateForm(Model model) {
         model.addAttribute("fragment","profile-password-update");
-        return "user/my-page";}
+        return "user/myPage";}
 
     @GetMapping("/my-page-location")
     public String userLocationUpdate(Model model) {
         model.addAttribute("fragment","my-page-location");
-        return "user/my-page";}
+        return "user/myPage";}
 
     @GetMapping("/my-page-service1")
     public String myPageService1(Model model) {
         model.addAttribute("fragment", "service1");
-        return "user/my-page";
+        return "user/myPage";
     }
 
     @GetMapping("/my-page-service2")
     public String myPageService2(Model model) {
         model.addAttribute("fragment", "service2");
-        return "user/my-page";
+        return "user/myPage";
     }
 
     @GetMapping("/my-page-service3")
     public String myPageService3(Model model) {
         model.addAttribute("fragment", "service3");
-        return "user/my-page";
+        return "user/myPage";
     }
 
     @GetMapping("/my-page-service4")
     public String myPageService4(Model model) {
         model.addAttribute("fragment", "service4");
-        return "user/my-page";
+        return "user/myPage";
     }
 
     @GetMapping("/modal-content")

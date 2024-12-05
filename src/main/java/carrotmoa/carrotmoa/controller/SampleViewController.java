@@ -3,9 +3,7 @@ package carrotmoa.carrotmoa.controller;
 import carrotmoa.carrotmoa.config.security.CustomUserDetails;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/sample")
@@ -13,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SampleViewController {
 
     @GetMapping("/user")
-//    public String userSample(@AuthenticationPrincipal CustomUserDetails user){
-    public String userSample(@ModelAttribute("user") CustomUserDetails user, Model model){
+    public String userSample(@AuthenticationPrincipal CustomUserDetails user){
 
-        model.addAttribute("user", user);
-            //이메일
+        //이메일
         System.out.println(user.getUsername());
         //UserLoginResponseDto
         System.out.println(user.getUserProfile());
@@ -35,6 +31,6 @@ public class SampleViewController {
         System.out.println(user.getUserAddress().getRegion4DepthName());
         //유저 권한 (USER , HOST , ADMIN.....)
         System.out.println(user.getUserAuthority());
-        return "user/use-sample";}
+        return "user/useSample";}
 
 }
