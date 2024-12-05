@@ -42,7 +42,7 @@ jobs:
 
   # docker image build
     - name: Build docker image
-      run: docker build -t jaeeun111/carrotmoa_mine .
+      run: docker build --no-cache -t jaeeun111/carrotmoa_mine .
 
   # docker hub
     - name: Login docker hub
