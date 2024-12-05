@@ -36,9 +36,8 @@ jobs:
       run: chmod +x gradlew
 
   # gradlew 빌드
-    - name: Build with Gradle
-      # run: ./gradlew clean build --exclude-task test
-      run: ./gradlew clean build --exclude-task test --refresh-dependencies  # Refresh dependencies
+    - name: Build with Gradle (No Daemon)
+      run: ./gradlew clean build --no-daemon --exclude-task test --refresh-dependencies
 
   # docker image build
     - name: Build docker image
