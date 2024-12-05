@@ -39,7 +39,8 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    implementation 'org.springframework.boot:spring-boot-devtools:3.3.4'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools:3.3.4'
+//    implementation 'org.springframework.boot:spring-boot-devtools:3.3.4'
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.4'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.4'
@@ -63,4 +64,12 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
     systemProperty 'jasypt.encryptor.password', findProperty("jasypt.encryptor.password")
+}
+
+
+// bootJar 태스크 추가
+bootJar {
+    archiveBaseName = 'carrot-moa' // JAR 파일의 이름
+    archiveVersion = '0.0.1-SNAPSHOT' // JAR 파일의 버전
+    mainClass = "carrotmoa.carrotmoa.CarrotMoaApplication" // main 클래스 이름
 }
