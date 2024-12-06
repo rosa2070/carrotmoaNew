@@ -1,4 +1,4 @@
-package carrotmoa.carrotmoa.service;
+package carrotmoa.carrotmoa.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -64,6 +64,8 @@ dependencies {
     // https://velog.io/@ssuh0o0/Spring-Spring-Retry
     implementation 'org.springframework.retry:spring-retry'  // 최신 버전으로 설정
     implementation 'org.springframework:spring-aspects'
+
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
 tasks.named('test') {
