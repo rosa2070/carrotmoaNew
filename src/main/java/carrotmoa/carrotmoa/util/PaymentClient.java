@@ -1,11 +1,11 @@
 package carrotmoa.carrotmoa.util;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import carrotmoa.carrotmoa.enums.PortOneRequestUrl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.retry.annotation.Backoff;
@@ -13,18 +13,15 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientException;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 public class PaymentClient {
 
-    private static final String BASE_URL = "https://api.iamport.kr";
-
-//    private final RestClient restClient;
-
-    private final WebClient.Builder webClientBuilder;
+    private final RestClient restClient;
 
     @Value("${payment.imp-key}")
     private String impKey;
@@ -32,63 +29,69 @@ public class PaymentClient {
     @Value("${payment.imp-secret}")
     private String impSecret;
 
+    private static final String BASE_URL = "https://api.iamport.kr";
+
     /**
      * Get Access Token
      *
      * @return Access token as String
      */
-    @Retryable(value = {RestClientException.class}, maxAttempts = 3, backoff = @Backoff(delay = 2000))
-    public Map getAccessToken() {
+    @Retryable(
+            retryFor = {RestClientException.class}, // 이 예외가 발생하면 재시도
+            maxAttempts = 3, // 최대 3번 재시도
+            backoff = @Backoff(delay = 2000) // 재시도 간 대기시간 2초
+    )
+    public Map<String, Object> getAccessToken() {
         String url = BASE_URL + PortOneRequestUrl.ACCESS_TOKEN_URL.getUrl();
         try {
-            String requestBody = String.format("{\"imp_key\": \"%s\", \"imp_secret\": \"%s\"}", impKey, impSecret);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
+            Map<String, String> requestMap = new HashMap<>();
+            requestMap.put("imp_key", impKey);
+            requestMap.put("imp_secret", impSecret);
 
             // Send POST request
-            return webClientBuilder.build()
+            return restClient
                     .post()
                     .uri(url)
-                    .headers(h -> h.addAll(headers))
-                    .bodyValue(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(requestMap)
                     .retrieve()
-                    .bodyToMono(Map.class)
-                    .block();  // 응답을 기다림
-        } catch (WebClientException e) {
+                    .body(new ParameterizedTypeReference<Map<String, Object>>() {
+                    });
+
+        } catch (RestClientException e) {
             throw new RuntimeException("Failed to get access token", e);
         }
     }
 
     /**
      * Cancel Payment
-     *
      * @param impUid imp_uid of the payment to cancel
      * @return Response from PortOne API
      */
-    @Retryable(retryFor = {WebClientException.class}, maxAttempts = 3, backoff = @Backoff(delay = 2000))
     public String cancelPayment(String impUid) {
-        String accessToken = ((LinkedHashMap) getAccessToken().get("response")).get("access_token").toString();
+        String accessToken = ((HashMap<?, ?>)getAccessToken().get("response")).get("access_token").toString();
 
         String url = BASE_URL + PortOneRequestUrl.CANCEL_PAYMENT_URL.getUrl();
         try {
             // Construct the request body for payment cancellation
-            String requestBody = String.format("{\"imp_uid\": \"%s\"}", impUid);
+
+            Map<String, String> requestMap = new HashMap<>();
+            requestMap.put("imp_uid", impUid);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(accessToken);
 
-            return webClientBuilder.build()
+            // Send POST request
+            return restClient
                     .post()
                     .uri(url)
                     .headers(h -> h.addAll(headers))
-                    .bodyValue(requestBody)
+                    .body(requestMap)
                     .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
+                    .body(String.class);
 
-        } catch (WebClientException e) {
+        } catch (RestClientException e) {
             throw new RuntimeException("Failed to cancel payment", e);
         }
     }
@@ -100,7 +103,6 @@ public class PaymentClient {
      * @param token          Access token
      * @return Response from PortOne API
      */
-    @Retryable(retryFor = {WebClientException.class}, maxAttempts = 3, backoff = @Backoff(delay = 2000))
     public String createPayment(String paymentRequest, String token) {
         String url = BASE_URL + PortOneRequestUrl.CREATE_PAYMENT_URL.getUrl();
         try {
@@ -109,15 +111,14 @@ public class PaymentClient {
             headers.setBearerAuth(token);
 
             // Send POST request
-            return webClientBuilder.build()
+            return restClient
                     .post()
                     .uri(url)
                     .headers(h -> h.addAll(headers))
-                    .bodyValue(paymentRequest)
+                    .body(paymentRequest)
                     .retrieve()
-                    .bodyToMono(String.class)
-                    .block();
-        } catch (WebClientException e) {
+                    .body(String.class);
+        } catch (RestClientException e) {
             throw new RuntimeException("Failed to create payment", e);
         }
     }

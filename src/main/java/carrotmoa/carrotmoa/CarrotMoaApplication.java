@@ -15,10 +15,10 @@ public class CarrotMoaApplication {
         SpringApplication.run(CarrotMoaApplication.class, args);
     }
 
-    @Bean
-    public RestClient restClient() {
-        return RestClient.create();
-    }
+//    @Bean
+//    public RestClient restClient() {
+//        return RestClient.create();
+//    }
 
 
 }
