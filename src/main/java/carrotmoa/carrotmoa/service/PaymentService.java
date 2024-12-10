@@ -6,6 +6,7 @@ import carrotmoa.carrotmoa.entity.Post;
 import carrotmoa.carrotmoa.entity.Reservation;
 import carrotmoa.carrotmoa.entity.UserProfile;
 import carrotmoa.carrotmoa.enums.NotificationType;
+import carrotmoa.carrotmoa.exception.ExternalApiException;
 import carrotmoa.carrotmoa.model.request.PaymentRequest;
 import carrotmoa.carrotmoa.model.request.ReservationRequest;
 import carrotmoa.carrotmoa.model.request.SaveNotificationRequest;
@@ -18,6 +19,8 @@ import carrotmoa.carrotmoa.util.PaymentClient;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +53,11 @@ public class PaymentService {
     }
 
     @Transactional
+    @Retryable(
+        maxAttempts = 3, // 최대 재시도 횟수
+        retryFor = ExternalApiException.class, // 재시도할 예외 타입
+        backoff = @Backoff(delay = 2000)
+    )
     public void processPaymentAndReservation(PaymentRequest paymentRequest, ReservationRequest reservationRequest) {
         // 결제 정보 저장
         Payment payment = savePayment(paymentRequest);
@@ -80,6 +88,9 @@ public class PaymentService {
                 notificationService.sendReservationNotification(notificationType, senderId, senderId, notificationUrl, message); // 변수명 게스트 호스트로 변경하는게 나을 거 같음
             }
 
+        } else {
+            // 결제 상태가 "paid"가 아니면 예외를 던져서 재시도
+            throw new ExternalApiException("Payment status is not 'paid'. Possible issue with external payment API.");
         }
 
 
