@@ -3,7 +3,7 @@ package carrotmoa.carrotmoa.util;
 import java.util.*;
 
 import carrotmoa.carrotmoa.enums.PortOneRequestUrl;
-import lombok.RequiredArgsConstructor;
+import carrotmoa.carrotmoa.model.response.AuthResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -18,10 +18,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class PaymentClient {
-
-    private final RestClient restClient;
 
     @Value("${payment.imp-key}")
     private String impKey;
@@ -29,7 +27,17 @@ public class PaymentClient {
     @Value("${payment.imp-secret}")
     private String impSecret;
 
-    private static final String BASE_URL = "https://api.iamport.kr";
+    @Value("${payment.base-url}")
+    private String baseUrl;
+
+    private final RestClient restClient;
+
+    public PaymentClient(RestClient.Builder builder) {
+        this.restClient = builder.baseUrl(baseUrl).build();
+    }
+
+
+//    private static final String BASE_URL = "https://api.iamport.kr";
 
     /**
      * Get Access Token
@@ -41,8 +49,8 @@ public class PaymentClient {
             maxAttempts = 3, // 최대 3번 재시도
             backoff = @Backoff(delay = 2000) // 재시도 간 대기시간 2초
     )
-    public Map<String, Object> getAccessToken() {
-        String url = BASE_URL + PortOneRequestUrl.ACCESS_TOKEN_URL.getUrl();
+    public AuthResponse getAccessToken() {
+        String url = baseUrl + PortOneRequestUrl.ACCESS_TOKEN_URL.getUrl();
         try {
             Map<String, String> requestMap = new HashMap<>();
             requestMap.put("imp_key", impKey);
@@ -55,8 +63,7 @@ public class PaymentClient {
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(requestMap)
                     .retrieve()
-                    .body(new ParameterizedTypeReference<Map<String, Object>>() {
-                    });
+                    .body(AuthResponse.class);
 
         } catch (RestClientException e) {
             throw new RuntimeException("Failed to get access token", e);
@@ -69,12 +76,11 @@ public class PaymentClient {
      * @return Response from PortOne API
      */
     public String cancelPayment(String impUid) {
-        String accessToken = ((HashMap<?, ?>)getAccessToken().get("response")).get("access_token").toString();
+        AuthResponse authResponse = getAccessToken();
+        String accessToken = authResponse.getResponse().getAccess_token();
 
-        String url = BASE_URL + PortOneRequestUrl.CANCEL_PAYMENT_URL.getUrl();
+        String url = baseUrl + PortOneRequestUrl.CANCEL_PAYMENT_URL.getUrl();
         try {
-            // Construct the request body for payment cancellation
-
             Map<String, String> requestMap = new HashMap<>();
             requestMap.put("imp_uid", impUid);
 
@@ -96,30 +102,4 @@ public class PaymentClient {
         }
     }
 
-    /**
-     * Create Payment (Example: if you want to add payment creation)
-     *
-     * @param paymentRequest Payment request data
-     * @param token          Access token
-     * @return Response from PortOne API
-     */
-    public String createPayment(String paymentRequest, String token) {
-        String url = BASE_URL + PortOneRequestUrl.CREATE_PAYMENT_URL.getUrl();
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.setBearerAuth(token);
-
-            // Send POST request
-            return restClient
-                    .post()
-                    .uri(url)
-                    .headers(h -> h.addAll(headers))
-                    .body(paymentRequest)
-                    .retrieve()
-                    .body(String.class);
-        } catch (RestClientException e) {
-            throw new RuntimeException("Failed to create payment", e);
-        }
-    }
 }
