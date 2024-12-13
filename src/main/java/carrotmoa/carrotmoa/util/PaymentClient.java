@@ -36,9 +36,6 @@ public class PaymentClient {
         this.restClient = builder.baseUrl(baseUrl).build();
     }
 
-
-//    private static final String BASE_URL = "https://api.iamport.kr";
-
     /**
      * Get Access Token
      *
