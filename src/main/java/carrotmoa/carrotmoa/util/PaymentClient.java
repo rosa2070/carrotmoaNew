@@ -50,7 +50,11 @@ public class PaymentClient {
             maxAttempts = 3, // 최대 3번 재시도
             backoff = @Backoff(delay = 2000) // 재시도 간 대기시간 2초
     )
-    public AuthResponse getAccessToken() {
+    public AuthResponse getAccessToken(String impKey, String impSecret) {
+        // 테스트 시에 impKey, impSecret을 넘겨줄 수 있도록 하되, 값이 null인 경우에는 @Value에서 읽어온 값을 사용
+        impKey = (impKey != null) ? impKey : this.impKey;
+        impSecret = (impSecret != null) ? impSecret : this.impSecret;
+
         String url = baseUrl + PortOneRequestUrl.ACCESS_TOKEN_URL.getUrl();
         try {
             Map<String, String> requestMap = new HashMap<>();
@@ -98,7 +102,7 @@ public class PaymentClient {
      * @return Response from PortOne API
      */
     public String cancelPayment(String impUid) {
-        AuthResponse authResponse = getAccessToken();
+        AuthResponse authResponse = getAccessToken(impKey, impSecret);
         String accessToken = authResponse.getResponse().getAccess_token();
 
         String url = baseUrl + PortOneRequestUrl.CANCEL_PAYMENT_URL.getUrl();
