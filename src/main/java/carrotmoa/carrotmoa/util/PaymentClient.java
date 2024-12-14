@@ -3,10 +3,14 @@ package carrotmoa.carrotmoa.util;
 import java.util.*;
 
 import carrotmoa.carrotmoa.enums.PortOneRequestUrl;
+import carrotmoa.carrotmoa.exception.ClientErrorException;
+import carrotmoa.carrotmoa.exception.MissingParameterException;
+import carrotmoa.carrotmoa.exception.UnAuthorizedException;
 import carrotmoa.carrotmoa.model.response.AuthResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -14,10 +18,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
+@Slf4j
 //@RequiredArgsConstructor
 public class PaymentClient {
 
@@ -60,10 +64,31 @@ public class PaymentClient {
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(requestMap)
                     .retrieve()
+                    .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                        int statusCode = response.getStatusCode().value();
+                        HttpHeaders headers = response.getHeaders();
+
+                        // 상태 코드 출력 (로그로 확인)
+                        log.info("Received HTTP status code: {}, {}", statusCode, headers);
+
+                        // 각 상태 코드에 맞는 예외 던지기
+                        switch (statusCode) {
+                            case 400:
+                                throw new MissingParameterException(headers, "imp_key, imp_secret 파라메터가 누락되었습니다.");  // 400 Bad Request
+                            case 401:
+                                throw new UnAuthorizedException(headers, "인증에 실패하였습니다. API키와 secret을 확인하세요.");  // 401 Unauthorized
+                            default:
+                                // 다른 4xx 오류는 기본 ClientErrorException 던지기
+                                throw new ClientErrorException(statusCode, headers, "Client error occurred for status code: " + statusCode);
+                        }
+                    })
                     .body(AuthResponse.class);
 
         } catch (RestClientException e) {
+            // 네트워크 오류나 서버 오류 등 예외 처리
+            log.error("Failed to get access token after retries. Error: ", e);
             throw new RuntimeException("Failed to get access token", e);
+
         }
     }
 
