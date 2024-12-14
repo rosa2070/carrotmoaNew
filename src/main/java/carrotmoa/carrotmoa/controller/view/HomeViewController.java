@@ -11,7 +11,7 @@ public class HomeViewController {
 
     @GetMapping
     public String getIndex() {
-        return "index";
+        return "pension";
     }
 
     @GetMapping("/search/{keyword}")
