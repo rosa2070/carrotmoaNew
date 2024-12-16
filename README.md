@@ -133,7 +133,7 @@
     - `TTL(Time To Live)`을 하루로 설정하여 캐시된 데이터가 자동으로 만료되도록 하여 최신 정보를 반영.
 
 
-### CI/CD 구축 및 보안 강화 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/.github/workflows/gradle.yml)]
+### CI/CD 구축 및 보안 강화 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/6dd90c568e8333ba7ac1209ff2cd95ddd8f44cae/.github/workflows/gradle.yml)]
 
 - **CI/CD 파이프라인 구축**:
     - `GitHub Actions`를 사용하여 CI/CD 파이프라인을 자동화하여 개발과 배포 과정의 효율성을 높임.
