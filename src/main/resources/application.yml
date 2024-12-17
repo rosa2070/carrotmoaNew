@@ -1,0 +1,95 @@
+spring:
+  application:
+    name: carrot-moa
+
+  profiles:
+    include: secret
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
+    username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
+    password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+  mvc:
+    view:
+      suffix: .html
+
+  thymeleaf:
+    suffix: .html
+    cache: false
+
+  mail:
+    host: ENC(IJvL9LNFRf5yJNTb7q6Tc621r8tnzVRS)
+    port: 587
+    username: ENC(BEXdGxV7CaH7mhxG0/ByZYEQ1ck59i9lxi2n70u4u0c=)
+    password: ENC(t9RHsbCNwYNowg5g5IZ3oXSBuoeBwDIdgMqDdE9bjms=)
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.connection-timeout: 5000
+      mail.smtp.timeout: 5000
+      mail.smtp.write-timeout: 5000
+    auth-code-expiration-millis: 180000
+
+  data:
+    redis:
+      host: ENC(cZYsn4Gq8W79xoNFBZc5f71jnkNI7ArQs2sQwjxTv3ErnZjzC0Tn/WtU4OXJToZJqNtz2lg4/aFlzFXO6UD/PXTs8tp5ap05)
+      username: ENC(Niql4fTzx7wRsCpnyjpfVg==)
+      password: ENC(kO3u6vmK3ud+IA2zy7AIGopVM8JxdO3g69y0CWFW3iJRcRcXi2wDosC1kecSJltv)
+      port: 10819
+
+  user:
+    profile:
+      default-image: https://carrots-bucket.s3.ap-northeast-2.amazonaws.com/room/1/257890f7-73c7-4a76-962e-0191137c1311.jpg
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+  tomcat:
+    connection-timeout: 3000s
+
+logging:
+  level:
+    org:
+      springframework:
+        cache: TRACE
+        security:
+          DEBUG
+        security.web: DEBUG
+        security.authentication: DEBUG
+        security.core: DEBUG
+
+cloud:
+  aws:
+    credentials:
+      accessKey: ENC(iWioHko2n4bPtihvgu8LNq/Sj0OQ/yVWkJK5SJTrBXY=)
+      secretKey: ENC(eBiqenBdaISdo2YXGJaVzhVsUGJRyFSY9HSssrIx/3lVzXmgE9DQJ8naGSez5kvUC8f4ohFonGU=)
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    s3:
+      bucket: carrots-bucket
+
+payment:
+  imp-key: ENC(LbVJf8TdGq/jKya+emcEAIuOV6MxTz1EjbrY3GqKCK4=)
+  imp-secret: ENC(AQMCQXidLOtv6rrkiYxVss0L+Kbjj4GMJRIy8et4a0cJIvsQjPAe2ByLN5Pmsr9HTgzKMwnu+Bk3E6SlZgXzQYXVYywSgMDODBmOYtaNhcxBvWn+wAYZ78N6jtCwt4W7)
+  base-url: https://api.iamport.kr
+
+kakao:
+  maps:
+    sdk:
+      url: https://dapi.kakao.com/v2/maps/sdk.js?appkey=242b41ea70d812f26efbc65f291550c3&libraries=services
