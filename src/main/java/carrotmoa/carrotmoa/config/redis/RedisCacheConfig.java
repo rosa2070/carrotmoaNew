@@ -45,7 +45,9 @@ public class RedisCacheConfig {
                         )
                 )
                 // 데이터의 만료기간(TTL)
-                .entryTtl(Duration.ofDays(1));
+//                .entryTtl(Duration.ofDays(1));
+//                .entryTtl(Duration.ofSeconds(10));
+                .entryTtl(Duration.ofMinutes(1));
 
         return RedisCacheManager
                 .RedisCacheManagerBuilder
