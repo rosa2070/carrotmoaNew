@@ -4,7 +4,7 @@ spring:
 
   profiles:
     include: secret
-    active: local
+    active: prod
 
 #  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
