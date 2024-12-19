@@ -4,12 +4,13 @@ spring:
 
   profiles:
     include: secret
+    active: local
 
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
-    username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
-    password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
+#    username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
+#    password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
 
   jpa:
     properties:
@@ -42,12 +43,12 @@ spring:
       mail.smtp.write-timeout: 5000
     auth-code-expiration-millis: 180000
 
-  data:
-    redis:
-      host: ENC(cZYsn4Gq8W79xoNFBZc5f71jnkNI7ArQs2sQwjxTv3ErnZjzC0Tn/WtU4OXJToZJqNtz2lg4/aFlzFXO6UD/PXTs8tp5ap05)
-      username: ENC(Niql4fTzx7wRsCpnyjpfVg==)
-      password: ENC(kO3u6vmK3ud+IA2zy7AIGopVM8JxdO3g69y0CWFW3iJRcRcXi2wDosC1kecSJltv)
-      port: 10819
+#  data:
+#    redis:
+#      host: ENC(cZYsn4Gq8W79xoNFBZc5f71jnkNI7ArQs2sQwjxTv3ErnZjzC0Tn/WtU4OXJToZJqNtz2lg4/aFlzFXO6UD/PXTs8tp5ap05)
+#      username: ENC(Niql4fTzx7wRsCpnyjpfVg==)
+#      password: ENC(kO3u6vmK3ud+IA2zy7AIGopVM8JxdO3g69y0CWFW3iJRcRcXi2wDosC1kecSJltv)
+#      port: 10819
 
   user:
     profile:
@@ -75,8 +76,8 @@ logging:
 cloud:
   aws:
     credentials:
-      accessKey: ENC(iWioHko2n4bPtihvgu8LNq/Sj0OQ/yVWkJK5SJTrBXY=)
-      secretKey: ENC(eBiqenBdaISdo2YXGJaVzhVsUGJRyFSY9HSssrIx/3lVzXmgE9DQJ8naGSez5kvUC8f4ohFonGU=)
+      access-key: ENC(iWioHko2n4bPtihvgu8LNq/Sj0OQ/yVWkJK5SJTrBXY=)
+      secret-key: ENC(eBiqenBdaISdo2YXGJaVzhVsUGJRyFSY9HSssrIx/3lVzXmgE9DQJ8naGSez5kvUC8f4ohFonGU=)
     region:
       static: ap-northeast-2
     stack:
@@ -89,7 +90,5 @@ payment:
   imp-secret: ENC(AQMCQXidLOtv6rrkiYxVss0L+Kbjj4GMJRIy8et4a0cJIvsQjPAe2ByLN5Pmsr9HTgzKMwnu+Bk3E6SlZgXzQYXVYywSgMDODBmOYtaNhcxBvWn+wAYZ78N6jtCwt4W7)
   base-url: https://api.iamport.kr
 
-kakao:
-  maps:
-    sdk:
-      url: https://dapi.kakao.com/v2/maps/sdk.js?appkey=242b41ea70d812f26efbc65f291550c3&libraries=services
+
+
