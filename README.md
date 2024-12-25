@@ -141,3 +141,10 @@
     - Dockerfile에서 `ENTRYPOINT`를 사용하여 암호화된 비밀번호를 Java 시스템 속성으로 전달하여 보안을 강화.
     - **Docker run** 명령어를 통해 환경 변수 설정 및 보안을 강화하는 방식으로 배포 안정성을 확보.
 
+
+### 환경별 설정 최적화
+
+- Spring Boot의 Profile을 활용하여 환경별 설정을 효율적으로 관리
+   - application.yml에서 기본 설정을 공통으로 관리하고, 각 환경(개발, 로컬, 프로덕션)에 맞는 설정을 application-dev.yml, application-local.yml, application-prod.yml 등으로 분리하여 관리.
+   - 코드 변경 없이 환경별 최적화된 설정을 자동으로 로딩하도록 하여 유지보수의 용이성을 높임
+
