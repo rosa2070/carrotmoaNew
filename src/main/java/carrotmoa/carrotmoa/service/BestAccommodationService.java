@@ -30,8 +30,6 @@ public class BestAccommodationService {
     }
 
     // Redis에서 인기 숙소 8개를 가져오는 메서드
-//    @Cacheable(value = "best_accommodations", key = "'best_accommodations'", cacheManager = "bestAccommodationCacheManager")
-//    @Cacheable(value="top_accommodations", key = "'accommodations:top'", cacheManager = "bestAccommodationCacheManager")
     @Cacheable(value="top_accommodations", key = "'top:10'", cacheManager = "bestAccommodationCacheManager")
     public List<BestAccommodationResponse> getBestAccommodationsFromRedis() {
         log.info("Fetching best accommodations from Redis list.");
