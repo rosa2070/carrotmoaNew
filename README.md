@@ -149,7 +149,7 @@
    - 코드 변경 없이 환경별 최적화된 설정을 자동으로 로딩하도록 하여 유지보수의 용이성을 높임
 
 
-### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
+### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
 - `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
   <details>
     <summary>50만개의 더미데이터를 넣고 인기 숙소 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 30배의 TPS 성능 향상</summary>
