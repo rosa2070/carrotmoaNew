@@ -142,14 +142,14 @@
     - **Docker run** 명령어를 통해 환경 변수 설정 및 보안을 강화하는 방식으로 배포 안정성을 확보.
 
 
-### 환경별 설정 최적화
+### 환경별 설정 최적화 [[설정 코드](src/main/resources)]
 
 - Spring Boot의 `Profile`을 활용하여 환경별 설정을 효율적으로 관리
    - `application.yml`에서 기본 설정을 공통으로 관리하고, 각 환경(개발, 로컬, 프로덕션)에 맞는 설정을 `application-dev.yml`, `application-local.yml`, `application-prod.yml` 등으로 분리하여 관리.
    - 코드 변경 없이 환경별 최적화된 설정을 자동으로 로딩하도록 하여 유지보수의 용이성을 높임
 
 
-### 인기 숙소 데이터 조회 최적화
+### 인기 숙소 데이터 조회 최적화 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)]
 - `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
   <details>
     <summary>50만개의 더미데이터를 넣고 인기 숙소 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 30배의 TPS 성능 향상</summary>
