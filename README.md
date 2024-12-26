@@ -163,11 +163,11 @@
     </details>
 
 ### 인증 처리 로직 테스트 코드 작성: Access Token 발급 및 오류 처리 검증 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/test/java/carrotmoa/carrotmoa/util/PaymentClientTest.java#L49-L141)]
-- Access Token 발급 테스트: 정상 인증 정보를 사용해 API를 호출하고, 예상대로 access_token을 반환받는지 확인
-   - 정상 인증 정보로 Access Token을 성공적으로 발급받았고, 응답에서 code가 0으로 확인됨.
-- 잘못된 인증 정보 처리 테스트: 잘못된 API 키와 시크릿으로 요청 시 401 Unauthorized 응답과 UnAuthorizedException이 발생하는지 검증
-    - 잘못된 인증 정보로 요청 시 401 Unauthorized 응답을 받아 UnAuthorizedException이 발생, 오류 메시지와 헤더가 예상대로 처리됨
-- 실제 API 호출 없이 Mocking을 활용해 다양한 인증 시나리오를 테스트
+- `Access Token` 발급 테스트: 정상 인증 정보를 사용해 API를 호출하고, 예상대로 access_token을 반환받는지 확인
+   - 정상 인증 정보로`Access Token`을 성공적으로 발급받았고, 응답에서 code가 0으로 확인됨.
+- 잘못된 인증 정보 처리 테스트: 잘못된 API 키와 시크릿으로 요청 시 `401 Unauthorized` 응답과 `UnAuthorizedException`이 발생하는지 검증
+    - 잘못된 인증 정보로 요청 시 `401 Unauthorized` 응답을 받아 `UnAuthorizedException`이 발생, 오류 메시지와 헤더가 예상대로 처리됨
+- 실제 API 호출 없이 `Mocking`을 활용해 다양한 인증 시나리오를 테스트
 
     
 
