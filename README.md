@@ -144,7 +144,24 @@
 
 ### 환경별 설정 최적화
 
-- Spring Boot의 Profile을 활용하여 환경별 설정을 효율적으로 관리
-   - application.yml에서 기본 설정을 공통으로 관리하고, 각 환경(개발, 로컬, 프로덕션)에 맞는 설정을 application-dev.yml, application-local.yml, application-prod.yml 등으로 분리하여 관리.
+- Spring Boot의 `Profile`을 활용하여 환경별 설정을 효율적으로 관리
+   - `application.yml`에서 기본 설정을 공통으로 관리하고, 각 환경(개발, 로컬, 프로덕션)에 맞는 설정을 `application-dev.yml`, `application-local.yml`, `application-prod.yml` 등으로 분리하여 관리.
    - 코드 변경 없이 환경별 최적화된 설정을 자동으로 로딩하도록 하여 유지보수의 용이성을 높임
+
+
+### 인기 숙소 데이터 조회 최적화
+- `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 설정하여 최신 데이터를 유지하도록 처리.
+  <details>
+    <summary>홈페이지 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 80%의 TPS 성능 향상</summary>
+    <div>
+        <h4>[Ngrinder]</h4>
+        <span>Cache 미적용</span>
+        <img src="readme/image/cache/ngrinder_nocache.png">
+        <span>Cache 적용</span>
+        <img src="readme/image/cache/ngrinder_cache.png">
+    </div>
+    </details>
+
+
+  
 
