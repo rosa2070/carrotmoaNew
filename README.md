@@ -149,7 +149,7 @@
    - 코드 변경 없이 환경별 최적화된 설정을 자동으로 로딩하도록 하여 유지보수의 용이성을 높임
 
 
-### 인기 숙소 데이터 조회 최적화 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)]
+### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
 - `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
   <details>
     <summary>50만개의 더미데이터를 넣고 인기 숙소 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 30배의 TPS 성능 향상</summary>
@@ -161,6 +161,15 @@
         <img src="readme/image/cache/ngrinder_cache.png">
     </div>
     </details>
+
+### 인증 처리 로직 테스트 코드 작성: Access Token 발급 및 오류 처리 검증 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/test/java/carrotmoa/carrotmoa/util/PaymentClientTest.java#L49-L141)]
+- Access Token 발급 테스트: 정상 인증 정보를 사용해 API를 호출하고, 예상대로 access_token을 반환받는지 확인
+   - 정상 인증 정보로 Access Token을 성공적으로 발급받았고, 응답에서 code가 0으로 확인됨.
+- 잘못된 인증 정보 처리 테스트: 잘못된 API 키와 시크릿으로 요청 시 401 Unauthorized 응답과 UnAuthorizedException이 발생하는지 검증
+    - 잘못된 인증 정보로 요청 시 401 Unauthorized 응답을 받아 UnAuthorizedException이 발생, 오류 메시지와 헤더가 예상대로 처리됨
+- 실제 API 호출 없이 Mocking을 활용해 다양한 인증 시나리오를 테스트
+
+    
 
 
   
