@@ -162,6 +162,21 @@
     </div>
     </details>
 
+### 캐시 스탬피드 해결을 위한 TTL 랜덤화 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
+- 캐시의 만료 시간(TTL)을 일정 범위 내에서 랜덤하게 설정
+   - 기본 TTL 값에 일정 범위 내에서 랜덤 값을 더하거나 빼는 방식으로 TTL 계산
+   - 캐시 만료 시점을 분산시켜, 트래픽이 집중되는 시간을 피함
+  <details>
+    <summary> 부하테스트 결과, TTL 랜덤화 후 TPS가 200이하로는 떨어지지 않음</summary>
+    <div>
+        <h4>[Ngrinder]</h4>
+        <span>캐시 스탬피드 현상 발생</span>
+        <img src="readme/image/cache/cache_stampede.png">
+        <span>TTL 랜덤화 적용</span>
+        <img src="readme/image/cache/TTL_Random.png">
+    </div>
+    </details>
+
 ### 인증 처리 로직 테스트 코드 작성: Access Token 발급 및 오류 처리 검증 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/test/java/carrotmoa/carrotmoa/util/PaymentClientTest.java#L49-L141)]
 - `Access Token` 발급 테스트: 정상 인증 정보를 사용해 API를 호출하고, 예상대로 access_token을 반환받는지 확인
    - 정상 인증 정보로`Access Token`을 성공적으로 발급받았고, 응답에서 code가 0으로 확인됨.
