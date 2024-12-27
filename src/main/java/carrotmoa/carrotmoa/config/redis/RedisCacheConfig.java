@@ -1,6 +1,7 @@
 package carrotmoa.carrotmoa.config.redis;
 
 import java.time.Duration;
+import java.util.Random;
 
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -41,11 +42,11 @@ public class RedisCacheConfig {
                 // Redis에 Value를 저장할 때 Json으로 직렬화(변환)해서 저장
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(
-                                new Jackson2JsonRedisSerializer<Object>(Object.class)
+                                new Jackson2JsonRedisSerializer<>(Object.class)
                         )
                 )
                 // 데이터의 만료기간(TTL)
-                .entryTtl(Duration.ofMinutes(1));
+                .entryTtl(Duration.ofSeconds(randomExpirationTime())); // TTL을 랜덤 값으로 설정
 
         return RedisCacheManager
                 .RedisCacheManagerBuilder
@@ -53,6 +54,14 @@ public class RedisCacheConfig {
                 .cacheDefaults(redisCacheConfiguration)
                 .build();
 
+    }
+
+    // TTL 랜덤화 메서드
+    private int randomExpirationTime() {
+        Random random = new Random();
+        int baseExpiration = 60; // 기본 TTL (초)
+        int randomRange = 30; // TTL 범위 (초)
+        return baseExpiration + random.nextInt(randomRange * 2 + 1) - randomRange;
     }
 
 
