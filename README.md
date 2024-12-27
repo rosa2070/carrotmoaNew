@@ -162,7 +162,7 @@
     </div>
     </details>
 
-### 캐시 스탬피드 해결을 위한 TTL 랜덤화 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
+### 캐시 스탬피드 해결을 위한 TTL 랜덤화 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/e1cc14f8f6d6f59abc0137420bc3264abfb79080/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L60-L65)]
 - 캐시의 만료 시간(TTL)을 일정 범위 내에서 랜덤하게 설정
    - 기본 TTL 값에 일정 범위 내에서 랜덤 값을 더하거나 빼는 방식으로 TTL 계산
    - 캐시 만료 시점을 분산시켜, 트래픽이 집중되는 시간을 피함
