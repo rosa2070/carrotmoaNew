@@ -85,6 +85,44 @@
         - 결과 및 추가사항
 ```
 
+### RestClient 추가 설정 및 에러핸들링 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/04a006a3b853e531a8cd3b8514a1c7ce9759699a/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java)]
+- `@Retryable`으로 재시도 로직 추가
+- onStatus로 응답 코드별 에러 핸들링
+    - API 호출에 대한 HTTP 응답 코드를 분석하여, 4xx 클라이언트 오류가 발생하면 각 코드에 맞는 예외를 던져 세부적인 오류 처리
+- 외부 API의 응답 지연을 방지하기 위해 `readtimeout` 설정
+    - 일정 시간 내에 응답을 받지 못하면 요청을 종료하고 시스템 자원을 낭비하지 않도록 함
+ 
+
+### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
+- `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
+  <details>
+    <summary>50만개의 더미데이터를 넣고 인기 숙소 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 30배의 TPS 성능 향상</summary>
+    <div>
+        <h4>[Ngrinder]</h4>
+        <span>Cache 미적용</span>
+        <img src="readme/image/cache/ngrinder_nocache.png">
+        <span>Cache 적용</span>
+        <img src="readme/image/cache/ngrinder_cache.png">
+    </div>
+    </details>
+
+
+### 캐시 스탬피드 해결을 위한 TTL 랜덤화 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/e1cc14f8f6d6f59abc0137420bc3264abfb79080/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L60-L65)]
+- 캐시의 만료 시간(TTL)을 일정 범위 내에서 랜덤하게 설정
+   - 기본 TTL 값에 일정 범위 내에서 랜덤 값을 더하거나 빼는 방식으로 TTL 계산
+   - 캐시 만료 시점을 분산시켜, 트래픽이 집중되는 시간을 피함
+  <details>
+    <summary> 부하테스트 결과, TTL 랜덤화 후 TPS가 200이하로는 떨어지지 않음</summary>
+    <div>
+        <h4>[Ngrinder]</h4>
+        <span>캐시 스탬피드 현상 발생</span>
+        <img src="readme/image/cache/cache_stampede.png">
+        <span>TTL 랜덤화 적용</span>
+        <img src="readme/image/cache/TTL_Random.png">
+    </div>
+    </details>
+
+ 
 ### 서버 단에서의 유효성 검증 구현 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/controller/api/HostRoomApiController.java#L44-L73)]
 
 - **클라이언트-서버 양방향 검증**:
@@ -148,41 +186,6 @@
    - `application.yml`에서 기본 설정을 공통으로 관리하고, 각 환경(개발, 로컬, 프로덕션)에 맞는 설정을 `application-dev.yml`, `application-local.yml`, `application-prod.yml` 등으로 분리하여 관리.
    - 코드 변경 없이 환경별 최적화된 설정을 자동으로 로딩하도록 하여 유지보수의 용이성을 높임
 
-
-### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
-- `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
-  <details>
-    <summary>50만개의 더미데이터를 넣고 인기 숙소 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 30배의 TPS 성능 향상</summary>
-    <div>
-        <h4>[Ngrinder]</h4>
-        <span>Cache 미적용</span>
-        <img src="readme/image/cache/ngrinder_nocache.png">
-        <span>Cache 적용</span>
-        <img src="readme/image/cache/ngrinder_cache.png">
-    </div>
-    </details>
-
-### 캐시 스탬피드 해결을 위한 TTL 랜덤화 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/e1cc14f8f6d6f59abc0137420bc3264abfb79080/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L60-L65)]
-- 캐시의 만료 시간(TTL)을 일정 범위 내에서 랜덤하게 설정
-   - 기본 TTL 값에 일정 범위 내에서 랜덤 값을 더하거나 빼는 방식으로 TTL 계산
-   - 캐시 만료 시점을 분산시켜, 트래픽이 집중되는 시간을 피함
-  <details>
-    <summary> 부하테스트 결과, TTL 랜덤화 후 TPS가 200이하로는 떨어지지 않음</summary>
-    <div>
-        <h4>[Ngrinder]</h4>
-        <span>캐시 스탬피드 현상 발생</span>
-        <img src="readme/image/cache/cache_stampede.png">
-        <span>TTL 랜덤화 적용</span>
-        <img src="readme/image/cache/TTL_Random.png">
-    </div>
-    </details>
-
-### RestClient 추가 설정 및 에러핸들링 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/4bd19811e1f2a47c58f56798c35bd487b4e99912/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java#L48-L97)]
-- `@Retryable`으로 재시도 로직 추가
-- onStatus로 응답 코드별 에러 핸들링
-    - API 호출에 대한 HTTP 응답 코드를 분석하여, 4xx 클라이언트 오류가 발생하면 각 코드에 맞는 예외를 던져 세부적인 오류 처리
-- 외부 API의 응답 지연을 방지하기 위해 readtimeout 설정
-    - 일정 시간 내에 응답을 받지 못하면 요청을 종료하고 시스템 자원을 낭비하지 않도록 함
 
 ### 인증 처리 로직 테스트 코드 작성: Access Token 발급 및 오류 처리 검증 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/test/java/carrotmoa/carrotmoa/util/PaymentClientTest.java#L49-L141)]
 - `Access Token` 발급 테스트: 정상 인증 정보를 사용해 API를 호출하고, 예상대로 access_token을 반환받는지 확인
