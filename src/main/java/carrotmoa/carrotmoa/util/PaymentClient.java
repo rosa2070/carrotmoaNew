@@ -1,5 +1,6 @@
 package carrotmoa.carrotmoa.util;
 
+import java.time.Duration;
 import java.util.*;
 
 import carrotmoa.carrotmoa.enums.PortOneRequestUrl;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
@@ -37,7 +39,18 @@ public class PaymentClient {
     private final RestClient restClient;
 
     public PaymentClient(RestClient.Builder builder) {
-        this.restClient = builder.baseUrl(baseUrl).build();
+        // 타임아웃 설정
+        Duration timeout = Duration.ofSeconds(5);  // 5초로 설정
+
+        // SimpleClientHttpRequestFactory 생성 및 타임아웃 설정
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout((int) timeout.toMillis());  // 연결 타임아웃: 5초
+        factory.setReadTimeout((int) timeout.toMillis());     // 읽기 타임아웃: 5초
+
+        this.restClient = builder
+                .baseUrl(baseUrl)
+                .requestFactory(factory)
+                .build();
     }
 
     /**
@@ -45,11 +58,6 @@ public class PaymentClient {
      *
      * @return Access token as String
      */
-    @Retryable(
-            retryFor = {RestClientException.class}, // 이 예외가 발생하면 재시도
-            maxAttempts = 3, // 최대 3번 재시도
-            backoff = @Backoff(delay = 2000) // 재시도 간 대기시간 2초
-    )
     public AuthResponse getAccessToken(String impKey, String impSecret) {
         // 테스트 시에 impKey, impSecret을 넘겨줄 수 있도록 하되, 값이 null인 경우에는 @Value에서 읽어온 값을 사용
         impKey = (impKey != null) ? impKey : this.impKey;
@@ -101,6 +109,11 @@ public class PaymentClient {
      * @param impUid imp_uid of the payment to cancel
      * @return Response from PortOne API
      */
+    @Retryable(
+            retryFor = {RestClientException.class}, // 재시도할 예외 지정
+            maxAttempts = 2, // 최초 호출 1회 + 재시도 1회
+            backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
+    )
     public String cancelPayment(String impUid) {
         AuthResponse authResponse = getAccessToken(impKey, impSecret);
         String accessToken = authResponse.getResponse().getAccess_token();
