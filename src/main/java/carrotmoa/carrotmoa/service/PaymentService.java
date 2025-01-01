@@ -17,7 +17,9 @@ import carrotmoa.carrotmoa.repository.ReservationRepository;
 import carrotmoa.carrotmoa.repository.UserProfileRepository;
 import carrotmoa.carrotmoa.util.PaymentClient;
 import jakarta.persistence.EntityNotFoundException;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
@@ -37,12 +39,12 @@ public class PaymentService {
 
     @Autowired
     public PaymentService(PaymentRepository paymentRepository,
-        PaymentClient paymentClient,
-        ReservationRepository reservationRepository,
-        NotificationService notificationService,
-        AccommodationRepository accommodationRepository,
-        PostRepository postRepository,
-        UserProfileRepository userProfileRepository) {
+                          PaymentClient paymentClient,
+                          ReservationRepository reservationRepository,
+                          NotificationService notificationService,
+                          AccommodationRepository accommodationRepository,
+                          PostRepository postRepository,
+                          UserProfileRepository userProfileRepository) {
         this.paymentRepository = paymentRepository;
         this.paymentClient = paymentClient;
         this.reservationRepository = reservationRepository;
@@ -53,11 +55,6 @@ public class PaymentService {
     }
 
     @Transactional
-    @Retryable(
-        maxAttempts = 3, // 최대 재시도 횟수
-        retryFor = ExternalApiException.class, // 재시도할 예외 타입
-        backoff = @Backoff(delay = 2000)
-    )
     public void processPaymentAndReservation(PaymentRequest paymentRequest, ReservationRequest reservationRequest) {
         // 결제 정보 저장
         Payment payment = savePayment(paymentRequest);
@@ -70,10 +67,10 @@ public class PaymentService {
 
             // 계약하려는 방 호스트의 ID 받아오기
             Accommodation accommodation = accommodationRepository.findById(reservation.getAccommodationId())
-                .orElseThrow(() -> new EntityNotFoundException("Accommodation not found"));
+                    .orElseThrow(() -> new EntityNotFoundException("Accommodation not found"));
 
             Post post = postRepository.findById(accommodation.getPostId())
-                .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+                    .orElseThrow(() -> new EntityNotFoundException("Post not found"));
 
             Long receiverId = post.getUserId();
             String roomName = post.getTitle();
@@ -88,13 +85,11 @@ public class PaymentService {
                 notificationService.sendReservationNotification(notificationType, senderId, senderId, notificationUrl, message); // 변수명 게스트 호스트로 변경하는게 나을 거 같음
             }
 
-        } else {
-            // 결제 상태가 "paid"가 아니면 예외를 던져서 재시도
-            throw new ExternalApiException("Payment status is not 'paid'. Possible issue with external payment API.");
         }
 
 
     }
+
 
     public Payment savePayment(PaymentRequest paymentRequest) {
         Payment payment = paymentRequest.toPaymentEntity();
@@ -103,13 +98,13 @@ public class PaymentService {
 
     public Reservation saveReservation(ReservationRequest reservationRequest) {
         Reservation reservation = Reservation.builder()
-            .accommodationId(reservationRequest.getAccommodationId())
-            .userId(reservationRequest.getUserId())
-            .checkInDate(reservationRequest.getCheckInDate())
-            .checkOutDate(reservationRequest.getCheckOutDate())
-            .totalPrice(reservationRequest.getTotalPrice())
-            .status(reservationRequest.getStatus())
-            .build();
+                .accommodationId(reservationRequest.getAccommodationId())
+                .userId(reservationRequest.getUserId())
+                .checkInDate(reservationRequest.getCheckInDate())
+                .checkOutDate(reservationRequest.getCheckOutDate())
+                .totalPrice(reservationRequest.getTotalPrice())
+                .status(reservationRequest.getStatus())
+                .build();
 
         return reservationRepository.save(reservation);
     }
@@ -147,7 +142,7 @@ public class PaymentService {
 
         //impUid로 Payment 엔티티 조회
         Payment payment = paymentRepository.findByImpUid(uid)
-            .orElseThrow(() -> new IllegalArgumentException("Payment not found with impUid: " + uid));
+                .orElseThrow(() -> new IllegalArgumentException("Payment not found with impUid: " + uid));
 
         // Payment의 status 필드를 "cancel"로 변경
         payment.setStatus("cancel");

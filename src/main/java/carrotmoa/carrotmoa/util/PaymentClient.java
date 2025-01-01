@@ -39,17 +39,9 @@ public class PaymentClient {
     private final RestClient restClient;
 
     public PaymentClient(RestClient.Builder builder) {
-        // 타임아웃 설정
-        Duration timeout = Duration.ofSeconds(5);  // 5초로 설정
-
-        // SimpleClientHttpRequestFactory 생성 및 타임아웃 설정
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout((int) timeout.toMillis());  // 연결 타임아웃: 5초
-        factory.setReadTimeout((int) timeout.toMillis());     // 읽기 타임아웃: 5초
 
         this.restClient = builder
                 .baseUrl(baseUrl)
-                .requestFactory(factory)
                 .build();
     }
 
@@ -119,7 +111,25 @@ public class PaymentClient {
         String accessToken = authResponse.getResponse().getAccess_token();
 
         String url = baseUrl + PortOneRequestUrl.CANCEL_PAYMENT_URL.getUrl();
+
+        // 타임아웃 설정
+        Duration timeout = Duration.ofSeconds(3);  // 5초로 설정
+
+        // SimpleClientHttpRequestFactory 생성 및 타임아웃 설정
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout((int) timeout.toMillis());
+        factory.setReadTimeout((int) timeout.toMillis());
+
+//        // RestClient를 직접 생성하여 HttpClient 설정
+        RestClient restClientWithTimeout = restClient.mutate()
+                .baseUrl(url)  // 기본 URL 설정
+                .requestFactory(factory)  // 직접 ClientHttpRequestFactory 객체 전달
+                .build();
+
         try {
+            // 응답 시간 측정을 위한 시작 시간 기록
+            long startTime = System.nanoTime();  // 요청 전 시간 기록
+
             Map<String, String> requestMap = new HashMap<>();
             requestMap.put("imp_uid", impUid);
 
@@ -128,13 +138,22 @@ public class PaymentClient {
             headers.setBearerAuth(accessToken);
 
             // Send POST request
-            return restClient
+            String response = restClientWithTimeout
                     .post()
                     .uri(url)
                     .headers(h -> h.addAll(headers))
                     .body(requestMap)
                     .retrieve()
                     .body(String.class);
+
+            // 응답 시간 계산 (nanoseconds -> milliseconds로 변환)
+            long endTime = System.nanoTime();  // 응답 후 시간 기록
+            long duration = (endTime - startTime) / 1_000_000;  // 밀리초로 변환
+
+            // 로그에 응답 시간 출력
+            log.info("Response time: {} ms", duration);
+
+            return response;
 
         } catch (RestClientException e) {
             throw new RuntimeException("Failed to cancel payment", e);
