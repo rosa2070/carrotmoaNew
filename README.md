@@ -85,12 +85,12 @@
         - 결과 및 추가사항
 ```
 
-### RestClient 추가 설정 및 에러핸들링 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/04a006a3b853e531a8cd3b8514a1c7ce9759699a/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java)]
+### RestClient 추가 설정 및 에러핸들링 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/708e8132db2e257bb511b89cf0d3c1347f9dc3e8/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java)]
 - `@Retryable`으로 재시도 로직 추가
 - `onStatus`로 응답 코드별 에러 핸들링
     - API 호출에 대한 HTTP 응답 코드를 분석하여, 4xx 클라이언트 오류가 발생하면 각 코드에 맞는 예외를 던져 세부적인 오류 처리
-- 외부 API의 응답 지연을 방지하기 위해 `readtimeout` 설정
-    - 일정 시간 내에 응답을 받지 못하면 요청을 종료하고 시스템 자원을 낭비하지 않도록 함
+- 외부 API의 평균 응답 시간을 고려해, 3초 내에 응답이 없으면 요청을 종료하도록 readTimeout을 설정
+    - 시스템 자원을 낭비하지 않으면서 서비스의 안정성을 보장
  
 
 ### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
