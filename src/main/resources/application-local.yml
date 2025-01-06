@@ -4,10 +4,32 @@ spring:
       on-profile: local
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/carrot
-    username: root
-    password: 1234
+    hikari:
+      master:
+        jdbc-url: jdbc:mysql://localhost:3306/my_carrot
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      slave:
+        jdbc-url: jdbc:mysql://localhost:3306/my_carrot_replica
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+
+        # Hibernate Dialect 설정
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/carrot
+#    username: root
+#    password: 1234
 
   data:
      redis:
@@ -17,18 +39,6 @@ spring:
        port: 6379
 
 
-# master slave분리
-#  datasource:
-#    master:
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#      url: jdbc:mysql://localhost:3306/carrot
-#      username: root
-#      password: 1234
-#    read:
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#      url: jdbc:mysql://localhost:3306/carrot
-#      username: root
-#      password: 1234
 
 
 

@@ -2,9 +2,12 @@ spring:
   application:
     name: carrot-moa
 
+  main:
+    allow-bean-definition-overriding: true
+
   profiles:
     include: secret
-    active: prod
+    active: local
 
   jpa:
     properties:
