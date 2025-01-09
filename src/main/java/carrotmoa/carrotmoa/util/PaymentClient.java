@@ -107,6 +107,8 @@ public class PaymentClient {
             backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
     )
     public String cancelPayment(String impUid) {
+        log.info("Attempting to cancel payment for impUid: {}", impUid); // 재시도마다 로그 추가
+
         AuthResponse authResponse = getAccessToken(impKey, impSecret);
         String accessToken = authResponse.getResponse().getAccess_token();
 
@@ -156,7 +158,8 @@ public class PaymentClient {
             return response;
 
         } catch (RestClientException e) {
-            throw new RuntimeException("Failed to cancel payment", e);
+            log.warn("Error occurred while cancelling payment, will retry. Error: {}", e.getMessage());
+            throw e; // 예외를 던져서 재시도가 일어나게 함
         }
     }
 

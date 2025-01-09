@@ -16,27 +16,19 @@ spring:
         password: 1234
         driver-class-name: com.mysql.cj.jdbc.Driver
 
-        # Hibernate Dialect 설정
-  jpa:
-    properties:
-      hibernate.dialect: org.hibernate.dialect.MySQLDialect
-      hibernate:
-        show_sql: true
-        format_sql: true
-
-
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/carrot
-#    username: root
-#    password: 1234
-
   data:
      redis:
        host: localhost
        username:
        password:
        port: 6379
+
+
+  #  datasource:
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: jdbc:mysql://localhost:3306/carrot
+  #    username: root
+  #    password: 1234
 
 
 

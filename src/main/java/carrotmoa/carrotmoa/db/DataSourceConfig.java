@@ -38,9 +38,9 @@ public class DataSourceConfig {
     private JpaProperties jpaProperties;
 
     public DataSourceConfig(JpaProperties jpaProperties) {
-        this.jpaProperties = jpaProperties;
-        this.hibernateProperties = new HibernateProperties();
-        hibernateProperties.setDdlAuto("none");
+        this.jpaProperties = jpaProperties; // application.yml에서 정의한 JPA 설정 읽어옴
+        this.hibernateProperties = new HibernateProperties(); // hibernate 설정관리 (hibernate의 ddl-auto, hiberate.dialect..)
+        hibernateProperties.setDdlAuto("none"); // 데이터베이스 스키마 변경 안함
     }
 
     /*
@@ -63,7 +63,7 @@ public class DataSourceConfig {
                 .build();
     }
 
-    @DependsOn({MASTER_DATASOURCE, SLAVE_DATASOURCE})
+    @DependsOn({MASTER_DATASOURCE, SLAVE_DATASOURCE}) // master, slave_datasource 먼저 초기화
     @Bean(ROUTING_DATASOURCE)
     public AbstractRoutingDataSource routingDataSource(
             @Qualifier(MASTER_DATASOURCE) DataSource masterDataSource,
@@ -84,7 +84,7 @@ public class DataSourceConfig {
         targetDataSources.put(RouteDataSource.DataSourceType.SLAVE, slaveDataSource);
 
         routingDataSource.setTargetDataSources(targetDataSources);
-        routingDataSource.setDefaultTargetDataSource(masterDataSource);
+        routingDataSource.setDefaultTargetDataSource(masterDataSource); // 데이터소스 결정할 수 없을 때 기본적으로 사용되는 데이터소스
 
         return routingDataSource;
     }
@@ -94,7 +94,7 @@ public class DataSourceConfig {
     public LazyConnectionDataSourceProxy lazyRoutingDataSource(
             @Qualifier(ROUTING_DATASOURCE) DataSource routingDataSource
     ) {
-        return new LazyConnectionDataSourceProxy(routingDataSource);
+        return new LazyConnectionDataSourceProxy(routingDataSource); // 지연 로딩
     }
 
     @Bean
@@ -125,10 +125,10 @@ public class DataSourceConfig {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
-    @Bean
-    public JPAQueryFactory jpaQueryFactory(EntityManager entityManager) {
-        return new JPAQueryFactory(entityManager);
-    }
+//    @Bean
+//    public JPAQueryFactory jpaQueryFactory(EntityManager entityManager) {
+//        return new JPAQueryFactory(entityManager);
+//    }
 
 
 

@@ -24,7 +24,10 @@ repositories {
 }
 
 dependencies {
+    // Jasypt 암호화 관련
     implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5'
+
+    // 기본 Spring Boot 웹 관련 의존성
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -32,59 +35,73 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
     implementation 'org.springframework.boot:spring-boot-starter-websocket'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    // 테스트 관련 의존성
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'io.projectreactor:reactor-test'
-    runtimeOnly 'com.mysql:mysql-connector-j'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+    // MySQL 연결을 위한 의존성
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
+    // Spring Boot DevTools
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:3.3.4'
-//    implementation 'org.springframework.boot:spring-boot-devtools:3.3.4'
+
+    // Lombok 의존성
     annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    // Spring Data JPA 및 Thymeleaf 의존성
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.4'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.4'
 
+    // Thymeleaf Layout Dialect 및 OpenAPI 관련 의존성
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0'
 
+    // QueryDSL 의존성
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
     annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+    // AWS 관련 의존성
     implementation group: 'io.awspring.cloud', name: 'spring-cloud-aws-starter', version: '3.2.0'
     implementation group: 'software.amazon.awssdk', name: 's3', version: '2.20.0'
+
+    // Spring Validation 의존성
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-    // aop 추가
+    // AOP 관련 의존성
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
-    // spring retry 관련
-    // https://velog.io/@ssuh0o0/Spring-Spring-Retry
+    // Spring Retry 관련 의존성
     implementation 'org.springframework.retry:spring-retry'  // 최신 버전으로 설정
     implementation 'org.springframework:spring-aspects'
 
+    // WebFlux 의존성
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+    // OkHttp 관련 의존성
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:mockwebserver:4.10.0'
 
-//    implementation 'org.apache.httpcomponents:httpclient:4.5.13' // 필요에 따라 최신 버전으로 변경
+    // HTTPClient 5 관련 의존성
     implementation 'org.apache.httpcomponents.client5:httpclient5:5.3'
 
+    // HikariCP 관련 의존성
     implementation 'com.zaxxer:HikariCP:5.0.1' // 최신 버전으로 설정
 
-
-
-
+    // Resilience4j 관련 의존성 (Circuit Breaker 추가)
+    implementation "io.github.resilience4j:resilience4j-spring-boot2:1.7.1"
+    implementation "io.github.resilience4j:resilience4j-reactor:1.7.1"
+    implementation "io.github.resilience4j:resilience4j-circuitbreaker:1.7.1"  // CircuitBreaker 의존성 추가
 }
 
 tasks.named('test') {
     useJUnitPlatform()
     systemProperty 'jasypt.encryptor.password', findProperty("jasypt.encryptor.password")
 }
-
 
 // bootJar 태스크 추가
 bootJar {
