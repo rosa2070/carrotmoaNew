@@ -2,19 +2,23 @@ spring:
   application:
     name: carrot-moa
 
+  # 빈 덮어쓰기
+#  main:
+#    allow-bean-definition-overriding: true
+
   profiles:
     include: secret
     active: prod
 
   jpa:
     properties:
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
       hibernate:
         show_sql: true
         format_sql: true
         use_sql_comments: true
     hibernate:
       ddl-auto: none
-    database-platform: org.hibernate.dialect.MySQLDialect
 
   mvc:
     view:

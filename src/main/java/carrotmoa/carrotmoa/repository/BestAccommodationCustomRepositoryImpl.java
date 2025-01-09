@@ -8,10 +8,12 @@ import carrotmoa.carrotmoa.model.response.BestAccommodationResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
+@Transactional(readOnly = true)
 public class BestAccommodationCustomRepositoryImpl implements BestAccommodationCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
