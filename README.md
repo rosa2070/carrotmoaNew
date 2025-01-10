@@ -48,7 +48,7 @@
 
 ## 💾 DB 구조
 
-![Anchor DB Architecture](readme/image/erd/erd.png)
+![Anchor DB Architecture](readme/image/erd/erd2.png)
 
 ## 🗂️ 패키지 구조
 
