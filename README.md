@@ -100,10 +100,7 @@
     - 배포 환경: aws RDS MySQL DB 이중화 (Page 기반)
 
 - Master-Slave DB 간의 `Write/Read 쿼리 분산` 적용
-
-    - 옵션1. @Transactional의 readOnly 속성을 이용한 쿼리 분산
-    - 옵션2. @RouteDataSource의 dataSourceType 속성을 이용한 쿼리 분산
-    - (@Transactional: 스프링 어노테이션 / @RouteDataSource: 커스텀 어노테이션)
+    - @Transactional의 readOnly 속성을 이용한 쿼리 분산
 
 - 추가 고려사항. 고가용성 확보를 위해서 Master DB 장애에 대한 대비책 필요
 
