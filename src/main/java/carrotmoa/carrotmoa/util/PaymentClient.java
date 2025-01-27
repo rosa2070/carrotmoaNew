@@ -103,8 +103,8 @@ public class PaymentClient {
      */
     @Retryable(
             retryFor = {RestClientException.class}, // 재시도할 예외 지정
-            maxAttempts = 2, // 최초 호출 1회 + 재시도 1회
-            backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
+            maxAttempts = 4, // 최초 호출 1회 + 재시도 1회
+            backoff = @Backoff(delay = 2000) // 1초 대기 후 재시도
     )
     public String cancelPayment(String impUid) {
         log.info("Attempting to cancel payment for impUid: {}", impUid); // 재시도마다 로그 추가
@@ -115,7 +115,7 @@ public class PaymentClient {
         String url = baseUrl + PortOneRequestUrl.CANCEL_PAYMENT_URL.getUrl();
 
         // 타임아웃 설정
-        Duration timeout = Duration.ofSeconds(3);  // 5초로 설정
+        Duration timeout = Duration.ofSeconds(3);  // 3초로 설정
 
         // SimpleClientHttpRequestFactory 생성 및 타임아웃 설정
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
@@ -162,5 +162,6 @@ public class PaymentClient {
             throw e; // 예외를 던져서 재시도가 일어나게 함
         }
     }
+
 
 }

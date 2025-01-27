@@ -16,17 +16,21 @@ import carrotmoa.carrotmoa.repository.PostRepository;
 import carrotmoa.carrotmoa.repository.ReservationRepository;
 import carrotmoa.carrotmoa.repository.UserProfileRepository;
 import carrotmoa.carrotmoa.util.PaymentClient;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestClientException;
 
 @Service
+@Slf4j
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
@@ -136,6 +140,7 @@ public class PaymentService {
      * @param uid 포트원 거래고유번호
      */
     @Transactional
+    @CircuitBreaker(name = "simpleCircuitBreakerConfig", fallbackMethod = "fallback")
     public void cancelPayment(String uid) {
         // 외부 API로 결제 취소 요청
         paymentClient.cancelPayment(uid);
@@ -169,6 +174,17 @@ public class PaymentService {
         }
 
     }
+
+    // Circuit Breaker 실패 시 호출될 fallback method
+    public void fallback(String uid, Throwable throwable) {
+        // 예외 처리 및 로깅
+        log.error("Fallback method called for cancelPayment. impUid: {}. Error: {}", uid, throwable.getMessage());
+
+        // 대체 응답 반환 (여기서는 결제 취소 실패 메시지를 반환)
+        // 실패 처리 로직을 여기에 추가하거나, 필요한 예외를 던질 수 있습니다.
+        throw new ExternalApiException("Payment cancellation failed for impUid: " + uid + ". Please try again later.");
+    }
+
 
 
 }

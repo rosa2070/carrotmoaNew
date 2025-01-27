@@ -1,5 +1,6 @@
 package carrotmoa.carrotmoa.repository;
 
+import carrotmoa.carrotmoa.db.RouteDataSource;
 import carrotmoa.carrotmoa.entity.QAccommodation;
 import carrotmoa.carrotmoa.entity.QAccommodationImage;
 import carrotmoa.carrotmoa.entity.QPost;
@@ -12,8 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static carrotmoa.carrotmoa.db.RouteDataSource.DataSourceType.SLAVE;
+
 @Repository
 @Transactional(readOnly = true)
+//@RouteDataSource(dataSourceType = SLAVE)
 public class BestAccommodationCustomRepositoryImpl implements BestAccommodationCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;

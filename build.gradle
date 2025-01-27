@@ -4,6 +4,11 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.6'
 }
 
+ext {
+    javaVersion = '17'  // Java 버전
+    resilience4jVersion = '1.7.0'  // Resilience4j 버전
+}
+
 group = 'carrotmoa'
 version = '0.0.1-SNAPSHOT'
 
@@ -92,10 +97,18 @@ dependencies {
     // HikariCP 관련 의존성
     implementation 'com.zaxxer:HikariCP:5.0.1' // 최신 버전으로 설정
 
-    // Resilience4j 관련 의존성 (Circuit Breaker 추가)
-    implementation "io.github.resilience4j:resilience4j-spring-boot2:1.7.1"
-    implementation "io.github.resilience4j:resilience4j-reactor:1.7.1"
-    implementation "io.github.resilience4j:resilience4j-circuitbreaker:1.7.1"  // CircuitBreaker 의존성 추가
+    // Spring Boot Actuator (애플리케이션 상태 모니터링용)
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+// Resilience4j (Spring Boot 3.x 호환)
+    implementation "io.github.resilience4j:resilience4j-spring-boot3:2.2.0"
+
+// 회로 차단기 기능을 활성화하려면 이 의존성도 필요합니다.
+    implementation "io.github.resilience4j:resilience4j-circuitbreaker:2.2.0"
+
+
+
+
 }
 
 tasks.named('test') {

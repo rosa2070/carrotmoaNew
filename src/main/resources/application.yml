@@ -59,11 +59,17 @@ logging:
     org:
       springframework:
         cache: TRACE
-        security:
-          DEBUG
-        security.web: DEBUG
-        security.authentication: DEBUG
-        security.core: DEBUG
+#        security:
+#          DEBUG
+#        security.web: DEBUG
+#        security.authentication: DEBUG
+#        security.core: DEBUG
+        retry: DEBUG  # Spring Retry 관련 로그를 DEBUG 레벨로 출력
+        retry.internal: DEBUG  # 내부 리트라이 관련 상세 로그 출력
+    io.github.resilience4j: DEBUG  # Resilience4j 관련 모든 로그를 DEBUG 레벨로 출력
+    io.github.resilience4j.circuitbreaker: DEBUG  # Resilience4j의 CircuitBreaker 관련 로그를 DEBUG 레벨로 출력
+
+
 
 cloud:
   aws:
@@ -81,6 +87,38 @@ payment:
   imp-key: ENC(LbVJf8TdGq/jKya+emcEAIuOV6MxTz1EjbrY3GqKCK4=)
   imp-secret: ENC(AQMCQXidLOtv6rrkiYxVss0L+Kbjj4GMJRIy8et4a0cJIvsQjPAe2ByLN5Pmsr9HTgzKMwnu+Bk3E6SlZgXzQYXVYywSgMDODBmOYtaNhcxBvWn+wAYZ78N6jtCwt4W7)
   base-url: https://api.iamport.kr
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowType: COUNT_BASED
+      minimumNumberOfCalls: 7                                   # 최소 7번까지는 무조건 CLOSE로 가정하고 호출한다.
+      slidingWindowSize: 10                                     # (minimumNumberOfCalls 이후로는) 10개의 요청을 기준으로 판단한다.
+      waitDurationInOpenState: 10s                              # OPEN 상태에서 HALF_OPEN으로 가려면 얼마나 기다릴 것인가?
+
+      failureRateThreshold: 40                                  # slidingWindowSize 중 몇 %가 recordException이면 OPEN으로 만들 것인가?
+
+      slowCallDurationThreshold: 3000                           # 몇 ms 동안 요청이 처리되지 않으면 실패로 간주할 것인가?
+      slowCallRateThreshold: 60                                 # slidingWindowSize 중 몇 %가 slowCall이면 OPEN으로 만들 것인가?
+
+      permittedNumberOfCallsInHalfOpenState: 5                  # HALF_OPEN 상태에서 5번까지는 CLOSE로 가기위해 호출한다.
+      automaticTransitionFromOpenToHalfOpenEnabled: true        # OPEN 상태에서 자동으로 HALF_OPEN으로 갈 것인가?
+
+      eventConsumerBufferSize: 10                               # actuator를 위한 이벤트 버퍼 사이즈
+
+      recordExceptions:
+        - carrotmoa.carrotmoa.exception.ClientErrorException
+        - carrotmoa.carrotmoa.exception.MissingParameterException
+        - carrotmoa.carrotmoa.exception.UnAuthorizedException
+        - org.springframework.web.client.RestClientException
+      ignoreExceptions:
+        - carrotmoa.carrotmoa.exception.IgnoreException
+  instances:
+    simpleCircuitBreakerConfig:
+      baseConfig: default
+
+
+
 
 
 
