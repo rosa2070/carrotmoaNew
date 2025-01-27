@@ -44,7 +44,7 @@
 
 ## 🗺️ 서버 구조
 
-![Anchor Server Architecture](readme/image/architecture/architecture.jpg)
+![Anchor Server Architecture](readme/image/architecture/architecture2.jpg)
 
 ## 💾 DB 구조
 
@@ -91,9 +91,20 @@
     - API 호출에 대한 HTTP 응답 코드를 분석하여, 4xx 클라이언트 오류가 발생하면 각 코드에 맞는 예외를 던져 세부적인 오류 처리
 - 외부 API의 평균 응답 시간을 고려해, 3초 내에 응답이 없으면 요청을 종료하도록 readTimeout을 설정
     - 시스템 자원을 낭비하지 않으면서 서비스의 안정성을 보장
- 
 
-### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7a40af8b8a166980d3aaacbc8829b312fedd3e25/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L32-L39)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
+ ### DB에 대한 부하 분산 [[설정 코드](https://github.com/Team-RecruTe/Anchor-Service/blob/fe37c7b7a98d0511150b2ba4dd09574adfb07e82/src/main/java/com/anchor/global/db/DataSourceConfig.java#L28C1-L125C2) / [구성 패키지](https://github.com/rosa2070/carrotmoaNew/tree/7f80a4aa2a3bdc534032d610bf80423c8e01405e/src/main/java/carrotmoa/carrotmoa/db)]
+
+- 로컬/배포 환경에서 `DB 서버 이중화` 구성
+
+    - 로컬 환경: MySQL DB 이중화
+    - 배포 환경: aws RDS MySQL DB 이중화 (Page 기반)
+
+- Master-Slave DB 간의 `Write/Read 쿼리 분산` 적용
+    - @Transactional의 readOnly 속성을 이용한 쿼리 분산
+
+- 추가 고려사항. 고가용성 확보를 위해서 Master DB 장애에 대한 대비책 필요
+
+### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/7f80a4aa2a3bdc534032d610bf80423c8e01405e/src/main/java/carrotmoa/carrotmoa/db/DataSourceConfig.java#L29-L126)] / [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/8e0c5ba3ab0f968a9fed8c616479ea4c792677a7/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L33-L54)]
 - `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
   <details>
     <summary>50만개의 더미데이터를 넣고 인기 숙소 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 30배의 TPS 성능 향상</summary>
