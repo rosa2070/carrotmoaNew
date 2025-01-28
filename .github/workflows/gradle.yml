@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -25,7 +24,6 @@ jobs:
       # 환경 변수로 중요한 데이터 처리 (application-secret.properties)
       - run: touch ./src/main/resources/application-secret.properties
       - run: echo "${{ secrets.CARROTMOA_TOTAL_ENV_KEY }}" > ./src/main/resources/application-secret.properties
-      - run: cat ./src/main/resources/application-secret.properties
 
       # gradlew에 권한 부여
       - name: Grant execute permission for gradlew
@@ -41,7 +39,6 @@ jobs:
         with:
           name: carrot-moa-jar
           path: build/libs/*.jar
-
 
       # Docker 이미지 빌드 (캐시 없이 새로 빌드)
       - name: Build docker image
@@ -68,7 +65,8 @@ jobs:
           port: ${{ secrets.WAS_SSH_PORT }}
           script: |
             export JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}"
-            docker stop $(docker ps -a -q) || true
-            docker rm $(docker ps -a -q) || true
+            docker stop $(docker ps -a -q) || echo "No containers to stop"
+            docker rm $(docker ps -a -q) || echo "No containers to remove"
             docker pull jaeeun111/carrotmoa_mine
             docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 --name myCarrotContainer jaeeun111/carrotmoa_mine:latest
+        debug: true
