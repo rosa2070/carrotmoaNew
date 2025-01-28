@@ -32,7 +32,7 @@ jobs:
 
       # 환경 변수로 중요한 데이터 처리 (application-secret.yml)
       - name: Create application-secret.yml with environment variables
-      - run: |
+        run: |
           touch ./src/main/resources/application-secret.yml
           echo "CARROTMOA_TOTAL_ENV_KEY: \"${{ secrets.CARROTMOA_TOTAL_ENV_KEY }}\"" > ./src/main/resources/application-secret.yml
 
