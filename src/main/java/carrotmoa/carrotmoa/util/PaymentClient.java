@@ -103,8 +103,8 @@ public class PaymentClient {
      */
     @Retryable(
             retryFor = {RestClientException.class}, // 재시도할 예외 지정
-            maxAttempts = 4, // 최초 호출 1회 + 재시도 1회
-            backoff = @Backoff(delay = 2000) // 1초 대기 후 재시도
+            maxAttempts = 3, // 최초 호출 1회 + 재시도 1회
+            backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
     )
     public String cancelPayment(String impUid) {
         log.info("Attempting to cancel payment for impUid: {}", impUid); // 재시도마다 로그 추가
