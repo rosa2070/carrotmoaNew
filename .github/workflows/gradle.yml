@@ -1,17 +1,26 @@
+# Workflow의 이름
 name: Java CI with Gradle
 
+# Event : 실행되는 시점을 설정
+# main이라는 브랜치에 push될 때 아래 Workflow를 실행
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
+# 하나의 Workflow는 1개 이상의 Job으로 구성됨
+# 여러 Job은 기본적으로 병렬적으로 수행됨
 jobs:
-  build:
+  # Job을 식별하기 위한 id
+  My-Deploy-Job:
+    # Ubuntu 환경 / 가장 최신 버전(latest)
     runs-on: ubuntu-latest
     permissions:
       contents: read
 
+    # Step : 특정 작업을 수행하는 가장 작은 단위
+    # Job은 여러 Step들로 구성되어 있음
     steps:
       - uses: actions/checkout@v4
 
@@ -21,9 +30,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # 환경 변수로 중요한 데이터 처리 (application-secret.properties)
-      - run: touch ./src/main/resources/application-secret.properties
-      - run: echo "${{ secrets.CARROTMOA_TOTAL_ENV_KEY }}" > ./src/main/resources/application-secret.properties
+      # 환경 변수로 중요한 데이터 처리 (application-secret.yml)
+      - name: Create application-secret.yml with environment variables
+      - run: |
+          touch ./src/main/resources/application-secret.yml
+          echo "CARROTMOA_TOTAL_ENV_KEY: \"${{ secrets.CARROTMOA_TOTAL_ENV_KEY }}\"" > ./src/main/resources/application-secret.yml
 
       # gradlew에 권한 부여
       - name: Grant execute permission for gradlew
@@ -69,3 +80,8 @@ jobs:
             docker rm $(docker ps -a -q) || echo "No containers to remove"
             docker pull jaeeun111/carrotmoa_mine
             docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 --name myCarrotContainer jaeeun111/carrotmoa_mine:latest
+        
+      - name: Github Actions 자체에 저장되어 있는 변수 사용해보기
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
