@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -101,13 +102,14 @@ public class PaymentClient {
      * @param impUid imp_uid of the payment to cancel
      * @return Response from PortOne API
      */
-    @Retryable(
-            retryFor = {RestClientException.class}, // 재시도할 예외 지정
-            maxAttempts = 3, // 최초 호출 1회 + 재시도 1회
-            backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
-    )
+
     public String cancelPayment(String impUid) {
-        log.info("Attempting to cancel payment for impUid: {}", impUid); // 재시도마다 로그 추가
+//        log.info("Attempting to cancel payment for impUid: {}", impUid); // 재시도마다 로그 추가
+
+        // 강제 네트워크 오류 발생
+//        if (true) {
+//            throw new RestClientException("Simulated network error");
+//        }
 
         AuthResponse authResponse = getAccessToken(impKey, impSecret);
         String accessToken = authResponse.getResponse().getAccess_token();
@@ -162,6 +164,11 @@ public class PaymentClient {
             throw e; // 예외를 던져서 재시도가 일어나게 함
         }
     }
+
+
+
+
+
 
 
 }

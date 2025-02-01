@@ -7,6 +7,8 @@ import carrotmoa.carrotmoa.model.request.PaymentRequest;
 import carrotmoa.carrotmoa.model.request.ReservationRequest;
 import carrotmoa.carrotmoa.service.PaymentService;
 import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/payment")
+@Slf4j
 public class PaymentController {
 
     private final PaymentService paymentService;
@@ -60,7 +63,22 @@ public class PaymentController {
 
     @GetMapping("/cancel/{uid}")
     public ResponseEntity<String> cancelPayment(@PathVariable("uid") String uid) {
-        paymentService.cancelPayment(uid);
-        return ResponseEntity.ok("결제취소가 성공적으로 완료되었습니다.");
+        try {
+            paymentService.cancelPayment(uid);  // 결제 취소 요청
+            return ResponseEntity.ok("결제 취소가 성공적으로 완료되었습니다.");
+        } catch (ExternalApiException e) {
+            // 서비스에서 던진 예외를 받아서 클라이언트에게 응답
+            log.error("Payment cancellation failed for impUid: {}. Error: {}", uid, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());  // 예외 메시지 그대로 반환
+//        } catch (IllegalArgumentException e) {
+//            log.error("Invalid payment information or already cancelled payment for impUid: {}", uid);
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                    .body("결제 정보가 없거나 이미 취소된 결제입니다. 결제 상태를 확인해주세요.");
+        } catch (Exception e) {
+            log.error("Unexpected error occurred while cancelling payment for impUid: {}. Error: {}", uid, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("예상치 못한 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+        }
     }
 }

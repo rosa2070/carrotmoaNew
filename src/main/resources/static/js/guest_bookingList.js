@@ -30,14 +30,14 @@ async function cancelBooking(impUid) {
     });
 
     if (!response.ok) {
-      throw new Error('결제 취소에 실패했습니다.');
+      const errorMessage = await response.text();  // 서버에서 반환한 메시지 가져오기
+      throw new Error(errorMessage);  // 서버에서 보낸 메시지로 예외 던지기
+      // throw new Error('결제 취소에 실패했습니다.');
     }
 
-    const result = await response.text(); // 문자열로 응답 받기
-    alert(result); // 성공 메시지 알림
-
-    // 페이지 새로 고침: 결제가 성공적으로 완료되었으면 페이지를 새로 고침
-    location.href = location.href;  // 현재 페이지를 다시 로드하여 새로고침
+    const result = await response.text();  // 성공 메시지 받기
+    alert(result); // 성공 메시지 표시
+    location.href = location.href; // 페이지 새로고침
 
   } catch (error) {
     console.error(error);

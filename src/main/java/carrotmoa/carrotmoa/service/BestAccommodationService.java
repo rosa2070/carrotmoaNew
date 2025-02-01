@@ -4,6 +4,7 @@ import carrotmoa.carrotmoa.model.response.BestAccommodationResponse;
 import carrotmoa.carrotmoa.repository.BestAccommodationCustomRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -31,6 +32,7 @@ public class BestAccommodationService {
 
     // Redis에서 인기 숙소 8개를 가져오는 메서드
     @Cacheable(value="top_accommodations", key = "'top:8'", cacheManager = "bestAccommodationCacheManager")
+    @CircuitBreaker(name = "simpleCircuitBreakerConfig", fallbackMethod = "fallback")
     public List<BestAccommodationResponse> getBestAccommodationsFromRedis() {
         log.info("Fetching best accommodations from Redis list.");
 

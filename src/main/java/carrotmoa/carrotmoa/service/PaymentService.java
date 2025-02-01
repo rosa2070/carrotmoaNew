@@ -24,6 +24,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,7 +141,11 @@ public class PaymentService {
      * @param uid 포트원 거래고유번호
      */
     @Transactional
-    @CircuitBreaker(name = "simpleCircuitBreakerConfig", fallbackMethod = "fallback")
+    @Retryable(
+            retryFor = {RestClientException.class}, // 재시도할 예외 지정, 기존엔 include 옵션이었으나, Deprecated 되고 retryFor로 대체
+            maxAttempts = 3, // 최초 호출 1회 + 재시도 1회
+            backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
+    )
     public void cancelPayment(String uid) {
         // 외부 API로 결제 취소 요청
         paymentClient.cancelPayment(uid);
@@ -175,15 +180,23 @@ public class PaymentService {
 
     }
 
-    // Circuit Breaker 실패 시 호출될 fallback method
-    public void fallback(String uid, Throwable throwable) {
-        // 예외 처리 및 로깅
-        log.error("Fallback method called for cancelPayment. impUid: {}. Error: {}", uid, throwable.getMessage());
 
-        // 대체 응답 반환 (여기서는 결제 취소 실패 메시지를 반환)
-        // 실패 처리 로직을 여기에 추가하거나, 필요한 예외를 던질 수 있습니다.
-        throw new ExternalApiException("Payment cancellation failed for impUid: " + uid + ". Please try again later.");
+
+    /**
+     * 결제 취소 재시도 실패 시 호출될 recover 메서드
+     * @param e RestClientException 예외
+     * @param uid 결제 고유번호
+     */
+    @Recover
+    public void recoverCancelPayment(RestClientException e, String uid) {
+        // 3번의 재시도 후에도 실패하면 호출되는 메서드
+        log.error("Payment cancellation failed after retries for impUid: {}. Error: {}", uid, e.getMessage());
+
+        // 예외를 던져서 Controller에서 처리하도록 함
+        throw new ExternalApiException("결제 취소를 위한 외부 API 호출에 실패했습니다. 잠시 후 다시 시도해주세요.");
     }
+
+
 
 
 
