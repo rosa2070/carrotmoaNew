@@ -42,9 +42,9 @@ public class BestAccommodationService {
         log.info("✅ Redis 정상 동작 중...");
 
         // 예시로 Redis의 연결이 실패하도록 강제로 예외를 발생시킴
-        if (isRedisOverloaded()) {  // Redis가 과부하 상태라고 판단되는 조건
-            throw new RedisConnectionFailureException("Redis 서버 연결 실패 - 의도적인 예외 발생");
-        }
+//        if (isRedisOverloaded()) {  // Redis가 과부하 상태라고 판단되는 조건
+//            throw new RedisConnectionFailureException("Redis 서버 연결 실패 - 의도적인 예외 발생");
+//        }
 
         return getBestAccommodationsFromRds();  // 정상적으로 데이터 가져오기
     }
