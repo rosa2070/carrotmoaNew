@@ -6,9 +6,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 @RestController
 @RequestMapping("/api/accommodations")
@@ -30,7 +32,8 @@ public class BestAccommodationController {
 
     // 인기 숙소 목록을 가져오는 API
     @GetMapping("/best")
-    public ResponseEntity<List<BestAccommodationResponse>> getBestAccommodations_withRedis() {
+    public ResponseEntity<List<BestAccommodationResponse>> getBestAccommodations_withRedis() throws TimeoutException {
+//    public ResponseEntity<List<BestAccommodationResponse>> getBestAccommodations_withRedis(@RequestParam String param) {
         // Redis에서 인기 숙소 데이터를 가져옵니다.
         List<BestAccommodationResponse> bestAccommodations = bestAccommodationService.getBestAccommodationsFromRedis();
 

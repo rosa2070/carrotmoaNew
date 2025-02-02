@@ -58,7 +58,7 @@ logging:
   level:
     org:
       springframework:
-        cache: TRACE
+#        cache: TRACE
 #        security:
 #          DEBUG
 #        security.web: DEBUG
@@ -107,10 +107,13 @@ resilience4j.circuitbreaker:
       eventConsumerBufferSize: 10                               # actuator를 위한 이벤트 버퍼 사이즈
 
       recordExceptions:
-        - carrotmoa.carrotmoa.exception.ClientErrorException
-        - carrotmoa.carrotmoa.exception.MissingParameterException
-        - carrotmoa.carrotmoa.exception.UnAuthorizedException
-        - org.springframework.web.client.RestClientException
+#        - carrotmoa.carrotmoa.exception.ClientErrorException
+#        - carrotmoa.carrotmoa.exception.MissingParameterException
+#        - carrotmoa.carrotmoa.exception.UnAuthorizedException
+#        - org.springframework.web.client.RestClientException
+         - org.springframework.data.redis.RedisConnectionFailureException
+         - java.util.concurrent.TimeoutException
+         - org.springframework.web.client.RestClientException
       ignoreExceptions:
         - carrotmoa.carrotmoa.exception.IgnoreException
   instances:
