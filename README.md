@@ -85,8 +85,14 @@
         - 결과 및 추가사항
 ```
 
-### RestClient 추가 설정 및 에러핸들링 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/708e8132db2e257bb511b89cf0d3c1347f9dc3e8/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java)]
-- `@Retryable`으로 재시도 로직 추가
+### 외부 API 호출에 대한 재시도 및 오류 처리 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/java/carrotmoa/carrotmoa/service/PaymentService.java#L144-L197)]
+- 재시도 로직 구현:
+    - `@Retryable` 어노테이션을 사용하여 외부 API 호출 시 일시적인 실패가 발생하면 지정된 횟수만큼 자동으로 재시도
+    - `maxAttempts` 속성을 사용해 재시도 횟수를 제한하고, `backoff` 속성으로 재시도 간의 딜레이를 설정해 서버 부하를 최소화
+- 재시도 실패 시 예외 처리:
+    - `@Recover` 어노테이션을 사용하여 재시도 후 실패 시 예외를 던지고, 컨트롤러에서 클라이언트에게 구체적인 오류 메시지를 반환
+
+### RestClient 추가 설정 및 에러핸들링 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java)]
 - `onStatus`로 응답 코드별 에러 핸들링
     - API 호출에 대한 HTTP 응답 코드를 분석하여, 4xx 클라이언트 오류가 발생하면 각 코드에 맞는 예외를 던져 세부적인 오류 처리
 - 외부 API의 평균 응답 시간을 고려해, 3초 내에 응답이 없으면 요청을 종료하도록 readTimeout을 설정
@@ -132,6 +138,13 @@
         <img src="readme/image/cache/TTL_Random.png">
     </div>
     </details>
+
+### 캐시 조회 안정성 확보를 위한 CircuitBreaker 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L40-L61) / [설정 코드] (https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/resources/application.yml#L91-L121)]
+- 캐시 조회 시 `CircuitBreaker`를 적용하여 Redis 과부하 및 장애 시 시스템 안정성을 확보.
+    - 최근 10개의 요청을 기준으로 실패율을 계산하여 40%를 초과하면 `OPEN` 상태로 전환
+    - `HALF_OPEN` 상태에서 요청을 재시도하며, 정상화되면 다시 `CLOSED` 상태로 복귀.
+- 차단 상태에서는 `fallback` 메서드를 통해 대체 로직을 실행하여 시스템 과부하를 방지하고 안정적인 응답을 제공
+- `RegistryEventConsumer`를 통해 `CircuitBreaker` 상태 변화에 대한 이벤트를 로그로 기록하여 시스템의 동작을 추적
 
  
 ### 서버 단에서의 유효성 검증 구현 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/controller/api/HostRoomApiController.java#L44-L73)]
