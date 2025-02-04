@@ -139,7 +139,7 @@
     </div>
     </details>
 
-### 캐시 조회 안정성 확보를 위한 CircuitBreaker 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L40-L61) / / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/resources/application.yml#L91-L121)]
+### 캐시 조회 안정성 확보를 위한 CircuitBreaker 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L40-L61) / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/0d9a8b7ca427ec3472da212aef653644956f77c0/src/main/resources/application.yml#L91-L121)]
 - 캐시 조회 시 `CircuitBreaker`를 적용하여 Redis 과부하 및 장애 시 시스템 안정성을 확보.
     - 최근 10개의 요청을 기준으로 실패율을 계산하여 40%를 초과하면 `OPEN` 상태로 전환
     - `HALF_OPEN` 상태에서 요청을 재시도하며, 정상화되면 다시 `CLOSED` 상태로 복귀.
