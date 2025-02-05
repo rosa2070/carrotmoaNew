@@ -184,7 +184,6 @@
 
 - **공통 유틸리티 클래스 설계**:
     - AWS S3에 이미지 파일을 업로드하고 삭제하는 공통 유틸리티 클래스를 구현하여 코드의 재사용성을 높임.
-    - `spring-cloud-aws-starter` 라이브러리를 도입하여 비동기 S3 클라이언트(`S3Client`)를 활용, 효율적인 비동기 작업을 구현.
     - 유틸리티 클래스를 통해 S3 관련 작업의 코드 중복을 줄이고, 코드 유지보수를 용이하게 함.
 
 ### 카테고리 목록 조회 성능 개선 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/config/S3Config.java) / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L22-L31)]
@@ -195,14 +194,12 @@
     - `TTL(Time To Live)`을 하루로 설정하여 캐시된 데이터가 자동으로 만료되도록 하여 최신 정보를 반영.
 
 
-### CI/CD 구축 및 보안 강화 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/6dd90c568e8333ba7ac1209ff2cd95ddd8f44cae/.github/workflows/gradle.yml)]
+### CI/CD 구축 및 보안 강화 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/ed78874c12ed3a186c230e88bd0cf6a5e3278b2f/.github/workflows/gradle.yml)]
 
 - **CI/CD 파이프라인 구축**:
     - `GitHub Actions`를 사용하여 CI/CD 파이프라인을 자동화하여 개발과 배포 과정의 효율성을 높임.
     - `JASYPT_PASSWORD`를 `GitHub Secrets`에 안전하게 관리하여 환경 변수 및 민감 정보를 보호.
     - Dockerfile에서 `ENTRYPOINT`를 사용하여 암호화된 비밀번호를 Java 시스템 속성으로 전달하여 보안을 강화.
-    - **Docker run** 명령어를 통해 환경 변수 설정 및 보안을 강화하는 방식으로 배포 안정성을 확보.
-
 
 ### 환경별 설정 최적화 [[설정 코드](src/main/resources)]
 
