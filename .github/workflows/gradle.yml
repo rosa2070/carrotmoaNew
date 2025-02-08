@@ -81,6 +81,7 @@ jobs:
             docker pull jaeeun111/carrotmoa_mine
             
             docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 --name myCarrotContainer jaeeun111/carrotmoa_mine:latest
+
         
       - name: Github Actions 자체에 저장되어 있는 변수 사용해보기
         run: |
