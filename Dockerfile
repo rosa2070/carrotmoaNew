@@ -8,5 +8,5 @@ COPY ${JAR_FILE} app.jar
 # ENV 및 ARG 사용을 피하는 것이 좋습니다.
 
 # JASYPT 비밀번호를 전달하며 애플리케이션 실행
-#ENTRYPOINT ["java", "-Djasypt.encryptor.password=${JASYPT_PASSWORD}", "-jar", "/app.jar"]
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-Djasypt.encryptor.password=${JASYPT_PASSWORD}", "-jar", "/app.jar"]
+#ENTRYPOINT ["java", "-jar", "/app.jar"]
