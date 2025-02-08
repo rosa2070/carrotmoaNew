@@ -66,14 +66,14 @@ jobs:
       - name: Publish to Docker Hub
         run: docker push jaeeun111/carrotmoa_mine
 
-      # WAS 인스턴스 접속 후 애플리케이션 실행
-      - name: Connect to WAS & Execute Application
-        uses: appleboy/ssh-action@v0.1.6
+      # https://github.com/marketplace/actions/ssh-remote-commands
+      - name: SSH로 EC2에 접속하기
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.WAS_HOST }}
-          username: ${{ secrets.WAS_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.WAS_SSH_PORT }}
+          host: ${{ secrets.WAS_HOST }} # ec2 퍼블릭 IPv4 주소 or 퍼블릭 IPv4 DNS
+          username: ${{ secrets.WAS_USERNAME }} # ec2 연결 시 사용자 이름
+          key: ${{ secrets.SSH_KEY }} # 키 페어 전체 붙여넣기
+          port: ${{ secrets.WAS_SSH_PORT }} # 인바운드 규칙 SSH 포트 (기본적으로 22)
           script: |
             export JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}"
             docker stop $(docker ps -a -q) || echo "No containers to stop"
@@ -84,7 +84,7 @@ jobs:
             docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 --name myCarrotContainer8080 jaeeun111/carrotmoa_mine:latest --server.port=8080
             docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8081:8081 --name myCarrotContainer8081 jaeeun111/carrotmoa_mine:latest --server.port=8081
 
-      - name: Github Actions 자체에 저장되어 있는 변수 사용해보기
-        run: |
-          echo $GITHUB_SHA
-          echo $GITHUB_REPOSITORY
+#      - name: Github Actions 자체에 저장되어 있는 변수 사용해보기
+#        run: |
+#          echo $GITHUB_SHA
+#          echo $GITHUB_REPOSITORY
