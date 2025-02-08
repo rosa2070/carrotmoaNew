@@ -79,9 +79,9 @@ jobs:
             docker stop $(docker ps -a -q) || echo "No containers to stop"
             docker rm $(docker ps -a -q) || echo "No containers to remove"
             docker pull jaeeun111/carrotmoa_mine
-            docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 -p 8081:8081 --name myCarrotContainer jaeeun111/carrotmoa_mine:latest
-            # docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 --name myCarrotContainer8080 jaeeun111/carrotmoa_mine:latest --server.port=8080
-            # docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8081:8081 --name myCarrotContainer8081 jaeeun111/carrotmoa_mine:latest --server.port=8081
+            # docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 -p 8081:8081 --name myCarrotContainer jaeeun111/carrotmoa_mine:latest
+            docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8080:8080 --name myCarrotContainer8080 jaeeun111/carrotmoa_mine:latest --server.port=8080
+            docker run -d -e JASYPT_PASSWORD="${{ secrets.JASYPT_PASSWORD }}" -p 8081:8081 --name myCarrotContainer8081 jaeeun111/carrotmoa_mine:latest --server.port=8081
 
       - name: Github Actions 자체에 저장되어 있는 변수 사용해보기
         run: |
