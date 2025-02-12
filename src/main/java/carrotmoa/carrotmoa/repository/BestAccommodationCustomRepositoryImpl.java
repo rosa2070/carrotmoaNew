@@ -1,6 +1,6 @@
 package carrotmoa.carrotmoa.repository;
 
-import carrotmoa.carrotmoa.db.RouteDataSource;
+//import carrotmoa.carrotmoa.db.RouteDataSource;
 import carrotmoa.carrotmoa.entity.QAccommodation;
 import carrotmoa.carrotmoa.entity.QAccommodationImage;
 import carrotmoa.carrotmoa.entity.QPost;
@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static carrotmoa.carrotmoa.db.RouteDataSource.DataSourceType.SLAVE;
+//import static carrotmoa.carrotmoa.db.RouteDataSource.DataSourceType.SLAVE;
 
 @Repository
 @Transactional(readOnly = true)
