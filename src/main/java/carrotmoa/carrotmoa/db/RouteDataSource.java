@@ -1,18 +1,18 @@
-package carrotmoa.carrotmoa.db;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE_USE, ElementType.METHOD})
-public @interface RouteDataSource {
-
-    DataSourceType dataSourceType();
-
-    enum DataSourceType {
-        MASTER,
-        SLAVE
-    }
-}
+//package carrotmoa.carrotmoa.db;
+//
+//import java.lang.annotation.ElementType;
+//import java.lang.annotation.Retention;
+//import java.lang.annotation.RetentionPolicy;
+//import java.lang.annotation.Target;
+//
+//@Retention(RetentionPolicy.RUNTIME)
+//@Target({ElementType.TYPE_USE, ElementType.METHOD})
+//public @interface RouteDataSource {
+//
+//    DataSourceType dataSourceType();
+//
+//    enum DataSourceType {
+//        MASTER,
+//        SLAVE
+//    }
+//}

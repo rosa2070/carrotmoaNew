@@ -3,28 +3,24 @@ spring:
     activate:
       on-profile: prod
 
-  datasource:
-    hikari:
-      master:
-        jdbc-url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
-        username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
-        password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
-        driver-class-name: com.mysql.cj.jdbc.Driver
-      slave:
-        jdbc-url: jdbc:mysql://carrot-moa-replica.czioa0eq2ly1.ap-northeast-2.rds.amazonaws.com:3306/carrot_moa
-        username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
-        password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
-        driver-class-name: com.mysql.cj.jdbc.Driver
-
 #  datasource:
-#    url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
-#    username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
-#    password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://carrot-moa-replica.czioa0eq2ly1.ap-northeast-2.rds.amazonaws.com:3306/carrot_moa
-#    username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
-#    password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    hikari:
+#      master:
+#        jdbc-url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
+#        username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
+#        password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+#      slave:
+#        jdbc-url: jdbc:mysql://carrot-moa-replica.czioa0eq2ly1.ap-northeast-2.rds.amazonaws.com:3306/carrot_moa
+#        username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
+#        password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
+#        driver-class-name: com.mysql.cj.jdbc.Driver
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
+    username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
+    password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
 
 
   data:
