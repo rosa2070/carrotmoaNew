@@ -103,7 +103,7 @@
 - 로컬/배포 환경에서 `DB 서버 이중화` 구성
 
     - 로컬 환경: MySQL DB 이중화
-    - 배포 환경: aws RDS MySQL DB 이중화 (Page 기반)
+    - 배포 환경: aws RDS MySQL DB 이중화 
 
 - Master-Slave DB 간의 `Write/Read 쿼리 분산` 적용
     - @Transactional의 readOnly 속성을 이용한 쿼리 분산
@@ -146,6 +146,14 @@
 - 차단 상태에서는 `fallback` 메서드를 통해 대체 로직을 실행하여 시스템 과부하를 방지하고 안정적인 응답을 제공
 - `RegistryEventConsumer`를 통해 `CircuitBreaker` 상태 변화에 대한 이벤트를 로그로 기록하여 시스템의 동작을 추적
 
+### Nginx를 통한 로드밸런싱과 HTTPS 적용
+- 로드밸런싱 설정
+   - `upstream` 지시어로 두 서버(`localhost:8080`, `localhost:8081`)를 묶어 트래픽을 분배
+   - 트래픽을 두 서버에 고르게 분배해 과부하를 방지하고, 안정적인 서비스 운영 가능
+- HTTPS 적용
+   - Certbot을 통해 SSL 인증서를 발급받고, `listen 443 ssl`로 HTTPS 설정
+   - HTTP 요청이 올 경우 HTTPS로 강제 리다이렉션
+   - 웹사이트의 데이터 전송 보안을 강화
  
 ### 서버 단에서의 유효성 검증 구현 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/535646bc5b71b36656337274dcef470df3c2a70e/src/main/java/carrotmoa/carrotmoa/controller/api/HostRoomApiController.java#L44-L73)]
 
