@@ -27,7 +27,7 @@ public class AwsS3Utils {
     @Value("${cloud.aws.region.static}")
     private String region;
 
-    // 특정 폴더에 이미지를 S3에 업로드하는 메서드
+    // 사용자가 업로드한 이미지를 지정된 S3 폴더에 업로드
     public String uploadImageToFolder(String folderName, Long id, MultipartFile file) throws IOException {
         String fileName = folderName + "/" + id + "/" + UUID.randomUUID() + getFileExtension(file.getOriginalFilename());
 

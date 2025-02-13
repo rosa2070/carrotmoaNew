@@ -57,6 +57,6 @@ public class BestAccommodationService {
 
     public List<BestAccommodationResponse> fallback(Throwable throwable) {
         log.error("❌ Redis 조회 실패, Fallback 호출: {}", throwable.getMessage());
-        return Collections.emptyList();  // 예시로 빈 리스트 반환
+        return getBestAccommodationsFromRds();
     }
 }
