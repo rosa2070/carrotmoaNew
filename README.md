@@ -105,7 +105,9 @@
     - 배포 환경: aws RDS MySQL DB 이중화 
 
 - Master-Slave DB 간의 `Write/Read 쿼리 분산` 적용
-    - @Transactional의 readOnly 속성을 이용한 쿼리 분산
+    - 옵션1. @Transactional의 readOnly 속성을 이용한 쿼리 분산
+    - 옵션2. @RouteDataSource의 dataSourceType 속성을 이용한 쿼리 분산
+    - (@Transactional: 스프링 어노테이션 / @RouteDataSource: 커스텀 어노테이션)
 
 ### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L39-L50) / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java)]
 - `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
