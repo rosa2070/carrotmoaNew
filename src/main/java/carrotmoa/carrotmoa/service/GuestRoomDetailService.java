@@ -1,5 +1,6 @@
 package carrotmoa.carrotmoa.service;
 
+import carrotmoa.carrotmoa.db.RouteDataSource;
 import carrotmoa.carrotmoa.entity.Space;
 import carrotmoa.carrotmoa.model.response.AccommodationDetailResponse;
 import carrotmoa.carrotmoa.model.response.AccommodationReviewResponse;
@@ -37,7 +38,8 @@ public class GuestRoomDetailService {
         this.reviewRepository = reviewRepository;
     }
 
-    @Transactional(readOnly = true)
+    @RouteDataSource(dataSourceType = RouteDataSource.DataSourceType.SLAVE)
+//    @Transactional(readOnly = true)
     public List<UserProfileResponse> getHostProfile(Long id) {
         List<Object[]> profile = userRepository.getUserProfile(id);
         return profile.stream()
@@ -45,7 +47,8 @@ public class GuestRoomDetailService {
             .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
+    @RouteDataSource(dataSourceType = RouteDataSource.DataSourceType.SLAVE)
+//    @Transactional(readOnly = true)
     public List<AmenityImageResponse> getAmenityImage(Long id) {
         List<Object[]> result = accommodationAmenityRepository.findAccommodationAmenitiesByAccommodationId(id);
         return result.stream()
@@ -53,12 +56,14 @@ public class GuestRoomDetailService {
             .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
+    @RouteDataSource(dataSourceType = RouteDataSource.DataSourceType.SLAVE)
+//    @Transactional(readOnly = true)
     public AccommodationDetailResponse getAccommodationDetail(Long id) {
         return accommodationDetailCustomRepository.getAccommodationDetailById(id);
     }
 
-    @Transactional(readOnly = true)
+    @RouteDataSource(dataSourceType = RouteDataSource.DataSourceType.SLAVE)
+//    @Transactional(readOnly = true)
     public List<SpaceImageResponse> getSpaceImage() {
         List<SpaceImageResponse> icons = new ArrayList<>();
         for (int i = 1; i <= 4; i++) {
@@ -70,7 +75,8 @@ public class GuestRoomDetailService {
         return icons;
     }
 
-    @Transactional(readOnly = true)
+    @RouteDataSource(dataSourceType = RouteDataSource.DataSourceType.SLAVE)
+//    @Transactional(readOnly = true)
     public List<AccommodationReviewResponse> getAllReview(Long id) {
         return reviewRepository.getAccommodationReviews(id);
     }

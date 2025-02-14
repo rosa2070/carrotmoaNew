@@ -28,30 +28,24 @@ public class ReservationService {
         this.reservationDetailCustomRepository = reservationDetailCustomRepository;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     // 게스트 예약 확인하는 페이지에서 사용
     // guest/booking/list/{id}
     public List<GuestReservationResponse> getBookingList(Long id) {
-//        return reservationRepository.findBookingData(id);
-//        List<Object[]> bookingList = reservationRepository.findBookingData(id);
-//        return bookingList.stream()
-//                .map(BookingListResponse::fromData)
-//                .collect(Collectors.toList());
-
         return reservationDetailCustomRepository.getGuestReservations(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public BookingDetailResponse getBookingDetail(Long id) {
         return reservationRepository.findBookingDetail(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<FullCalendarResponse> getBookedDates(Long id) {
         return reservationRepository.findBookedDates(id);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<AccommodationImageResponse> getAccommodationImageByUserId(Long id) {
         List<Object[]> images = accommodationImageRepository.findByUserId(id);
         return images.stream()
