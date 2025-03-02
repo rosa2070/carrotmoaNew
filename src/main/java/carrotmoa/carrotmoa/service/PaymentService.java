@@ -28,6 +28,7 @@ import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 
 @Service
@@ -140,9 +141,13 @@ public class PaymentService {
      *
      * @param uid 포트원 거래고유번호
      */
+    //  400번대 오류는 재시도해도 해결되지 않음
+    // url 바꾸고 400번대오류 강제 발생시켜서 noRetryFor 잘 작동하는지 테스트해보자 (noRetryfor있기전, 후 비교)
+    // R
     @Transactional
     @Retryable(
             retryFor = {RestClientException.class}, // 재시도할 예외 지정, 기존엔 include 옵션이었으나, Deprecated 되고 retryFor로 대체
+            noRetryFor = {HttpClientErrorException.class}, // 400번대 오류는 재시도하지 않음, 기존엔 exclude 옵션이었으나, Deprecated 되고 noRetryFor로 대체
             maxAttempts = 3, // 최초 호출 1회 + 재시도 1회
             backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
     )
