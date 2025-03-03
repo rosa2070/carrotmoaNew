@@ -25,7 +25,7 @@ public class UserLoginResponseDto {
     private String bio;
     private String defaultProfileImageUrl;
 
-    public UserLoginResponseDto(User user, UserProfile userProfile) {
+    public UserLoginResponseDto(UserLoginResponse user, UserProfile userProfile) {
         this.userId = user.getId();
         this.nickname = userProfile.getNickname();
 

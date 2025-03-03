@@ -9,8 +9,10 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
+//@EnableRedisHttpSession // 🔥 Redis 세션 사용 활성화
 public class RedisConfig {
 
     @Value("${spring.data.redis.port}")
@@ -40,6 +42,17 @@ public class RedisConfig {
         return redisTemplate;
     }
 
+//    @Bean
+//    public RedisTemplate<String, Object> redisTemplate() {
+//        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+//        redisTemplate.setConnectionFactory(redisConnectionFactory());
+//        redisTemplate.setKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        return redisTemplate;
+//    }
+
     @Bean
     public RedisTemplate<String, Object> likeRedisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -66,5 +79,15 @@ public class RedisConfig {
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
     }
+
+//    @Bean
+//    public RedisTemplate<String, Object> sessionRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+//        RedisTemplate<String, Object> template = new RedisTemplate<>();
+//        template.setConnectionFactory(redisConnectionFactory);
+//        template.setKeySerializer(new StringRedisSerializer()); // Key 직렬화
+//        template.setValueSerializer(new GenericJackson2JsonRedisSerializer()); // JSON 직렬화
+//        return template;
+//    }
+
 
 }

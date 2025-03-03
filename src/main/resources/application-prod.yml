@@ -23,6 +23,9 @@ spring:
 #    password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
 
 
+  session:
+#    store-type: redis  # 세션 저장소를 Redis로 설정 86400s
+    timeout: 3600s      # 세션 유지 시간 (초 단위, 1시간)
   data:
     redis:
       host: ENC(cZYsn4Gq8W79xoNFBZc5f71jnkNI7ArQs2sQwjxTv3ErnZjzC0Tn/WtU4OXJToZJqNtz2lg4/aFlzFXO6UD/PXTs8tp5ap05)

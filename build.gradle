@@ -106,7 +106,9 @@ dependencies {
 // 회로 차단기 기능을 활성화하려면 이 의존성도 필요합니다.
     implementation "io.github.resilience4j:resilience4j-circuitbreaker:2.2.0"
 
-
+    // Spring Session Redis
+    implementation 'org.springframework.session:spring-session-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 
 }

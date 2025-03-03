@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "user")
 @Getter
@@ -35,6 +37,7 @@ public class User extends BaseEntity {
 
     @Column(name = "authority_id")
     private Long authorityId;
+
     @Column(name = "state")
     private int state;
 }
