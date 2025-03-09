@@ -138,12 +138,14 @@
     </div>
     </details>
 
-### 캐시 조회 안정성 확보를 위한 CircuitBreaker 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L40-L61) / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/resources/application.yml#L91-L121)]
-- 캐시 조회 시 `CircuitBreaker`를 적용하여 Redis 과부하 및 장애 시 시스템 안정성을 확보.
-    - 최근 10개의 요청을 기준으로 실패율을 계산하여 40%를 초과하면 `OPEN` 상태로 전환
-    - `HALF_OPEN` 상태에서 요청을 재시도하며, 정상화되면 다시 `CLOSED` 상태로 복귀.
-- 차단 상태에서는 `fallback` 메서드를 통해 대체 로직을 실행하여 시스템 과부하를 방지하고 안정적인 응답을 제공
-- `RegistryEventConsumer`를 통해 `CircuitBreaker` 상태 변화에 대한 이벤트를 로그로 기록하여 시스템의 동작을 추적
+### AWS CloudWatch를 통한 DB 부하 분산 모니터링
+
+- CloudWatch 대시보드 설정
+  - Master DB(carrot-moa)와 Replica DB(carrot-moa-replica)의 Read IOPS, CPU 사용률, Replication Lag 등을 실시간으로 모니터링
+- 10만 건의 더미 데이터를 추가한 후, nGrinder를 사용하여 50명의 가상 사용자(VUser)로 10분간 읽기 작업을 수행하며 부하 분산 효과 검증
+- 성능 테스트 후, Master DB의 Read IOPS는 변동이 없었으며, Replica DB의 Read IOPS는 13.6까지 증가
+  - 이를 통해 읽기 쿼리가 Replica DB로 성공적으로 분배되었음을 확인
+  - <img src="readme/image/cloudwatch/cloudwatch.png">
 
 ### Nginx를 통한 로드밸런싱과 HTTPS 적용
 - 로드밸런싱 설정
