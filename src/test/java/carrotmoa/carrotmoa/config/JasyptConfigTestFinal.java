@@ -22,6 +22,7 @@
 //
 //        // 암호화할 값들
 //        String datasourceUrl = "";
+//        String datasourceUrl2 = "";
 //        String username = "";
 //        String password = "";
 //        String accessKey = "";
@@ -35,12 +36,13 @@
 //        String redisUsername = "";
 //        String redisPassword = "";
 //
-//        // 새로운 결제 키 추가
+//        // 포트원 연동키
 //        String impKey = "";
 //        String impSecret = "";
 //
 //        // 암호화
 //        String encryptDatasourceUrl = encryptor.encrypt(datasourceUrl);
+//        String encryptDatasourceUrl2 = encryptor.encrypt(datasourceUrl2);
 //        String encryptUsername = encryptor.encrypt(username);
 //        String encryptPassword = encryptor.encrypt(password);
 //        String encryptAccessKey = encryptor.encrypt(accessKey);
@@ -60,6 +62,7 @@
 //
 //        // 암호화 결과 출력
 //        System.out.println("Encrypted datasource.url: " + encryptDatasourceUrl);
+//        System.out.println("Encrypted datasource2.url: " + encryptDatasourceUrl2);
 //        System.out.println("Encrypted spring.datasource.username: " + encryptUsername);
 //        System.out.println("Encrypted spring.datasource.password: " + encryptPassword);
 //        System.out.println("Encrypted cloud.aws.credentials.accessKey: " + encryptAccessKey);

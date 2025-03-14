@@ -7,7 +7,7 @@ spring:
 #    allow-bean-definition-overriding: true
 
   profiles:
-    include: secret
+#    include: secret
     active: prod
 
   jpa:
@@ -29,10 +29,10 @@ spring:
     cache: false
 
   mail:
-    host: ENC(IJvL9LNFRf5yJNTb7q6Tc621r8tnzVRS)
+    host: ENC(vQ4CKXBO5MWxH6LR3LhpJwYVvwQRpWIH)
     port: 587
-    username: ENC(BEXdGxV7CaH7mhxG0/ByZYEQ1ck59i9lxi2n70u4u0c=)
-    password: ENC(t9RHsbCNwYNowg5g5IZ3oXSBuoeBwDIdgMqDdE9bjms=)
+    username: ENC(mntpNBJlOVlLZP4y1lHNUErd+47tVvhM0gjuubxJ4Bg=)
+    password: ENC(m3Gus7eE/+b5c/fKkHc3lP4DpNp4xqn+8MxAYce6kt0=)
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
@@ -74,8 +74,8 @@ logging:
 cloud:
   aws:
     credentials:
-      access-key: ENC(iWioHko2n4bPtihvgu8LNq/Sj0OQ/yVWkJK5SJTrBXY=)
-      secret-key: ENC(eBiqenBdaISdo2YXGJaVzhVsUGJRyFSY9HSssrIx/3lVzXmgE9DQJ8naGSez5kvUC8f4ohFonGU=)
+      access-key: ENC(TgHHUUx8gOdnxWz9SSntYrhB8RlTEWX176Q9Oi5BqqI=)
+      secret-key: ENC(HkLp11dGaKQbVvK1JxB67xWeLqnKd2bLysUSgx97++UOYDoKUFSyLX3XP+h7j2eH83MCN7zXfrk=)
     region:
       static: ap-northeast-2
     stack:
@@ -84,8 +84,8 @@ cloud:
       bucket: carrots-bucket
 
 payment:
-  imp-key: ENC(LbVJf8TdGq/jKya+emcEAIuOV6MxTz1EjbrY3GqKCK4=)
-  imp-secret: ENC(AQMCQXidLOtv6rrkiYxVss0L+Kbjj4GMJRIy8et4a0cJIvsQjPAe2ByLN5Pmsr9HTgzKMwnu+Bk3E6SlZgXzQYXVYywSgMDODBmOYtaNhcxBvWn+wAYZ78N6jtCwt4W7)
+  imp-key: ENC(A2c8xPeiVwUiym1wF4yI4iTeYX7HUTKK7i17Cq/rbTE=)
+  imp-secret: ENC(+gRWL92LwiXhM/ij74pgiLweXsmDkKQOQRpOdDFWtCfafsvwRLL/7KhMgMMluneiIKmTrht9fRlutugrrUh0HIje+jMz2qzhmqs6ZJX7Fgn1IAVJhT1D90Tm6sXAflij)
   base-url: https://api.iamport.kr
 
 resilience4j.circuitbreaker:

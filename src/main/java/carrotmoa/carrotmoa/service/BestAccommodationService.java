@@ -37,7 +37,7 @@ public class BestAccommodationService {
 
     // Redis에서 인기 숙소 8개를 가져오는 메서드
     @Cacheable(value="top_accommodations", key = "'top:8'", cacheManager = "bestAccommodationCacheManager")
-    @CircuitBreaker(name = "simpleCircuitBreakerConfig", fallbackMethod = "fallback")
+//    @CircuitBreaker(name = "simpleCircuitBreakerConfig", fallbackMethod = "fallback")
     public List<BestAccommodationResponse> getBestAccommodationsFromRedis() throws TimeoutException {
         log.info("✅ Redis 정상 동작 중...");
 

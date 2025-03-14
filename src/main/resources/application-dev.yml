@@ -6,21 +6,21 @@ spring:
   datasource:
     hikari:
       master:
-        jdbc-url: ENC(MaQqbvtT427sLmBqYQn2iZpbqkbwHGMLyQVCn8a1GuAcFldPhNi+q8L1oige6WqCx/I7ikxn0N1zEklDnf2yhvIvbRds/xvyD37xUCINiYqX4B16nW+PbKyeXFdgCaUG)
-        username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
-        password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
+        jdbc-url: ENC(mknpSuZ478LFeqB3EsJ6klOplFzq5Wvq9lOCIC4ECCEsp7SGkmbtLoCW/LWygcOqCa+v+nWhJeekB8Hzd+ua07d1PeJMhx89t9jo1GVN7d7ZgnHfz4SfA2n6q5hLu0Px)
+        username: ENC(rSMIRNKJ2QXSfQNWaFSsFQ==)
+        password: ENC(z+I+Jn3UIfqaWEJOO3ZYbI8snhd/6En/d40rRwCW3IY=)
         driver-class-name: com.mysql.cj.jdbc.Driver
       slave:
-        jdbc-url: jdbc:mysql://carrot-moa-replica.czioa0eq2ly1.ap-northeast-2.rds.amazonaws.com:3306/carrot_moa
-        username: ENC(7XLXi/w59hcAU2B7KKa/tw==)
-        password: ENC(8M2wgI42LVjGrlU6/qvijcb1cH9/TMegeQ6yfOSyH9I=)
+        jdbc-url: ENC(iceZ5lH4xYMHyhAte0uMaThjVEmteo1jkIezchoWaui8tWGmO1+QSsgEyKP2n/fD0s3yx+AmyYW8fbgJLsmEvJnW1jZcH+cF7YgVdAUoTwpGIsFbGajtPEdZ8DVYKfcUc2s5oSed0/M=)
+        username: ENC(rSMIRNKJ2QXSfQNWaFSsFQ==)
+        password: ENC(z+I+Jn3UIfqaWEJOO3ZYbI8snhd/6En/d40rRwCW3IY=)
         driver-class-name: com.mysql.cj.jdbc.Driver
 
   data:
     redis:
-      host: ENC(cZYsn4Gq8W79xoNFBZc5f71jnkNI7ArQs2sQwjxTv3ErnZjzC0Tn/WtU4OXJToZJqNtz2lg4/aFlzFXO6UD/PXTs8tp5ap05)
-      username: ENC(Niql4fTzx7wRsCpnyjpfVg==)
-      password: ENC(kO3u6vmK3ud+IA2zy7AIGopVM8JxdO3g69y0CWFW3iJRcRcXi2wDosC1kecSJltv)
+      host: ENC(EhdGStZuFhRl4gHRdQ6YJEXo120kXIuL6FKhGuE0G/3oaRolKCAO/SRgt7Y0BjYxh3i0K3Q7k3zYPyiIwBcIOm4nY/GcW6JZ)
+      username: ENC(XluFywcomloscNrlyMhhjg==)
+      password: ENC(w88fSqkQJk6JrkYLFRkHzdzr7SCWVyfNCwN7/Ylqt444U/BXMEVMYkYaubM1TylM)
       port: 10819
 
 
