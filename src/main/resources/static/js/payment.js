@@ -13,8 +13,7 @@ window.addEventListener("load", function () {
   document.getElementById("room-info-title").textContent = title;
   document.getElementById("room-addr-info").textContent = addr;
   document.getElementById("host_name").textContent = name;
-  document.getElementById(
-      "room_info_price").textContent = `총 가격: ${totalPrice.toLocaleString()} 원`;
+  document.getElementById("room_info_price").textContent = `총 가격: ${totalPrice.toLocaleString()} 원`;
 
 })
 
