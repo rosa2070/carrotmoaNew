@@ -159,9 +159,9 @@ public class PaymentService {
 
                 notificationService.sendReservationNotification(notificationType, senderId, receiverId, notificationUrl, message);
             }
-        } catch (RestClientException e) {  // `PaymentClient`에서 던진 예외를 잡음
-            log.error("Payment cancellation failed: {}", e.getMessage());
-            throw e;  // 예외를 다시 던져서 트랜잭션을 롤백
+        } catch (RestClientException e) {
+            log.error("결제 취소 실패: {}", e.getMessage());
+            throw e;
         }
 
     }

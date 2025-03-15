@@ -1,31 +1,19 @@
 package carrotmoa.carrotmoa.util;
 
-import java.time.Duration;
-import java.util.*;
-
 import carrotmoa.carrotmoa.enums.PortOneRequestUrl;
-import carrotmoa.carrotmoa.exception.ClientErrorException;
-import carrotmoa.carrotmoa.exception.MissingParameterException;
-import carrotmoa.carrotmoa.exception.UnAuthorizedException;
-import carrotmoa.carrotmoa.model.response.AuthResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestClient;
-import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -44,60 +32,45 @@ public class PaymentClient {
     private static final String BASE_URL = "https://api.iamport.kr";
 
     /**
-     * Get Access Token
-     * @return Access token as String
+     * Get Access Token (재시도 없음)
      */
     public Map<String, Object> getAccessToken() {
         String url = BASE_URL + PortOneRequestUrl.ACCESS_TOKEN_URL.getUrl();
-        try {
 
-            Map<String, Object> requestBody = Map.of("imp_key", impKey, "imp_secret", impSecret);
+        Map<String, Object> requestBody = Map.of("imp_key", impKey, "imp_secret", impSecret);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
 
-            // 강제로 500 Internal Server Error 발생
-//            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "강제 500 Internal Server Error 발생");
+//        throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "강제 5XX 에러 발생");
 
-            // Send POST request
-            return restClient
-                    .post()
-                    .uri(url)
-                    .headers(h -> h.addAll(headers))
-                    .body(requestBody)
-                    .retrieve()
-                    .body(new ParameterizedTypeReference<>() {});
 
-        } catch (RestClientException e) {
-            throw new RuntimeException("Failed to get access token", e);
-        }
+        // ✅ 예외가 발생하면 `cancelPayment()`에서 처리
+        return restClient.post()
+                .uri(url)
+                .headers(h -> h.addAll(headers))
+                .body(requestBody)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {});
     }
 
     /**
-     * Cancel Payment
-     * @param impUid imp_uid of the payment to cancel
-     * @return Response from PortOne API
+     * Cancel Payment (재시도 가능)
      */
     @Retryable(
-            retryFor = {RestClientException.class},  // 네트워크 및 5XX 오류는 재시도
-            noRetryFor = {HttpClientErrorException.class}, // 400번대 오류는 재시도 안 함
+            retryFor = {ResourceAccessException.class, HttpServerErrorException.class},
+            noRetryFor = {HttpClientErrorException.class, UnknownHttpStatusCodeException.class},
             maxAttempts = 3,
-            backoff = @Backoff(delay = 1000, multiplier = 2) // 초기 1초, 이후 2배씩 증가 (1s → 2s → 4s)
+            backoff = @Backoff(delay = 1000, multiplier = 2)
     )
     public String cancelPayment(String impUid) {
         try {
-            // Access Token 가져오기
             Map<String, Object> accessTokenResponse = getAccessToken();
             Map<String, Object> responseMap = (Map<String, Object>) accessTokenResponse.get("response");
             String accessToken = (String) responseMap.get("access_token");
 
-            // 요청 URL 설정
             String url = BASE_URL + PortOneRequestUrl.CANCEL_PAYMENT_URL.getUrl();
-
-            // 요청 본문 생성
             Map<String, Object> requestBody = Map.of("imp_uid", impUid);
-
-            // 요청 헤더 설정
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.setBearerAuth(accessToken);
@@ -108,35 +81,43 @@ public class PaymentClient {
                     .body(requestBody)
                     .retrieve()
                     .body(String.class);
-        } catch (HttpClientErrorException e) {
-            log.error("4XX 오류 발생 - 재시도하지 않음. impUid: {}, Status: {}", impUid, e.getStatusCode());
-            throw e;
-        } catch (RestClientException e) {
-            log.error("5XX 또는 네트워크 오류 발생 - 재시도 가능. impUid: {}", impUid);
-            throw e;
+
+        } catch (HttpClientErrorException httpEx) {
+            log.error("❌ [cancelPayment] 즉시 실패 - 4XX 오류 발생. impUid: {}, Status: {}, Message: {}",
+                    impUid, httpEx.getStatusCode(), httpEx.getMessage());
+            throw httpEx;
+        } catch (UnknownHttpStatusCodeException unknownStatusEx) {
+            log.error("❌ [cancelPayment] 즉시 실패 - 알 수 없는 상태 코드. impUid: {}, Message: {}",
+                    impUid, unknownStatusEx.getMessage());
+            throw unknownStatusEx;
+        } catch (ResourceAccessException | HttpServerErrorException retryableEx) {
+            log.warn("⚠️ [cancelPayment] 재시도 가능 - 네트워크 오류 또는 5XX 발생. impUid: {}, Message: {}",
+                    impUid, retryableEx.getMessage());
+            throw retryableEx; // @Retryable 적용됨
+        } catch (RestClientException unexpectedEx) {
+            log.error("🚨 [cancelPayment] 예상치 못한 예외 발생. impUid: {}, Message: {}",
+                    impUid, unexpectedEx.getMessage());
+            throw unexpectedEx;
         }
     }
 
-    @Recover
-    public String handlePaymentFailure(RestClientException e, String impUid) {
-        log.error("결제 취소 API 3회 재시도 후 실패. impUid: {}", impUid);
-        throw e;
+    /**
+     * 공통 예외 처리
+     */
+    private static void handleRestClientException(RestClientException e, String methodName, String impUid) {
+        String impUidLog = (impUid != null) ? impUid : "N/A";
+
+        if (e instanceof HttpClientErrorException httpEx) {
+            log.error("❌ [{}] 즉시 실패 - 4XX 오류 발생. impUid: {}, Status: {}, Message: {}",
+                    methodName, impUidLog, httpEx.getStatusCode(), httpEx.getMessage());
+        } else if (e instanceof UnknownHttpStatusCodeException) {
+            log.error("❌ [{}] 즉시 실패 - 알 수 없는 상태 코드. impUid: {}, Message: {}",
+                    methodName, impUidLog, e.getMessage());
+        } else if (e instanceof ResourceAccessException || e instanceof HttpServerErrorException) {
+            log.warn("⚠️ [{}] 재시도 가능 - 네트워크 오류 또는 5XX 발생. impUid: {}, Message: {}",
+                    methodName, impUidLog, e.getMessage());
+        } else {
+            log.error("🚨 [{}] 예상치 못한 예외 발생. impUid: {}, Message: {}", methodName, impUidLog, e.getMessage());
+        }
     }
-
-
-
-    // getAccessToken() 예제 응답
-    // {
-    //    "code": 0,
-    //    "message": "success",
-    //    "response": {
-    //        "access_token": "your_access_token",
-    //        "expired_at": 1700003600
-    //    }
-    //}
-
-
-
-
-
 }

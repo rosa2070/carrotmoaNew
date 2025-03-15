@@ -29,26 +29,18 @@ async function cancelBooking(impUid) {
             },
         });
 
-        // 서버 응답이 정상적이지 않을 경우 (400번대 & 500번대)
-        if (!response.ok) {
-            const errorMessage = await response.text();  // 서버에서 반환한 메시지 가져오기
+        const responseData = await response.json(); // JSON 응답 처리
 
-            if (response.status >= 400 && response.status < 500) {
-                throw new Error('잘못된 요청입니다: ' + errorMessage);
-            } else if (response.status >= 500) {
-                throw new Error('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-            } else {
-                throw new Error('결제 취소 실패: ' + errorMessage);
-            }
+        if (!response.ok) {
+            throw new Error(responseData.error || "결제 취소 실패");
         }
 
-        // 성공적으로 결제가 취소되었을 경우
-        const result = await response.text();
-        alert(result); // 성공 메시지 표시
-        location.reload();  // 페이지 새로고침하여 상태 반영
+        // 성공적으로 결제가 취소된 경우
+        alert(responseData.message);
+        location.reload(); // 페이지 새로고침하여 변경사항 반영
 
     } catch (error) {
         console.error(error);
-        alert(error.message);
+        alert(error.message); // 오류 메시지 출력
     }
 }

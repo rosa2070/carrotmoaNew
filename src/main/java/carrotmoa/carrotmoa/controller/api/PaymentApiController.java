@@ -6,15 +6,17 @@ import carrotmoa.carrotmoa.model.request.PaymentAndReservationRequest;
 import carrotmoa.carrotmoa.model.request.PaymentRequest;
 import carrotmoa.carrotmoa.model.request.ReservationRequest;
 import carrotmoa.carrotmoa.service.PaymentService;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.*;
 
 @RestController
 @RequestMapping("/api/payment")
@@ -59,16 +61,24 @@ public class PaymentApiController {
     }
 
     @DeleteMapping("/cancel/{uid}")
-    public ResponseEntity<String> cancelPayment(@PathVariable("uid") String uid) {
+    public ResponseEntity<Map<String, String>> cancelPayment(@PathVariable("uid") String uid) {
+        Map<String, String> response = new HashMap<>();
         try {
             paymentService.cancelPayment(uid);
-            return ResponseEntity.ok("결제가 취소되었습니다.");
+            response.put("message", "결제가 취소되었습니다.");
+            return ResponseEntity.ok(response);
         } catch (HttpClientErrorException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("잘못된 요청: " + e.getMessage());
+            response.put("error", "잘못된 요청: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        } catch (UnknownHttpStatusCodeException e) {
+            response.put("error", "알 수 없는 상태 코드: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        } catch (ResourceAccessException | HttpServerErrorException e) {
+            response.put("error", "서버 문제로 인해 일시적으로 사용할 수 없습니다: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(response);
         } catch (RestClientException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("결제 취소 실패: " + e.getMessage());
+            response.put("error", "결제 취소 중 알 수 없는 오류 발생: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 }
