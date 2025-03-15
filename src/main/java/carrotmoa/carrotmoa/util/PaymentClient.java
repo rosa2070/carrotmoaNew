@@ -6,14 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -101,23 +99,5 @@ public class PaymentClient {
         }
     }
 
-    /**
-     * 공통 예외 처리
-     */
-    private static void handleRestClientException(RestClientException e, String methodName, String impUid) {
-        String impUidLog = (impUid != null) ? impUid : "N/A";
 
-        if (e instanceof HttpClientErrorException httpEx) {
-            log.error("[{}] 즉시 실패 - 4XX 오류 발생. impUid: {}, Status: {}, Message: {}",
-                    methodName, impUidLog, httpEx.getStatusCode(), httpEx.getMessage());
-        } else if (e instanceof UnknownHttpStatusCodeException) {
-            log.error("[{}] 즉시 실패 - 알 수 없는 상태 코드. impUid: {}, Message: {}",
-                    methodName, impUidLog, e.getMessage());
-        } else if (e instanceof ResourceAccessException || e instanceof HttpServerErrorException) {
-            log.warn("[{}] 재시도 가능 - 네트워크 오류 또는 5XX 발생. impUid: {}, Message: {}",
-                    methodName, impUidLog, e.getMessage());
-        } else {
-            log.error("[{}] 예상치 못한 예외 발생. impUid: {}, Message: {}", methodName, impUidLog, e.getMessage());
-        }
-    }
 }

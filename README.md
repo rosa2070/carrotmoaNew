@@ -104,7 +104,7 @@
     - 옵션2. @RouteDataSource의 dataSourceType 속성을 이용한 쿼리 분산
     - (@Transactional: 스프링 어노테이션 / @RouteDataSource: 커스텀 어노테이션)
 
-  ### AWS CloudWatch를 통한 DB 부하 분산 모니터링
+### AWS CloudWatch를 통한 DB 부하 분산 모니터링
 
 - CloudWatch 대시보드 설정
   - Master DB(carrot-moa)와 Replica DB(carrot-moa-replica)의 Read IOPS, CPU 사용률, Replication Lag 등을 실시간으로 모니터링
