@@ -45,7 +45,7 @@ public class PaymentClient {
 //        throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "강제 5XX 에러 발생");
 
 
-        // ✅ 예외가 발생하면 `cancelPayment()`에서 처리
+        // 예외가 발생하면 `cancelPayment()`에서 처리
         return restClient.post()
                 .uri(url)
                 .headers(h -> h.addAll(headers))
@@ -83,19 +83,19 @@ public class PaymentClient {
                     .body(String.class);
 
         } catch (HttpClientErrorException httpEx) {
-            log.error("❌ [cancelPayment] 즉시 실패 - 4XX 오류 발생. impUid: {}, Status: {}, Message: {}",
+            log.error("[cancelPayment] 즉시 실패 - 4XX 오류 발생. impUid: {}, Status: {}, Message: {}",
                     impUid, httpEx.getStatusCode(), httpEx.getMessage());
             throw httpEx;
         } catch (UnknownHttpStatusCodeException unknownStatusEx) {
-            log.error("❌ [cancelPayment] 즉시 실패 - 알 수 없는 상태 코드. impUid: {}, Message: {}",
+            log.error("[cancelPayment] 즉시 실패 - 알 수 없는 상태 코드. impUid: {}, Message: {}",
                     impUid, unknownStatusEx.getMessage());
             throw unknownStatusEx;
         } catch (ResourceAccessException | HttpServerErrorException retryableEx) {
-            log.warn("⚠️ [cancelPayment] 재시도 가능 - 네트워크 오류 또는 5XX 발생. impUid: {}, Message: {}",
+            log.warn("[cancelPayment] 재시도 가능 - 네트워크 오류 또는 5XX 발생. impUid: {}, Message: {}",
                     impUid, retryableEx.getMessage());
             throw retryableEx; // @Retryable 적용됨
         } catch (RestClientException unexpectedEx) {
-            log.error("🚨 [cancelPayment] 예상치 못한 예외 발생. impUid: {}, Message: {}",
+            log.error("[cancelPayment] 예상치 못한 예외 발생. impUid: {}, Message: {}",
                     impUid, unexpectedEx.getMessage());
             throw unexpectedEx;
         }
@@ -108,16 +108,16 @@ public class PaymentClient {
         String impUidLog = (impUid != null) ? impUid : "N/A";
 
         if (e instanceof HttpClientErrorException httpEx) {
-            log.error("❌ [{}] 즉시 실패 - 4XX 오류 발생. impUid: {}, Status: {}, Message: {}",
+            log.error("[{}] 즉시 실패 - 4XX 오류 발생. impUid: {}, Status: {}, Message: {}",
                     methodName, impUidLog, httpEx.getStatusCode(), httpEx.getMessage());
         } else if (e instanceof UnknownHttpStatusCodeException) {
-            log.error("❌ [{}] 즉시 실패 - 알 수 없는 상태 코드. impUid: {}, Message: {}",
+            log.error("[{}] 즉시 실패 - 알 수 없는 상태 코드. impUid: {}, Message: {}",
                     methodName, impUidLog, e.getMessage());
         } else if (e instanceof ResourceAccessException || e instanceof HttpServerErrorException) {
-            log.warn("⚠️ [{}] 재시도 가능 - 네트워크 오류 또는 5XX 발생. impUid: {}, Message: {}",
+            log.warn("[{}] 재시도 가능 - 네트워크 오류 또는 5XX 발생. impUid: {}, Message: {}",
                     methodName, impUidLog, e.getMessage());
         } else {
-            log.error("🚨 [{}] 예상치 못한 예외 발생. impUid: {}, Message: {}", methodName, impUidLog, e.getMessage());
+            log.error("[{}] 예상치 못한 예외 발생. impUid: {}, Message: {}", methodName, impUidLog, e.getMessage());
         }
     }
 }

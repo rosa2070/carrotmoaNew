@@ -85,18 +85,13 @@
         - 결과 및 추가사항
 ```
 
-### 외부 API 호출에 대한 재시도 및 오류 처리 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/service/PaymentService.java#L144-L197)]
-- 재시도 로직 구현:
-    - `@Retryable` 어노테이션을 사용하여 외부 API 호출 시 일시적인 실패가 발생하면 지정된 횟수만큼 자동으로 재시도
-    - `maxAttempts` 속성을 사용해 재시도 횟수를 제한하고, `backoff` 속성으로 재시도 간의 딜레이를 설정해 서버 부하를 최소화
-- 재시도 실패 시 예외 처리:
-    - `@Recover` 어노테이션을 사용하여 재시도 후 실패 시 예외를 던지고, 컨트롤러에서 클라이언트에게 구체적인 오류 메시지를 반환
-
-### RestClient 추가 설정 및 에러핸들링 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java)]
-- `onStatus`로 응답 코드별 에러 핸들링
-    - API 호출에 대한 HTTP 응답 코드를 분석하여, 4xx 클라이언트 오류가 발생하면 각 코드에 맞는 예외를 던져 세부적인 오류 처리
-- 외부 API의 평균 응답 시간을 고려해, 3초 내에 응답이 없으면 요청을 종료하도록 readTimeout을 설정
-    - 시스템 자원을 낭비하지 않으면서 서비스의 안정성을 보장
+### **외부 API 호출에 대한 재시도 및 오류 처리** [[적용 코드]()]
+- 외부 API 호출 시 `@Retryable`을 적용하여 네트워크 오류 발생 시 자동 재시도 수행
+  - 일시적 네트워크 장애 발생 시, 재시도를 통해 요청 성공률 유지
+- 400번대 오류(클라이언트 오류)는 `noRetryFor`를 활용하여 즉시 실패 처리
+  - 불필요한 재시도를 방지하여 서버 및 네트워크 부하 감소
+- `backoff(multiplier = 2)`를 설정하여 재시도 간격을 1초 → 2초 → 4초로 점진적으로 확대
+  - 짧은 시간 내 동일 요청이 몰리는 것을 방지하여 서버 부하를 줄이고 안정성 개선
 
  ### DB에 대한 부하 분산 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/db/DataSourceConfig.java#L29-L133) / [구성 패키지](https://github.com/rosa2070/carrotmoaNew/tree/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/db)]
 
@@ -109,26 +104,33 @@
     - 옵션2. @RouteDataSource의 dataSourceType 속성을 이용한 쿼리 분산
     - (@Transactional: 스프링 어노테이션 / @RouteDataSource: 커스텀 어노테이션)
 
+  ### AWS CloudWatch를 통한 DB 부하 분산 모니터링
+
+- CloudWatch 대시보드 설정
+  - Master DB(carrot-moa)와 Replica DB(carrot-moa-replica)의 Read IOPS, CPU 사용률, Replication Lag 등을 실시간으로 모니터링
+- 10만 건의 더미 데이터를 추가한 후, nGrinder를 사용하여 50명의 가상 사용자(VUser)로 10분간 읽기 작업을 수행하며 부하 분산 효과 검증
+- 성능 테스트 결과, Master DB의 Read IOPS는 일정하게 유지된 반면, Replica DB의 Read IOPS는 13.6까지 증가하여 Master DB 대비 약 6배 향상
+  - 이를 통해 읽기 쿼리가 Replica DB로 성공적으로 분배되었음을 확인
+  - <img src="readme/image/cloudwatch/cloudwatch.png">
+
 ### 인기 숙소 데이터 조회 최적화 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/service/BestAccommodationService.java#L39-L50) / [설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java)]
-- `@Cacheable` 어노테이션을 사용하여 인기 숙소 8개 데이터를 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
-  <details>
-    <summary>50만개의 더미데이터를 넣고 인기 숙소 조회에 대한 부하테스트 결과, 캐싱 미적용 대비 약 30배의 TPS 성능 향상</summary>
-    <div>
+- **Redis 캐시 적용**:
+  - `@Cacheable` 어노테이션을 활용하여 인기 숙소 8개 데이터를 한 번에 JSON 형식으로 변환하여 Redis에 저장하고, 캐시 만료 기간을 1분으로 설정하여 최신 데이터를 유지하도록 처리.
+  - 50만개의 더미 데이터를 넣고 nGrinder 부하 테스트를 진행한 결과, 캐싱 미적용 대비 약 **30배**의 TPS 성능 향상을 기록.
         <h4>[Ngrinder]</h4>
         <span>Cache 미적용</span>
         <img src="readme/image/cache/ngrinder_nocache.png">
         <span>Cache 적용</span>
         <img src="readme/image/cache/ngrinder_cache.png">
-    </div>
-    </details>
+ 
 
 
 ### 캐시 스탬피드 해결을 위한 TTL 랜덤화 적용 [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/src/main/java/carrotmoa/carrotmoa/config/redis/RedisCacheConfig.java#L60-L65)]
-- 캐시의 만료 시간(TTL)을 일정 범위 내에서 랜덤하게 설정
-   - 기본 TTL 값에 일정 범위 내에서 랜덤 값을 더하거나 빼는 방식으로 TTL 계산
-   - 캐시 만료 시점을 분산시켜, 트래픽이 집중되는 시간을 피함
-  <details>
-    <summary> 부하테스트 결과, TTL 랜덤화 후 TPS가 200이하로는 떨어지지 않음</summary>
+- **TTL 랜덤화 적용**:
+  - 캐시의 만료 시간(TTL)을 일정 범위 내에서 랜덤하게 설정하여 캐시 만료 시점을 분산시킴.
+  - 기본 TTL 값에 일정 범위 내에서 랜덤 값을 더하거나 빼는 방식으로 TTL을 계산하여 트래픽이 집중되는 시간을 피하고, 시스템의 안정성을 확보.
+  - 부하 테스트 결과, TTL 랜덤화 후 TPS가 200 이하로 떨어지지 않음.
+
     <div>
         <h4>[Ngrinder]</h4>
         <span>캐시 스탬피드 현상 발생</span>
@@ -136,16 +138,8 @@
         <span>TTL 랜덤화 적용</span>
         <img src="readme/image/cache/TTL_Random.png">
     </div>
-    </details>
+  
 
-### AWS CloudWatch를 통한 DB 부하 분산 모니터링
-
-- CloudWatch 대시보드 설정
-  - Master DB(carrot-moa)와 Replica DB(carrot-moa-replica)의 Read IOPS, CPU 사용률, Replication Lag 등을 실시간으로 모니터링
-- 10만 건의 더미 데이터를 추가한 후, nGrinder를 사용하여 50명의 가상 사용자(VUser)로 10분간 읽기 작업을 수행하며 부하 분산 효과 검증
-- 성능 테스트 후, Master DB의 Read IOPS는 변동이 없었으며, Replica DB의 Read IOPS는 13.6까지 증가
-  - 이를 통해 읽기 쿼리가 Replica DB로 성공적으로 분배되었음을 확인
-  - <img src="readme/image/cloudwatch/cloudwatch.png">
 
 ### Nginx를 통한 로드밸런싱과 HTTPS 적용
 - 로드밸런싱 설정
@@ -155,7 +149,16 @@
    - Certbot을 통해 SSL 인증서를 발급받고, `listen 443 ssl`로 HTTPS 설정
    - HTTP 요청이 올 경우 HTTPS로 강제 리다이렉션
    - 웹사이트의 데이터 전송 보안을 강화
+### **로드밸런싱 환경에서의 세션 동기화 문제 해결**
 
+- **문제 원인**:
+  - 기존의 `HttpSession`은 서버의 메모리에 세션 정보를 저장하므로, 로드밸런싱 환경에서 서버 간 세션 동기화가 되지 않아 로그인 정보 불일치가 발생
+- **해결**:
+  - `spring-session-data-redis` 의존성을 추가하여 Redis 세션 저장소를 사용하도록 설정
+    - 서버 간 세션 데이터를 공유하고 세션 정보를 외부 저장소에 중앙 집중화
+- **결과**:
+  - 로드밸런싱 환경에서도 세션 정보가 일관되게 유지되어 로그인 문제가 해결됨
+  
  ### GitHub Actions를 사용한 CI/CD 파이프라인 구축 [[설정 코드](https://github.com/rosa2070/carrotmoaNew/blob/a3d7d2af82849763cf2bab0db1d9451468e5dae3/.github/workflows/gradle.yml)]
 
 - Gradle 빌드를 실행하고, Docker 이미지를 생성하여 Docker Hub에 푸시한 후, EC2 서버에 배포하는 과정을 자동화
