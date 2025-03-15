@@ -124,82 +124,50 @@ public class PaymentService {
         return paymentRepository.findAll();
     }
 
-    /**
-     * 새로운 결제 내역 저장
-     *
-     * @param payment 저장할 Payment 엔티티
-     * @return 저장된 Payment 엔티티
-     */
-
-//    @Transactional
-//    public Payment savePayment(Payment payment) {
-//        return paymentRepository.save(payment);
-//    }
 
     /**
      * 결제 내역 삭제
      *
      * @param uid 포트원 거래고유번호
      */
-    //  400번대 오류는 재시도해도 해결되지 않음
-    // url 바꾸고 400번대오류 강제 발생시켜서 noRetryFor 잘 작동하는지 테스트해보자 (noRetryfor있기전, 후 비교)
-    // R
     @Transactional
-    @Retryable(
-            retryFor = {RestClientException.class}, // 재시도할 예외 지정, 기존엔 include 옵션이었으나, Deprecated 되고 retryFor로 대체
-            noRetryFor = {HttpClientErrorException.class}, // 400번대 오류는 재시도하지 않음, 기존엔 exclude 옵션이었으나, Deprecated 되고 noRetryFor로 대체
-            maxAttempts = 3, // 최초 호출 1회 + 재시도 1회
-            backoff = @Backoff(delay = 1000) // 1초 대기 후 재시도
-    )
     public void cancelPayment(String uid) {
-        // 외부 API로 결제 취소 요청
-        paymentClient.cancelPayment(uid);
+        try {
+            paymentClient.cancelPayment(uid);  // API 호출 (실패 시 예외 발생)
 
-        //impUid로 Payment 엔티티 조회
-        Payment payment = paymentRepository.findByImpUid(uid)
-                .orElseThrow(() -> new IllegalArgumentException("Payment not found with impUid: " + uid));
+            // impUid로 Payment 엔티티 조회
+            Payment payment = paymentRepository.findByImpUid(uid)
+                    .orElseThrow(() -> new IllegalArgumentException("Payment not found with impUid: " + uid));
 
-        // Payment의 status 필드를 "cancel"로 변경
-        payment.setStatus("cancel");
+            // Payment의 status 필드를 "cancel"로 변경
+            payment.setStatus("cancel");
 
-        // 예약
-        if (payment.getReservationId() != null) {
-            Reservation reservation = reservationRepository.findById(payment.getReservationId())
-                    .orElseThrow(() -> new IllegalArgumentException("Reservation not found with id: " + payment.getReservationId()));
+            // 예약 정보 조회 및 상태 변경
+            if (payment.getReservationId() != null) {
+                Reservation reservation = reservationRepository.findById(payment.getReservationId())
+                        .orElseThrow(() -> new IllegalArgumentException("Reservation not found with id: " + payment.getReservationId()));
 
-            // 예약 상태를 변경 (예약 취소: 2)
-            reservation.setStatus(2);
+                // 예약 상태를 변경 (예약 취소: 2)
+                reservation.setStatus(2);
 
-            // 로그인 된 유저의 ID 받아오기
-            Long senderId = payment.getUserId();
-            Long receiverId = payment.getUserId();
-            String notificationUrl = "/guest/booking/list";
-            String message = "결제를 취소했어요";
-            NotificationType notificationType = NotificationType.GUEST_CANCEL;
+                // 알림 발송
+                Long senderId = payment.getUserId();
+                Long receiverId = payment.getUserId();
+                String notificationUrl = "/guest/booking/list";
+                String message = "결제를 취소했어요";
+                NotificationType notificationType = NotificationType.GUEST_CANCEL;
 
-//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//            String userId = authentication.getName();
-
-            notificationService.sendReservationNotification(notificationType, senderId, receiverId, notificationUrl, message);
+                notificationService.sendReservationNotification(notificationType, senderId, receiverId, notificationUrl, message);
+            }
+        } catch (RestClientException e) {  // `PaymentClient`에서 던진 예외를 잡음
+            log.error("Payment cancellation failed: {}", e.getMessage());
+            throw e;  // 예외를 다시 던져서 트랜잭션을 롤백
         }
 
     }
 
 
 
-    /**
-     * 결제 취소 재시도 실패 시 호출될 recover 메서드
-     * @param e RestClientException 예외
-     * @param uid 결제 고유번호
-     */
-    @Recover
-    public void recoverCancelPayment(RestClientException e, String uid) {
-        // 3번의 재시도 후에도 실패하면 호출되는 메서드
-        log.error("Payment cancellation failed after retries for impUid: {}. Error: {}", uid, e.getMessage());
-
-        // 예외를 던져서 Controller에서 처리하도록 함
-        throw new ExternalApiException("결제 취소를 위한 외부 API 호출에 실패했습니다. 잠시 후 다시 시도해주세요.");
-    }
 
 
 

@@ -86,7 +86,6 @@ cloud:
 payment:
   imp-key: ENC(A2c8xPeiVwUiym1wF4yI4iTeYX7HUTKK7i17Cq/rbTE=)
   imp-secret: ENC(+gRWL92LwiXhM/ij74pgiLweXsmDkKQOQRpOdDFWtCfafsvwRLL/7KhMgMMluneiIKmTrht9fRlutugrrUh0HIje+jMz2qzhmqs6ZJX7Fgn1IAVJhT1D90Tm6sXAflij)
-  base-url: https://api.iamport.kr
 
 resilience4j.circuitbreaker:
   configs:

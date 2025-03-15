@@ -12,22 +12,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 @RestController
 @RequestMapping("/api/payment")
 @Slf4j
-public class PaymentController {
+public class PaymentApiController {
 
     private final PaymentService paymentService;
 
     @Autowired
-    public PaymentController(PaymentService paymentService) {
+    public PaymentApiController(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 
@@ -61,24 +58,17 @@ public class PaymentController {
         return ResponseEntity.ok(payments);
     }
 
-    @GetMapping("/cancel/{uid}")
+    @DeleteMapping("/cancel/{uid}")
     public ResponseEntity<String> cancelPayment(@PathVariable("uid") String uid) {
         try {
-            paymentService.cancelPayment(uid);  // 결제 취소 요청
-            return ResponseEntity.ok("결제 취소가 성공적으로 완료되었습니다.");
-        } catch (ExternalApiException e) {
-            // 서비스에서 던진 예외를 받아서 클라이언트에게 응답
-            log.error("Payment cancellation failed for impUid: {}. Error: {}", uid, e.getMessage());
+            paymentService.cancelPayment(uid);
+            return ResponseEntity.ok("결제가 취소되었습니다.");
+        } catch (HttpClientErrorException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("잘못된 요청: " + e.getMessage());
+        } catch (RestClientException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(e.getMessage());  // 예외 메시지 그대로 반환
-//        } catch (IllegalArgumentException e) {
-//            log.error("Invalid payment information or already cancelled payment for impUid: {}", uid);
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//                    .body("결제 정보가 없거나 이미 취소된 결제입니다. 결제 상태를 확인해주세요.");
-        } catch (Exception e) {
-            log.error("Unexpected error occurred while cancelling payment for impUid: {}. Error: {}", uid, e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("예상치 못한 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+                    .body("결제 취소 실패: " + e.getMessage());
         }
     }
 }
