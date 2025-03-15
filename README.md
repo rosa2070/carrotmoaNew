@@ -85,7 +85,7 @@
         - 결과 및 추가사항
 ```
 
-### **외부 API 호출에 대한 재시도 및 오류 처리** [[적용 코드]()]
+### **외부 API 호출에 대한 재시도 및 오류 처리** [[적용 코드](https://github.com/rosa2070/carrotmoaNew/blob/8d57e659c4751c02d65eceba4226cfea2c2a63f9/src/main/java/carrotmoa/carrotmoa/util/PaymentClient.java#L58-L100)]
 - 외부 API 호출 시 `@Retryable`을 적용하여 네트워크 오류 발생 시 자동 재시도 수행
   - 일시적 네트워크 장애 발생 시, 재시도를 통해 요청 성공률 유지
 - 400번대 오류(클라이언트 오류)는 `noRetryFor`를 활용하여 즉시 실패 처리
